@@ -19,7 +19,7 @@ const MODI = [
 let rpg, daten;
 const zu = new Set();      // eingeklappte Abschnitte
 const zustand = {
-  waffe: null, ruestung: null, zauber: null, nachtraeglichAuf: '',
+  waffe: null, ruestung: null, zauber: null, nachtraeglichAuf: '', gegner: null,
   stufe: 'alle',
   modus: matchMedia('(min-width: 760px)').matches ? 'alle' : 'mittel',
   rechenweg: 'bonus'
@@ -51,11 +51,12 @@ const build = () => {
 const sichtbar = item => zustand.stufe === 'alle' || item.stufe <= Number(zustand.stufe);
 
 /* ---------- Zustand in der Adresse (Link teilen, Neuladen) ---------- */
-const SCHLUESSEL = ['waffe', 'ruestung', 'zauber', 'nachtraeglichAuf', 'stufe', 'modus', 'rechenweg'];
+const SCHLUESSEL = ['waffe', 'ruestung', 'zauber', 'nachtraeglichAuf', 'gegner', 'stufe', 'modus', 'rechenweg'];
 function ausAdresse() {
   const p = new URLSearchParams(location.hash.slice(1));
   for (const k of SCHLUESSEL) if (p.has(k)) zustand[k] = p.get(k) || (k === 'nachtraeglichAuf' ? '' : null);
   SLOTS.forEach(s => { const id = zustand[s.key]; if (id && !daten.gegenstaende.some(i => i.id === id && i.slot === s.key)) zustand[s.key] = null; });
+  if (zustand.gegner && !daten.gegner.some(g => g.id === zustand.gegner)) zustand.gegner = null;
 }
 function inAdresse() {
   const p = new URLSearchParams();
@@ -87,6 +88,16 @@ function aufbauText(a) {
   return '';
 }
 
+/** Widerstand eines Gegners als Text, z. B. „PHYSISCH −50 % (× 0,5)“. */
+function widerstandText(w) {
+  if (w.immun) return `${w.quelle}: immun (× 0)`;
+  const p = w.auf !== undefined ? w.auf - 100 : w.prozent;
+  const art = p < 0 ? 'Widerstand' : 'Anfälligkeit';
+  return w.auf !== undefined
+    ? `${w.quelle}: erleidet nur ${zahl(w.auf)} % (× ${zahl(w.auf / 100)}) – ${art}`
+    : `${w.quelle}: ${prozent(p)} (× ${zahl(1 + p / 100)}) – ${art}`;
+}
+
 /* ---------- Auswahl (Grid mit Icons) ---------- */
 function kachel(item, gewaehlt, onclick) {
   return el('button', { type: 'button', class: 'kachel', 'aria-pressed': String(gewaehlt), title: item.name, 'data-fokus': 'k-' + item.id, onclick },
@@ -115,6 +126,14 @@ function detailKarte(item) {
   return karte;
 }
 
+function gegnerKarte(g) {
+  const w = g.widerstaende || [];
+  return el('div', { class: 'detail' },
+    el('p', { class: 'detail-kopf' }, el('strong', {}, g.name), ` · ${zahl(g.lp)} LP · Stufe ${g.stufe}`),
+    el('ul', {}, w.length ? w.map(x => el('li', {}, widerstandText(x))) : el('li', {}, 'Keine Widerstände oder Anfälligkeiten.')),
+    g.beschreibung ? el('p', { class: 'detail-text' }, g.beschreibung) : null);
+}
+
 function zeichneAuswahl() {
   const ziel = $('#auswahl');
   ziel.replaceChildren();
@@ -132,6 +151,18 @@ function zeichneAuswahl() {
       items.length ? gruppe : el('p', { class: 'hinweis' }, 'Auf dieser Stufe gibt es noch keine Gegenstände hier.'),
       gewaehlt ? detailKarte(gewaehlt) : null));
   });
+  // Gegner
+  const gegner = daten.gegner.filter(sichtbar);
+  const gewaehlt = zustand.gegner ? rpg.gegner(zustand.gegner) : null;
+  ziel.append(el('details', { class: 'slot slot-gegner', open: !zu.has('gegner'), ontoggle: ev => { if (ev.target.open) zu.delete('gegner'); else zu.add('gegner'); } },
+    el('summary', {}, el('span', { class: 'slot-titel' }, 'Gegner'), el('span', { class: 'slot-wahl' }, gewaehlt ? gewaehlt.name : '– ohne Gegner –')),
+    gegner.length
+      ? el('div', { class: 'raster', role: 'group', 'aria-label': 'Gegner' }, gegner.map(g => kachel(g, g.id === zustand.gegner, () => {
+        zustand.gegner = zustand.gegner === g.id ? null : g.id;
+        aktualisieren();
+      })))
+      : el('p', { class: 'hinweis' }, 'Gegner gibt es ab Stufe 3.'),
+    gewaehlt ? gegnerKarte(gewaehlt) : null));
 }
 
 /* ---------- Einstellungen ---------- */
@@ -164,6 +195,8 @@ function zeichneErgebnis() {
     return;
   }
   const profil = rpg.profil(b);
+  const g = zustand.gegner ? rpg.gegner(zustand.gegner) : null;
+  const treffer = g ? rpg.treffer(b, g) : null;
   const modi = aktiveModi();
   const mehrere = modi.length > 1;
   const zeilen = daten.quellen.filter(q => profil[q].basis.max > 0 || profil[q].modifikatoren.length > 0);
@@ -176,12 +209,14 @@ function zeichneErgebnis() {
     wert(mehrere ? 'Grundschaden' : `Grundschaden (${modi[0].titel})`),
     el('th', { scope: 'col', rowspan: mehrere ? 2 : 1 }, 'Modifikatoren'),
     bonusSpalte ? wert('Bonus') : el('th', { scope: 'col', rowspan: mehrere ? 2 : 1 }, 'Faktor'),
-    wert('Schaden'));
+    wert('Schaden'),
+    g ? el('th', { scope: 'col', rowspan: mehrere ? 2 : 1, class: 'gegner-spalte' }, g.name) : null,
+    g ? wert('Treffer') : null);
   const kopf2 = mehrere ? el('tr', { class: 'unterkopf' },
-    [0, 1, 2].filter(i => bonusSpalte || i !== 1).flatMap(() => modi.map(m => el('th', { scope: 'col' }, m.titel)))) : null;
+    [0, 1, 2, 3].filter(i => (bonusSpalte || i !== 1) && (g || i !== 3)).flatMap(() => modi.map(m => el('th', { scope: 'col' }, m.titel)))) : null;
 
-  const summe = { basis: {}, bonus: {}, schaden: {} };
-  modi.forEach(m => { summe.basis[m.key] = 0; summe.bonus[m.key] = 0; summe.schaden[m.key] = 0; });
+  const summe = { basis: {}, bonus: {}, schaden: {}, treffer: {} };
+  modi.forEach(m => { summe.basis[m.key] = 0; summe.bonus[m.key] = 0; summe.schaden[m.key] = 0; summe.treffer[m.key] = 0; });
 
   const koerper = zeilen.map(q => {
     const p = profil[q];
@@ -192,6 +227,13 @@ function zeichneErgebnis() {
     if (bonusSpalte) modi.forEach(m => { const bo = p[m.key] - p.basis[m.key]; summe.bonus[m.key] += bo; zellen.push(el('td', { class: 'num' }, (bo >= 0 ? '+' : '−') + zahl(Math.abs(bo)))); });
     else zellen.push(el('td', { class: 'num' }, '× ' + faktorText(p.faktor) + (p.nachtraeglichFaktor ? ` × ${faktorText(p.nachtraeglichFaktor)}` : '')));
     modi.forEach(m => { summe.schaden[m.key] += p[m.key]; zellen.push(el('td', { class: 'num schaden' }, zahl(p[m.key]))); });
+    if (g) {
+      const t = treffer.proQuelle[q];
+      const f = t.widerstandsFaktor;
+      zellen.push(el('td', { class: 'num gegner-spalte' + (f === 0 ? ' immun' : f < 1 ? ' widerstand' : f > 1 ? ' anfaellig' : '') },
+        f === 0 ? 'immun' : f === 1 ? '–' : '× ' + faktorText(f)));
+      modi.forEach(m => { summe.treffer[m.key] += t[m.treffer]; zellen.push(el('td', { class: 'num treffer' }, zahl(t[m.treffer]))); });
+    }
     return el('tr', { class: leer ? 'leer' : null, title: leer ? 'kein Grundschaden – die Modifikatoren wirken auf 0' : null }, zellen);
   });
 
@@ -200,7 +242,9 @@ function zeichneErgebnis() {
     modi.map(m => el('td', { class: 'num' }, zahl(summe.basis[m.key]))),
     el('td', {}),
     bonusSpalte ? modi.map(m => el('td', { class: 'num' }, (summe.bonus[m.key] >= 0 ? '+' : '−') + zahl(Math.abs(summe.bonus[m.key])))) : el('td', {}),
-    modi.map(m => el('td', { class: 'num schaden' }, zahl(summe.schaden[m.key]) + ' SP')));
+    modi.map(m => el('td', { class: 'num schaden' }, zahl(summe.schaden[m.key]) + ' SP')),
+    g ? el('td', { class: 'gegner-spalte' }) : null,
+    g ? modi.map(m => el('td', { class: 'num treffer' }, zahl(treffer[m.treffer]) + ' SP')) : null);
 
   ziel.replaceChildren(
     el('div', { class: 'tabelle-rahmen' },
@@ -210,7 +254,34 @@ function zeichneErgebnis() {
         el('tfoot', {}, fuss))),
     el('p', { class: 'erklaerung' }, bonusSpalte
       ? 'Bonus = Grundschaden · Modifikator; Schaden = Grundschaden + Bonus. Modifikatoren auf dieselbe Schadensart werden addiert.'
-      : 'Schaden = Grundschaden · (1 + Summe der Modifikatoren). Modifikatoren auf dieselbe Schadensart werden addiert.'));
+      : 'Schaden = Grundschaden · (1 + Summe der Modifikatoren). Modifikatoren auf dieselbe Schadensart werden addiert.'),
+    g ? el('p', { class: 'erklaerung' }, `Treffer = Schaden · Faktor des Gegners (Widerstand verringert, Anfälligkeit erhöht, immun = 0).`) : null,
+    g ? kampfBlock(b, g, modi) : null);
+}
+
+/* ---------- Kampf gegen den gewählten Gegner ---------- */
+function kampfBlock(b, g, modi) {
+  const titel = el('h3', {}, `Kampf gegen ${g.name} (${zahl(g.lp)} LP)`);
+  if (!b.waffe) return el('div', { class: 'kampf' }, titel, el('p', { class: 'hinweis' }, 'Für einen Kampf brauchst du eine Waffe.'));
+  const waffe = rpg.item(b.waffe);
+  const apr = waffe.angriffeProRunde || 1;
+  const zeilen = modi.map(m => {
+    const k = rpg.kampf(b, g, { modus: m.treffer });
+    const drei = rpg.schadenNachRunden(b, g, 3, m.treffer);
+    return el('tr', {},
+      el('th', { scope: 'row' }, `${m.titel} `, el('small', {}, `🎲 ${m.wuerfel}`)),
+      el('td', { class: 'num' }, zahl(rpg.treffer(b, g)[m.treffer]) + ' SP'),
+      el('td', { class: 'num' }, zahl(drei) + ' SP', drei + 1e-9 >= g.lp ? el('span', { class: 'ok' }, ' ✔') : null),
+      k.besiegt
+        ? el('td', { class: 'num stark' }, `${k.angriffe} Treffer` + (apr > 1 ? ` (${k.runden} ${k.runden === 1 ? 'Runde' : 'Runden'})` : ''))
+        : el('td', { class: 'num nicht' }, 'nicht zu besiegen'));
+  });
+  return el('div', { class: 'kampf' }, titel,
+    el('div', { class: 'tabelle-rahmen' }, el('table', { class: 'werte' },
+      el('thead', {}, el('tr', {}, el('th', { scope: 'col' }, 'Wurf'), el('th', { scope: 'col' }, waffe.aufbau ? '1. Treffer' : 'pro Treffer'),
+        el('th', { scope: 'col' }, 'nach 3 Runden'), el('th', { scope: 'col' }, 'bis zum Sieg'))),
+      el('tbody', {}, zeilen))),
+    el('p', { class: 'erklaerung' }, `Jeder Treffer mit demselben Wurf. ${apr > 1 ? `${waffe.name}: ${apr} Angriffe pro Runde. ` : ''}${waffe.aufbau ? aufbauText(waffe.aufbau) : ''}`));
 }
 
 /* ---------- Ablauf ---------- */
@@ -239,6 +310,7 @@ async function start() {
   $('#stufe').addEventListener('change', ev => {
     zustand.stufe = ev.target.value;
     SLOTS.forEach(s => { if (zustand[s.key] && !sichtbar(rpg.item(zustand[s.key]))) zustand[s.key] = null; });
+    if (zustand.gegner && !sichtbar(rpg.gegner(zustand.gegner))) zustand.gegner = null;
     aktualisieren();
   });
   ausAdresse();
