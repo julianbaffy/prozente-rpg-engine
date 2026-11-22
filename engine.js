@@ -77,10 +77,12 @@
 
       const ergebnis = {};
       quellen.forEach(q => {
-        const summe = mods.filter(m => deckt(m.wort, q)).reduce((a, m) => a + m.p, 0);
+        const wirken = mods.filter(m => deckt(m.wort, q));
+        const summe = wirken.reduce((a, m) => a + m.p, 0);
         const faktor = Math.max(0, 1 + summe / 100);
         ergebnis[q] = {
           basis: { ...basis[q] }, modifikatorSumme: summe, faktor,
+          modifikatoren: wirken.map(m => ({ von: m.von, wort: m.wort, prozent: m.p })),   // einzelne Summanden (für Anzeige im Web-Tool)
           min: basis[q].min * faktor, mittel: basis[q].mittel * faktor, max: basis[q].max * faktor
         };
       });
@@ -185,6 +187,20 @@
       return summe;
     }
     
+    /** Verlauf über n Angriffe (mit Aufbau/Zins): Schaden pro Angriff, Summe und – mit Gegner – verbleibende LP. */
+    function verlauf(build, g, n, modus = 'avg') {
+      const w = item(build.waffe);
+      const apr = w.angriffeProRunde || 1;
+      const gg = g ? gegner(g) : null;
+      const t = treffer(build, gg);
+      let summe = 0;
+      return Array.from({ length: n }, (_, k) => {
+        const schaden = aufbauAnwenden(w, k, t[modus]);
+        summe += schaden;
+        return { angriff: k + 1, runde: Math.floor(k / apr) + 1, schaden, summe, restLP: gg ? Math.max(0, gg.lp - summe) : null };
+      });
+    }
+
     /* ---------- 4b. Duell: beide gleich viele LP, gleichzeitige Angriffe (W6 -> min/Ø/max) ---------- */
     /** Entscheidet die Runde, in der mindestens einer auf 0 LP oder darunter fällt:
      *  Es gewinnt, wer weniger tief im Minus liegt (= mehr Gesamtschaden gemacht hat). Genau gleich = unentschieden. */
@@ -382,7 +398,7 @@
       return Array.from({ length: n }, (_, k) => ({ angriff: k + 1, schaden: rechner.zins(basis, prozent, k) }));
     }
 
-    return { daten, rechner, item, gegner, profil, treffer, kampf, duell, duellWahrscheinlichkeit, schadenNachRunden, w6, wuerfelZuModus, itemTabelle, alleBuilds, besteBuilds,
+    return { daten, rechner, item, gegner, profil, treffer, kampf, duell, duellWahrscheinlichkeit, schadenNachRunden, verlauf, w6, wuerfelZuModus, itemTabelle, alleBuilds, besteBuilds,
              setPaare, erklaere, loeseQuest, ueberholRunde, zinsTabelle, fmt };
   }
 

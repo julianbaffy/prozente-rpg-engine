@@ -1,0 +1,23 @@
+/* Powergaming mit Prozenten – Schadensrechner (Grundgerüst) */
+:root { --tinte: #2E2114; --papier: #FFFDF6; --sand: #EFE3BE; --grau: #6B5B45; --gold: #C9A227; }
+* { box-sizing: border-box; }
+body { margin: 0; font-family: Cambria, Georgia, serif; color: var(--tinte); background: var(--papier); line-height: 1.4; }
+main, .kopf { max-width: 1100px; margin: 0 auto; padding: 0 16px; }
+.einstellungen { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; margin: 12px 0; }
+.umschalter { display: inline-flex; }
+.umschalter button { font: inherit; padding: 6px 10px; border: 1px solid var(--tinte); background: var(--papier); }
+.umschalter button[aria-pressed="true"] { background: var(--sand); font-weight: bold; }
+.umschalter small { display: block; font-size: 0.7em; }
+.raster { display: grid; grid-template-columns: repeat(auto-fill, minmax(84px, 1fr)); gap: 8px; }
+.kachel { font: inherit; display: flex; flex-direction: column; align-items: center; padding: 6px; border: 1px solid var(--grau); background: var(--papier); }
+.kachel img { width: 56px; height: 56px; }
+.kachel-name { font-size: 0.75rem; text-align: center; }
+.kachel-info { font-size: 0.65rem; color: var(--grau); }
+.kachel[aria-pressed="true"] { box-shadow: inset 0 0 0 2px var(--gold), inset 0 0 14px rgba(201, 162, 39, 0.8); }
+.tabelle-rahmen { overflow-x: auto; }
+table.werte { border-collapse: collapse; }
+table.werte th, table.werte td { border: 1px solid var(--tinte); padding: 4px 8px; }
+.num { text-align: right; font-variant-numeric: tabular-nums; }
+.leer { color: var(--grau); }
+.von { color: var(--grau); font-size: 0.85em; }
+.hinweis { color: var(--grau); font-style: italic; }

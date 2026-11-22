@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Powergaming mit Prozenten – Schadensrechner</title>
+  <meta name="description" content="Gegenstände wählen und den Schaden berechnen lassen – zum Überprüfen der eigenen Rechnung.">
+  <link rel="stylesheet" href="style.css">
+  <script type="module" src="app.js"></script>
+</head>
+<body>
+  <header class="kopf">
+    <h1>Powergaming mit Prozenten</h1>
+    <p class="untertitel">Schadensrechner – wähle deine Ausrüstung und überprüfe deine Rechnung</p>
+  </header>
+
+  <main>
+    <section class="einstellungen" aria-label="Einstellungen">
+      <label>Gegenstände bis
+        <select id="stufe">
+          <option value="alle">alle Stufen</option>
+        </select>
+      </label>
+      <div class="umschalter" role="group" aria-label="Würfelwurf" id="modus"></div>
+      <div class="umschalter" role="group" aria-label="Rechenweg" id="rechenweg"></div>
+    </section>
+
+    <section class="auswahl" id="auswahl" aria-label="Ausrüstung wählen"></section>
+
+    <section class="ergebnis" aria-labelledby="ergebnis-titel">
+      <h2 id="ergebnis-titel">Schaden pro Angriff</h2>
+      <div id="ergebnis"></div>
+    </section>
+  </main>
+
+  <noscript><p class="hinweis">Für den Rechner muss JavaScript eingeschaltet sein.</p></noscript>
+</body>
+</html>

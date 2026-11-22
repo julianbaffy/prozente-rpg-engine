@@ -233,3 +233,22 @@ console.log('  Wirbelklinge überholt Wutklinge (kumuliert) ab Runde', rpg.ueber
   assert(!rpg.alleBuilds(3).some(b => b.ruestung === HELM)); ok++;
   console.log('✔ Helm-Tests bestanden (nachträglich = multipliziert)');
 }
+
+/* --- Hilfen für das Web-Tool: Modifikatoren mit Herkunft, Verlauf über n Angriffe --- */
+{
+  const p = rpg.profil({ waffe: 'funkenstab', zauber: 'feenstaub' });
+  gleich(p.FEUER.modifikatoren.reduce((a, m) => a + m.prozent, 0), p.FEUER.modifikatorSumme, 'Modifikatorliste = Summe (FEUER)');
+  assert.deepStrictEqual(p.FEUER.modifikatoren.map(m => m.von).sort(), ['Feenstaub', 'Funkenstab']); ok++;
+  // Rüstung der Dunkelheit: Modifikatoren erscheinen verdoppelt bei CHAOS
+  const d = rpg.profil({ waffe: 'funkenstab', ruestung: 'ruestung-der-dunkelheit', zauber: 'feenstaub' });
+  gleich(d.CHAOS.modifikatoren.reduce((a, m) => a + m.prozent, 0), d.CHAOS.modifikatorSumme, 'Modifikatorliste = Summe (CHAOS, Dunkelheit)');
+  // Verlauf = schadenNachRunden (Wutklinge, Wirbelklinge mit 2 Angriffen/Runde, Gleichmäßige Klinge)
+  for (const w of ['wutklinge', 'wirbelklinge', 'gleichmaessige-klinge', 'klinge-der-rachsucht']) {
+    const apr = rpg.item(w).angriffeProRunde || 1;
+    const v = rpg.verlauf({ waffe: w }, 'steintroll', 6 * apr);
+    gleich(v[v.length - 1].summe, rpg.schadenNachRunden({ waffe: w }, 'steintroll', 6), `Verlauf ${w}: Summe nach 6 Runden`);
+    gleich(v[v.length - 1].restLP, Math.max(0, 390 - v[v.length - 1].summe), `Verlauf ${w}: Rest-LP`);
+    assert.strictEqual(v[v.length - 1].runde, 6); ok++;
+  }
+  console.log('✔ Web-Hilfen bestanden (Modifikatorliste, Verlauf)');
+}
