@@ -4,14 +4,17 @@
  *   (Variante 'ohne-hintergrund': weißes Blatt, Kästen ohne Füllung – Tabellen bleiben weiß, Rahmen bleibt – z. B. für buntes Papier)
  * Layout-Idee: Textblöcke werden gemessen und von oben nach unten gesetzt; bei Platzmangel Seitenumbruch.
  */
-const fs = require('fs');
-const path = require('path');
-const pptxgen = require('pptxgenjs');
-const ROOT = path.join(__dirname, '..');
-const A = n => path.join(__dirname, 'assets', n);
-const { iconPfad } = require('./icons.js');
-const { KOPF_FEST } = require('./kartentext.js');
-const BREITEN = JSON.parse(fs.readFileSync(path.join(__dirname, 'assets', 'cambria-bold-breiten.json'), 'utf8'));
+import fs from 'fs';
+import path from 'path';
+import pptxgen from 'pptxgenjs';
+import { createRequire } from 'module';
+const require = createRequire(import.meta.url);   // nur für jszip (hängt an pptxgenjs)
+import dateinamen from './dateinamen.js';
+const ROOT = path.join(import.meta.dirname, '..');
+const A = n => path.join(import.meta.dirname, 'assets', n);
+import { iconPfad } from './icons.js';
+import { KOPF_FEST } from './kartentext.js';
+const BREITEN = JSON.parse(fs.readFileSync(path.join(import.meta.dirname, 'assets', 'cambria-bold-breiten.json'), 'utf8'));
 /* Breite eines Textes in Cambria Fett (Zoll) – für Klammern über Formeln */
 for (const c of '²³⁹ⁿ') BREITEN[c] = 0.42;   // hochgestellte Zeichen sind schmal (die Schriftdatei hat sie nicht)
 const wid = (t, pt) => [...String(t)].reduce((s, c) => s + (BREITEN[c] !== undefined ? BREITEN[c] : 0.55), 0) * pt / 72;
@@ -651,7 +654,7 @@ function bauen(e, outFile, modus = 'pergament') {
   });
 }
 
-if (require.main === module) {
+if (path.resolve(process.argv[1] || '') === import.meta.filename) {
   const arg = process.argv[2] || '8';
   const nummern = arg === 'alle' ? ['1', '2', '3', '4', '5', '6', '7', '8', '9'] : [arg];
   const varianten = process.argv[3] ? [process.argv[3]] : ['pergament', 'ohne-hintergrund'];
@@ -660,9 +663,9 @@ if (require.main === module) {
       const e = JSON.parse(fs.readFileSync(path.join(ROOT, `einheit-${n}.json`), 'utf8'));
       for (const v of varianten) {
         const dir = path.join(ROOT, 'pptx', v); fs.mkdirSync(dir, { recursive: true });
-        console.log('geschrieben', await bauen(e, path.join(dir, require('./dateinamen.js').ab(n)), v));
+        console.log('geschrieben', await bauen(e, path.join(dir, dateinamen.ab(n)), v));
       }
     }
   })();
 }
-module.exports = { bauen };
+export { bauen };

@@ -22,4 +22,4 @@ const absolutZeilen = it => (it.slot === 'waffe' ? [] : (it.schaden || []).map(s
     : `+${fmt(w.min)} bis ${fmt(w.max)} ${s.quelle}schaden (Min ${fmt(w.min)} · Mittel ${fmt(w.mittel)} · Max ${fmt(w.max)})`;
 }));
 
-module.exports = { KOPF_FEST, werte, tabelle, alleFest, hatWuerfel, absolutZeilen };
+export { KOPF_FEST, werte, tabelle, alleFest, hatWuerfel, absolutZeilen };

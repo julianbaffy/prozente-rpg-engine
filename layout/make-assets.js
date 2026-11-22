@@ -1,6 +1,6 @@
 /* Erzeugt Pergament-Hintergrund + Ornamente als PNG (A4, 200 dpi). */
-const sharp = require('sharp');
-const fs = require('fs');
+import sharp from 'sharp';
+import fs from 'fs';
 const W = 827, H = 1169;           // 100 Einheiten pro Zoll
 const INK = '#2E2114';
 const ES = 0.55;                   // Größe der Eckschnörkel (1 = groß)

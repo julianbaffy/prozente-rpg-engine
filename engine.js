@@ -1,15 +1,11 @@
 /* Powergaming mit Prozenten – Rechenmaschine
- * Läuft in Node (require) und im Browser (window.RPG).
+ * ES-Modul: läuft in Node und im Browser (web/app.js lädt ../engine.js).
  *
- *   const daten = require('./gegenstaende.json');
- *   const rpg = require('./engine.js').erzeuge(daten);
+ *   import { erzeuge } from './engine.js';
+ *   const daten = JSON.parse(fs.readFileSync('gegenstaende.json', 'utf8'));   // Browser: await (await fetch('../gegenstaende.json')).json()
+ *   const rpg = erzeuge(daten);
  *   rpg.kampf({ waffe: 'mjoelnir', zauber: 'glueckbringender-magnetstein' }, 'eisgolem', { modus: 'avg' });
  */
-(function (root, factory) {
-  if (typeof module === 'object' && module.exports) module.exports = factory();
-  else root.RPG = factory();
-}(typeof self !== 'undefined' ? self : this, function () {
-  'use strict';
 
   const EPS = 1e-9;
   const SLOTS = ['waffe', 'ruestung', 'zauber'];
@@ -390,5 +386,4 @@
              setPaare, erklaere, loeseQuest, ueberholRunde, zinsTabelle, fmt };
   }
 
-  return { erzeuge, rechner };
-}));
+export { erzeuge, rechner };

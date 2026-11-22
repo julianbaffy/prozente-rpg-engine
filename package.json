@@ -1,0 +1,9 @@
+{
+  "name": "powergaming-mit-prozenten",
+  "private": true,
+  "type": "module",
+  "description": "Prozentrechnung RPG (Klasse 7): Rechenmaschine, Arbeitsblätter, Web-Tool",
+  "scripts": {
+    "test": "node test.js"
+  }
+}

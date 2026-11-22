@@ -1,10 +1,10 @@
 /* Verkleinert die Icons (Gegenstände und Gegner) aus assets/icons (480 px PNG, ~450 KB) auf 300 px JPG (~30 KB) -> assets/icons-klein/<ID>.jpg
  *   node layout/make-icons.js */
-const sharp = require('sharp');
-const fs = require('fs');
-const path = require('path');
-const { quelle, DIR } = require('./icons.js');
-const daten = require('../gegenstaende.json');
+import sharp from 'sharp';
+import fs from 'fs';
+import path from 'path';
+import { quelle, DIR } from './icons.js';
+const daten = JSON.parse(fs.readFileSync(path.join(import.meta.dirname, '..', 'gegenstaende.json'), 'utf8'));
 (async () => {
   fs.mkdirSync(path.join(DIR, 'icons-klein'), { recursive: true });
   const benutzt = new Set(); let n = 0;

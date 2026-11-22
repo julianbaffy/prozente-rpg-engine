@@ -1,10 +1,12 @@
 /* Erzeugt die Inhalte der Arbeitsblätter (Einheit 4–8). Alle Lösungen kommen aus der Engine.
  *   node arbeitsblaetter.js 4      ->  einheit-4.json + einheit-4.md (Vorschau)
  */
-const fs = require('fs');
-const daten = require('./gegenstaende.json');
-const rpg = require('./engine.js').erzeuge(daten);
-const kt = require('./layout/kartentext.js');
+import fs from 'fs';
+import path from 'path';
+import { erzeuge } from './engine.js';
+import * as kt from './layout/kartentext.js';
+const daten = JSON.parse(fs.readFileSync(new URL('./gegenstaende.json', import.meta.url), 'utf8'));
+const rpg = erzeuge(daten);
 const f = rpg.fmt;
 const f3 = x => (Math.round(x * 1000) / 1000).toString().replace('.', ',');
 const pct = x => f(x) + ' %';
@@ -959,11 +961,11 @@ function markdown(e) {
   return L.join('\n');
 }
 
-if (require.main === module) {
+if (path.resolve(process.argv[1] || '') === import.meta.filename) {
   const nr = process.argv[2] || '4';
   const e = { 1: einheit1, 2: einheit2, 3: einheit3, 4: einheit4, 5: einheit5, 6: einheit6, 7: einheit7, 8: einheit8, 9: einheit9 }[nr]();
   fs.writeFileSync(`einheit-${nr}.json`, JSON.stringify(e, null, 2));
   fs.writeFileSync(`einheit-${nr}.md`, markdown(e));
   console.log(markdown(e));
 }
-module.exports = { einheit1, einheit2, einheit3, einheit4, einheit5, einheit6, einheit7, einheit8, einheit9, markdown };
+export { einheit1, einheit2, einheit3, einheit4, einheit5, einheit6, einheit7, einheit8, einheit9, markdown };

@@ -3,14 +3,15 @@
  *   node layout/build-karten.js uebersicht 3|4|7  ->  Übersicht zu einer Einheit (…/uebersicht-einheit-N.pptx)
  *   node layout/build-karten.js 7          ->  nur Gegenstände der Stufe 7;  `gegner` / `gegner-3`: Gegnerkarten (alle / nur Stufe 3) (…-stufe-7.pptx); die Stufe steht NICHT auf der Karte
  */
-const path = require('path');
-const fs = require('fs');
-const pptxgen = require('pptxgenjs');
-const ROOT = path.join(__dirname, '..');
-const A = n => path.join(__dirname, 'assets', n);
-const { iconPfad } = require('./icons.js');
-const kt = require('./kartentext.js');
-const daten = require(path.join(ROOT, 'gegenstaende.json'));
+import path from 'path';
+import fs from 'fs';
+import pptxgen from 'pptxgenjs';
+import dateinamen from './dateinamen.js';
+const ROOT = path.join(import.meta.dirname, '..');
+const A = n => path.join(import.meta.dirname, 'assets', n);
+import { iconPfad } from './icons.js';
+import * as kt from './kartentext.js';
+const daten = JSON.parse(fs.readFileSync(path.join(ROOT, 'gegenstaende.json'), 'utf8'));
 const fmt = x => (Math.round(x * 100) / 100).toString().replace('.', ',');
 
 const INK = '2E2114', PAPER = 'FFFDF6', SAND = 'EFE3BE', CREAM = 'F8F1DE', GREY = '6B5B45';
@@ -268,7 +269,7 @@ async function bauenUebersicht(nr, modus) {
     });
   });
   const dir = path.join(ROOT, 'pptx', modus); fs.mkdirSync(dir, { recursive: true });
-  const out = path.join(dir, require('./dateinamen.js').uebersicht(nr));
+  const out = path.join(dir, dateinamen.uebersicht(nr));
   await pres.writeFile({ fileName: out });
   console.log('geschrieben', out, plan.length, 'Seite(n)');
 }
@@ -302,7 +303,7 @@ async function bauen(stufe, modus) {
     });
   });
   const dir = path.join(ROOT, 'pptx', modus); fs.mkdirSync(dir, { recursive: true });
-  const out = path.join(dir, gegnerModus ? require('./dateinamen.js').gegnerkarten(gStufe) : require('./dateinamen.js').gegenstandskarten(stufe));
+  const out = path.join(dir, gegnerModus ? dateinamen.gegnerkarten(gStufe) : dateinamen.gegenstandskarten(stufe));
   await pres.writeFile({ fileName: out });
   console.log('geschrieben', out, items.length, 'Karten,', seiten, 'Seiten');
 }

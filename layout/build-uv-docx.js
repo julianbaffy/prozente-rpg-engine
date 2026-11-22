@@ -1,9 +1,11 @@
 /* UV-Übersicht als Word-Datei (A4 quer, Tabelle bricht automatisch um; Kopfzeile wiederholt sich, Zeilen werden nicht zerschnitten).
  *   node layout/build-uv-docx.js  ->  pptx/uv-uebersicht.docx   (Texte aus build-uv-uebersicht.js, Titel aus einheit-N.json) */
-const fs = require('fs'), path = require('path');
-const D = require('docx');
-const { EINHEITEN, HINWEISE } = require('./build-uv-uebersicht.js');
-const ROOT = path.join(__dirname, '..');
+import fs from 'fs';
+import path from 'path';
+import * as D from 'docx';
+import { EINHEITEN, HINWEISE } from './build-uv-uebersicht.js';
+import dateinamen from './dateinamen.js';
+const ROOT = path.join(import.meta.dirname, '..');
 const INK = '2E2114', SAND = 'EFE3BE', PAPER = 'FFFDF6', CREAM = 'F8F1DE', GREY = '6B5B45';
 const HEAD = 'Cambria', BODY = 'Calibri';
 const titel = nr => JSON.parse(fs.readFileSync(path.join(ROOT, `einheit-${nr}.json`), 'utf8')).titel;
@@ -59,5 +61,5 @@ const doc = new D.Document({
     ],
   }],
 });
-const out = path.join(ROOT, 'pptx', require('./dateinamen.js').uvDocx);
+const out = path.join(ROOT, 'pptx', dateinamen.uvDocx);
 D.Packer.toBuffer(doc).then(b => { fs.writeFileSync(out, b); console.log('geschrieben', out); });

@@ -3,14 +3,16 @@
  *   node layout/build-regeln.js --mit-ruestung  ->  inkl. der 3 Rüstungs-/Reihenfolge-Folien (13 Folien)
  * Alle Zahlen kommen aus der Rechenmaschine (engine.js).
  */
-const { iconPfad } = require('./icons.js');
-const path = require('path');
-const fs = require('fs');
-const pptxgen = require('pptxgenjs');
-const ROOT = path.join(__dirname, '..');
-const A = n => path.join(__dirname, 'assets', n);
-const daten = require(path.join(ROOT, 'gegenstaende.json'));
-const rpg = require(path.join(ROOT, 'engine.js')).erzeuge(daten);
+import { iconPfad } from './icons.js';
+import path from 'path';
+import fs from 'fs';
+import pptxgen from 'pptxgenjs';
+import { erzeuge } from '../engine.js';
+import dateinamen from './dateinamen.js';
+const ROOT = path.join(import.meta.dirname, '..');
+const A = n => path.join(import.meta.dirname, 'assets', n);
+const daten = JSON.parse(fs.readFileSync(path.join(ROOT, 'gegenstaende.json'), 'utf8'));
+const rpg = erzeuge(daten);
 const f = rpg.fmt;
 
 const INK = '2E2114', PAPER = 'FFFDF6', SAND = 'EFE3BE', CREAM = 'F8F1DE', GREY = '6B5B45', WHITE = 'FFFFFF';
@@ -381,7 +383,7 @@ function miniKarte(s, id, x, y, w, h) {
   }
 
   fs.mkdirSync(path.join(ROOT, 'pptx'), { recursive: true });
-  const out = path.join(ROOT, 'pptx', require('./dateinamen.js').regeln);
+  const out = path.join(ROOT, 'pptx', dateinamen.regeln);
   await pres.writeFile({ fileName: out });
   console.log('geschrieben', out, nr, 'Folien');
 })();

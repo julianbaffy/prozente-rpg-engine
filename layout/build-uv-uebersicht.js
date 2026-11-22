@@ -3,11 +3,12 @@
  * Spalten: Nummer + Name der Einheit | Kontext und Aufgaben | mathematischer Zusammenhang / Lernziel | Material
  * Die Texte stehen unten in EINHEITEN; die Titel kommen aus einheit-N.json. Die Zeilen werden auf Seiten verteilt (Seite 1 mit Banner).
  */
-const fs = require('fs');
-const path = require('path');
-const pptxgen = require('pptxgenjs');
-const ROOT = path.join(__dirname, '..');
-const A = n => path.join(__dirname, 'assets', n);
+import fs from 'fs';
+import path from 'path';
+import pptxgen from 'pptxgenjs';
+import dateinamen from './dateinamen.js';
+const ROOT = path.join(import.meta.dirname, '..');
+const A = n => path.join(import.meta.dirname, 'assets', n);
 
 const INK = '2E2114', PAPER = 'FFFDF6', SAND = 'EFE3BE', CREAM = 'F8F1DE', GREY = '6B5B45';
 const HEAD = 'Cambria', BODY = 'Calibri';
@@ -173,8 +174,8 @@ function bauen(modus) {
     }
   });
   const dir = path.join(ROOT, 'pptx', modus); fs.mkdirSync(dir, { recursive: true });
-  const out = path.join(dir, require('./dateinamen.js').uvPptx);
+  const out = path.join(dir, dateinamen.uvPptx);
   return pres.writeFile({ fileName: out }).then(() => console.log('geschrieben', out, seiten.length, 'Seite(n),', seiten.map(s => s.length).join('+'), 'Zeilen'));
 }
-module.exports = { EINHEITEN, HINWEISE };
-if (require.main === module) (async () => { for (const m of ['pergament', 'ohne-hintergrund']) await bauen(m); })();
+export { EINHEITEN, HINWEISE };
+if (path.resolve(process.argv[1] || '') === import.meta.filename) (async () => { for (const m of ['pergament', 'ohne-hintergrund']) await bauen(m); })();

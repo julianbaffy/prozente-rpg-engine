@@ -1,7 +1,8 @@
 /* Tests: von Hand nachgerechnete Werte + Plausibilitätsprüfung der Stufen.  Start:  node test.js */
-const assert = require('assert');
-const daten = require('./gegenstaende.json');
-const { erzeuge } = require('./engine.js');
+import assert from 'assert';
+import fs from 'fs';
+import { erzeuge } from './engine.js';
+const daten = JSON.parse(fs.readFileSync(new URL('./gegenstaende.json', import.meta.url), 'utf8'));
 const rpg = erzeuge(daten);
 const fmt = rpg.fmt;
 
