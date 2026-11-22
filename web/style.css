@@ -158,7 +158,6 @@ summary:focus-visible { box-shadow: var(--gold-innen); }
   -webkit-touch-callout: none;
 }
 .kachel img { width: 100%; height: 100%; object-fit: cover; display: block; border: 1px solid var(--tinte); border-radius: 3px; pointer-events: none; }
-@media (hover: hover) { .kachel:hover { border-color: var(--tinte); } }
 .kachel[aria-pressed="true"] { border-color: var(--gold); background: var(--gold-hell); }
 /* Gold, das nach innen scheint – als Schicht ÜBER dem Bild, damit man es auch auf dunklen Icons sieht */
 .kachel::before {
@@ -167,14 +166,9 @@ summary:focus-visible { box-shadow: var(--gold-innen); }
 }
 .kachel[aria-pressed="true"]::before, .kachel:focus-visible::before { box-shadow: var(--gold-innen); }
 .kachel:focus-visible { border-color: var(--gold); box-shadow: none; }
-.kachel[aria-pressed="true"]::after {              /* Häkchen: gewählt (unterscheidet Auswahl vom Tastatur-Fokus) */
-  content: "✔";
-  position: absolute; top: -6px; right: -6px; z-index: 2;
-  width: 20px; height: 20px; border-radius: 50%;
-  display: grid; place-items: center;
-  font-size: 12px; line-height: 1;
-  color: var(--tinte); background: var(--gold-hell);
-  border: 1px solid var(--tinte);
+@media (hover: hover) {                            /* Zeigen mit der Maus sieht aus wie der Tastatur-Fokus */
+  .kachel:hover { border-color: var(--gold); }
+  .kachel:hover::before { box-shadow: var(--gold-innen); }
 }
 
 /* ---------- Karten wie im Material ---------- */
@@ -220,12 +214,23 @@ summary:focus-visible { box-shadow: var(--gold-innen); }
 /* Karte beim Zeigen/Tippen */
 .karte-pop {
   position: fixed; z-index: 20;
-  width: min(380px, calc(100vw - 16px));
+  width: min(290px, calc(100vw - 16px));
   pointer-events: none;
   filter: drop-shadow(0 6px 14px rgba(46, 33, 20, 0.35));
   animation: auftauchen 0.12s ease-out;
 }
 .karte-pop[hidden] { display: none; }
+/* kompakte Karte im Popup, damit wenig verdeckt wird */
+.karte-pop .karte { padding: 7px; border-width: 2px; outline-offset: -5px; }
+.karte-pop .karte-name { font-size: 0.98rem; padding: 3px 6px; }
+.karte-pop .karte-typ { font-size: 0.78rem; margin: 2px 0 4px; }
+.karte-pop .karte-inhalt { grid-template-columns: 60px minmax(0, 1fr); gap: 7px; }
+.karte-pop .karte-bild { width: 60px; height: 60px; }
+.karte-pop .karte-tabelle { font-size: 0.76rem; }
+.karte-pop .karte-mods, .karte-pop .karte-text { font-size: 0.8rem; }
+.karte-pop .karte-mods { margin-top: 5px; }
+.karte-pop .karte-lp { font-size: 0.85rem; padding: 4px 6px; }
+.karte-pop .karte-wuerfel { font-size: 0.7rem; margin-top: 6px; padding: 3px 2px; }
 @keyframes auftauchen { from { opacity: 0; transform: translateY(3px); } }
 
 /* „Deine Ausrüstung“: Karten untereinander */
@@ -253,14 +258,22 @@ summary:focus-visible { box-shadow: var(--gold-innen); }
 @media (hover: hover) { .ablegen:hover { border-color: var(--tinte); color: var(--tinte); } }
 
 /* ---------- Tabellen ---------- */
-.tabelle-rahmen { overflow-x: auto; -webkit-overflow-scrolling: touch; margin: 0 -4px; padding: 0 4px; }
-table.werte { border-collapse: collapse; margin: 0 auto; background: var(--papier); font-size: 0.95rem; }
-table.werte th, table.werte td { border: 1px solid var(--tinte); padding: 6px 9px; vertical-align: top; }
-table.werte thead th { background: var(--tinte); color: var(--creme); font-weight: bold; text-align: center; vertical-align: middle; border-color: var(--grau); }
-table.werte thead tr.unterkopf th { background: var(--sand); color: var(--tinte); font-weight: normal; font-size: 0.85em; border-color: var(--tinte); }
-table.werte tbody tr:nth-child(even) { background: var(--creme); }
+.tabelle-rahmen { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+/* Rahmen gehören zu den Zellen (separate statt collapse), damit sie mit der fixierten ersten Spalte mitwandern */
+table.werte { border-collapse: separate; border-spacing: 0; margin: 0 auto; background: var(--papier); font-size: 0.95rem; border-top: 1px solid var(--tinte); }
+table.werte th, table.werte td { border-right: 1px solid var(--tinte); border-bottom: 1px solid var(--tinte); padding: 6px 9px; vertical-align: top; background: var(--papier); }
+table.werte tr > :first-child, table.werte thead tr:first-child > :first-child { border-left: 1px solid var(--tinte); }
+table.werte thead tr.unterkopf > :first-child { border-left: 0; }
+table.werte thead th { background: var(--tinte); color: var(--creme); font-weight: bold; text-align: center; vertical-align: middle; border-right-color: var(--grau); border-bottom-color: var(--grau); }
+table.werte thead tr.unterkopf th { background: var(--sand); color: var(--tinte); font-weight: normal; font-size: 0.85em; border-right-color: var(--tinte); border-bottom-color: var(--tinte); }
+table.werte tbody tr:nth-child(even) > * { background: var(--creme); }
 table.werte tfoot th, table.werte tfoot td { background: var(--sand); font-weight: bold; border-top: 2px solid var(--tinte); }
 table.werte tbody th { text-align: left; white-space: nowrap; }
+/* erste Spalte (Schadensart, Wurf, Angriff) bleibt beim seitlichen Wischen stehen */
+table.werte tbody th[scope="row"], table.werte tfoot th[scope="row"], table.werte thead tr:first-child > th:first-child {
+  position: sticky; left: 0; z-index: 2;
+  box-shadow: 3px 0 4px -2px rgba(46, 33, 20, 0.35);
+}
 .num { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
 td.schaden { font-weight: bold; }
 td.treffer { font-weight: bold; color: var(--rot); }
@@ -273,7 +286,7 @@ td.treffer { font-weight: bold; color: var(--rot); }
 td.immun { color: var(--rot); font-weight: bold; }
 td.widerstand { color: #6B3A10; }
 td.anfaellig { color: var(--gruen); font-weight: bold; }
-tr.sieg th, tr.sieg td { background: rgba(242, 211, 107, 0.55) !important; font-weight: bold; }
+tr.sieg th, tr.sieg td { background: #F8E7A9 !important; font-weight: bold; }
 .ok { color: var(--gruen); font-weight: bold; }
 .stark { font-weight: bold; }
 td.nicht { color: var(--rot); font-style: italic; }
@@ -356,9 +369,9 @@ td.nicht { color: var(--rot); font-style: italic; }
   table.stapel .mods-liste { text-align: right; }
   table.stapel .mods div { white-space: normal; }
   table.stapel tfoot td { background: var(--sand); }
-  table.fest-links tbody th, table.fest-links tfoot th, table.fest-links thead tr:first-child th:first-child { position: sticky; left: 0; z-index: 1; }
-  table.fest-links tbody th { background: var(--papier); }
-  table.fest-links tbody tr:nth-child(even) th { background: var(--creme); }
+  table.stapel tbody th[scope="row"], table.stapel tfoot th[scope="row"] { position: static; box-shadow: none; }
+  table.stapel { border-top: 0; }
+  table.stapel tbody td { background: transparent !important; }
 }
 
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
