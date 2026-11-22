@@ -1,0 +1,265 @@
+{
+  "einheit": 6,
+  "titel": "Die Trainingshalle",
+  "untertitel": "Wie stark ist die Übungswaffe wirklich? (Grundwert berechnen)",
+  "einstieg": "Bevor du in die Arena gehst, übst du in der Trainingshalle. Dort liegen Übungswaffen, deren Grundschaden niemand kennt. Du kannst nur messen, wie viel Schaden sie mit deiner Ausrüstung machen.",
+  "beispiel": {
+    "problem": "In der Trainingshalle von Zahlheim liegen Übungswaffen bereit. Du trägst Handschuhe mit +10 % PHYSISCH und schlägst mit einer Übungswaffe zu: 33 SP.",
+    "tabelle": {
+      "kopf": [
+        "Schritt",
+        "Rechnung"
+      ],
+      "zeilen": [
+        [
+          "Gegeben",
+          "Prozentwert W = 33 SP (gemessen, mit Handschuhen),  Bonus p = 10 % = 0,1,  gesucht: Grundwert G"
+        ],
+        [
+          "Faktor",
+          "Der gemessene Schaden ist G · (1 + p) = G · 1,1"
+        ],
+        [
+          "Umstellen",
+          "G · (1 + p) = W ➔ G = W : (1 + p) = 33 : 1,1 = 30 SP"
+        ],
+        [
+          "Probe",
+          "30 · 1,1 = 33 SP ✓"
+        ],
+        [
+          "Typischer Fehler",
+          "33 − 10 % von 33 = 29,7 ✗  (Probe: 29,7 · 1,1 = 32,67 ≠ 33)"
+        ]
+      ]
+    },
+    "erkenntnis": "Die 10 % beziehen sich auf den Grundschaden G, nicht auf den gemessenen Schaden. Darum wird durch 1,1 geteilt und nicht 10 % abgezogen.",
+    "problemGap": 0.12,
+    "tabPt": 10.5,
+    "kopfH": 0.317,
+    "zeilenH": [
+      0.396,
+      0.289,
+      0.289,
+      0.289,
+      0.289
+    ],
+    "tabGap": 0.16,
+    "erkGap": 0.02
+  },
+  "sicherung": {
+    "titel": "Merke: Den Grundwert berechnen",
+    "formeln": [
+      {
+        "wenn": "Nach einer Steigerung um p %",
+        "formel": "G = neu : (1 + p)",
+        "beispiel": "33 : 1,1 = 30"
+      },
+      {
+        "wenn": "Nach einer Verringerung um p %",
+        "formel": "G = neu : (1 − p)",
+        "beispiel": "48 : 0,8 = 60"
+      },
+      {
+        "wenn": "Probe",
+        "formel": "G · (1 ± p) = neu",
+        "beispiel": "30 · 1,1 = 33"
+      }
+    ],
+    "pt": 11,
+    "titelGap": 0.05,
+    "vorUmr": 0.04,
+    "umrGap": 0.09,
+    "padUnten": 0.15,
+    "umrechnung": "Mehrere Boni auf dieselbe Schadensart werden zuerst addiert (Einheit 1): Der Faktor ist 1 + (Summe aller Boni). Dann wird durch diesen Faktor geteilt.",
+    "achtung": "Nicht „10 % vom gemessenen Wert abziehen“! Die Prozente beziehen sich auf G, nicht auf den neuen Wert."
+  },
+  "aufgaben": [
+    {
+      "nr": 1,
+      "titel": "Welche Übungswaffe nehme ich mit?",
+      "text": "Berechne für jede Übungswaffe den Grundschaden.",
+      "tabellen": [
+        {
+          "kopf": [
+            "Handschuhe",
+            "Gemessener Schaden",
+            "Grundschaden der Übungswaffe"
+          ],
+          "x": 1.46,
+          "w": 5.36,
+          "gew": [
+            2.316,
+            1.149,
+            1.894
+          ],
+          "pt": 10.5,
+          "kopfH": 0.552,
+          "zeilenH": [
+            0.38,
+            0.409,
+            0.409
+          ],
+          "zeilen": [
+            [
+              "Glutfäustlinge (+25 % FEUER)",
+              "45",
+              ""
+            ],
+            [
+              "Fluchhandschuhe (−20 % PHYSISCH)",
+              "48",
+              ""
+            ],
+            [
+              "Sturmhandschuhe (+40 % BLITZ)",
+              "63",
+              ""
+            ]
+          ]
+        }
+      ],
+      "loesung": [
+        "Glutfäustlinge: G = 45 : 1,25 = 36 (Fehler: 45 · 0,75 = 33,75)",
+        "Fluchhandschuhe: G = 48 : 0,8 = 60 (Fehler: 48 · 1,2 = 57,6)",
+        "Sturmhandschuhe: G = 63 : 1,4 = 45 (Fehler: 63 · 0,6 = 37,8)"
+      ]
+    },
+    {
+      "nr": 2,
+      "titel": "Zwei Boni auf einmal",
+      "yExtra": 0.06,
+      "text": "Du trägst {{Umhang des Bescheidenen}} und einen Zaubergegenstand: {{Rote Bullentrinkflasche}} ODER {{Ring der Eiskönigin}}. Entnimm die Werte aus der Übersicht der Gegenstände Stufe 1 und 2.\nDie Übungswaffe macht den gemessenen Schaden. Wie hoch ist ihr Grundschaden?",
+      "tabellen": [
+        {
+          "gew": [
+            2.138,
+            1.633,
+            0.933,
+            1.166,
+            1.4
+          ],
+          "pt": 10.5,
+          "kopfH": 0.677,
+          "rowH": 0.501,
+          "kopf": [
+            "Rüstung + Zaubergegenstand",
+            "Schadensart",
+            "Gemessen",
+            "Bonus insgesamt",
+            "Grundschaden"
+          ],
+          "zeilen": [
+            [
+              "Umhang des Bescheidenen + Rote Bullentrinkflasche",
+              "PHYSISCH",
+              "105",
+              "",
+              ""
+            ],
+            [
+              "Umhang des Bescheidenen + Ring der Eiskönigin",
+              "EIS",
+              "90",
+              "",
+              ""
+            ]
+          ]
+        }
+      ],
+      "loesung": [
+        "Umhang des Bescheidenen + Rote Bullentrinkflasche: Bonus 75 % → Faktor 1,75 → G = 105 : 1,75 = 60 SP",
+        "Umhang des Bescheidenen + Ring der Eiskönigin: Bonus 125 % → Faktor 2,25 → G = 90 : 2,25 = 40 SP"
+      ]
+    },
+    {
+      "nr": 3,
+      "titel": "Wenn die Rüstung schwächt",
+      "yExtra": 0.06,
+      "text": "Du trägst {{Fokussierte Gedanken}}. Ein Übungsstab (EIS) macht 15 SP, ein Übungsspeer (PHYSISCH) macht 45 SP. Wie hoch ist jeweils der Grundschaden?",
+      "loesung": [
+        "EIS: Faktor 0,5 (-50 %) → G = 15 : 0,5 = 30 SP",
+        "PHYSISCH: Faktor 1,5 (+50 %) → G = 45 : 1,5 = 30 SP"
+      ]
+    },
+    {
+      "nr": 4,
+      "titel": "Noch mehr Training",
+      "yExtra": 0.07,
+      "text": "In der Trainingshalle liegen zwei Nachbildungen echter Waffen aus der Übersicht (Stufe 1). Du trägst jeweils nur die angegebene Ausrüstung. Berechne die Grundschäden und vergleiche sie mit den Mittelwerten der Originale: stärker, schwächer oder gleich?",
+      "tabellen": [
+        {
+          "kopf": [
+            "Nachbildung von",
+            "Ausrüstung",
+            "Schadensart",
+            "Gemessen",
+            "Grundschaden",
+            "Original"
+          ],
+          "gew": [
+            1.4,
+            1.65,
+            1.4,
+            0.95,
+            1.15,
+            0.72
+          ],
+          "pt": 10.5,
+          "kopfH": 0.4,
+          "rowH": 0.29,
+          "randFrei": true,
+          "zeilen": [
+            [
+              "Weltenschaffer",
+              "Feenstaub",
+              "FEUER (+40 %)",
+              "35",
+              "",
+              ""
+            ],
+            [
+              "Weltenschaffer",
+              "Feenstaub",
+              "EIS (+40 %)",
+              "21",
+              "",
+              ""
+            ],
+            [
+              "Baldars Weißheit",
+              "Fokussierte Gedanken",
+              "PHYSISCH (+50 %)",
+              "30",
+              "",
+              ""
+            ],
+            [
+              "Baldars Weißheit",
+              "Fokussierte Gedanken",
+              "FEUER (−50 %)",
+              "7,5",
+              "",
+              ""
+            ],
+            [
+              "Baldars Weißheit",
+              "Fokussierte Gedanken",
+              "EIS (−50 %)",
+              "10",
+              "",
+              ""
+            ]
+          ]
+        }
+      ],
+      "loesung": [
+        "Weltenschaffer-Nachbildung (Feenstaub): FEUER: G = 35 : 1,4 = 25 SP (Original 30 SP → schwächer); EIS: G = 21 : 1,4 = 15 SP (Original 15 SP → gleich).",
+        "Baldars Weißheit-Nachbildung (Fokussierte Gedanken): PHYSISCH: G = 30 : 1,5 = 20 SP (Original 15 SP → stärker); FEUER: G = 7,5 : 0,5 = 15 SP (Original 15 SP → gleich); EIS: G = 10 : 0,5 = 20 SP (Original 15 SP → stärker)."
+      ]
+    }
+  ],
+  "abstaende": {
+    "nachBeispiel": 0.19
+  }
+}

@@ -1,0 +1,297 @@
+{
+  "einheit": 4,
+  "titel": "Der Schriftrollenhändler",
+  "untertitel": "Steigern um … oder auf …?",
+  "einstieg": "Auf dem Marktplatz von Zahlheim baut Schriftrollenhändler Borwin seinen Stand auf. Seine Rollen verändern den Schaden deiner Waffe – aber die Beschreibungen klingen verdächtig ähnlich …",
+  "beispiel": {
+    "problem": "Borwin verkauft Schriftrollen für ein Schwert mit Grundschaden 80 FEUER (Beispiel auf dem Arbeitsblatt). Er hat vier Rollen im Angebot. Welchen Schaden macht dein Schwert nach jeder Rolle?",
+    "zeilen": [
+      {
+        "rolle": "Steigere den Schaden **um** 25 %",
+        "rechnung": "80 + 80 · 0,25 = 80 + 20",
+        "ergebnis": "100 SP"
+      },
+      {
+        "rolle": "Steigere den Schaden **auf** 125 %",
+        "rechnung": "80 · 1,25",
+        "ergebnis": "100 SP"
+      },
+      {
+        "rolle": "Verringere den Schaden **um** 25 %",
+        "rechnung": "80 − 80 · 0,25 = 80 − 20",
+        "ergebnis": "60 SP"
+      },
+      {
+        "rolle": "Verringere den Schaden **auf** 25 %",
+        "rechnung": "80 · 0,25",
+        "ergebnis": "20 SP"
+      }
+    ],
+    "erkenntnis": "Rolle 1 und 2 bewirken dasselbe. Rolle 3 und 4 klingen ähnlich, machen aber einen riesigen Unterschied!",
+    "gew": [
+      2.83,
+      2.83,
+      1.34
+    ],
+    "tabPt": 11,
+    "kopfH": 0.321,
+    "rowH": 0.292,
+    "tabGap": 0.19,
+    "erkZeilen": 1,
+    "erkGap": 0.11
+  },
+  "sicherung": {
+    "titel": "Merke: Steigern / Verringern UM oder AUF",
+    "padUnten": 0.07,
+    "vorspann": {
+      "intro": "Wenn man die normalen Modifikatoren, wie “+25% FEUER” (also erhöhe **um** …) umschreibt, kann man den neuen Schaden in einem Schritt berechnen:",
+      "beispielText": "Schwert: 80 FEUERschaden + Umhang des Bescheidenen (+25% SCHADEN jeder Schadensart)",
+      "zeilen": [
+        {
+          "links": "Steigern um 25 %",
+          "rechts": "Steigern auf 100 % + 25 % = 125 %"
+        },
+        {
+          "links": "80 + 80 · 0,25 = 80 + 20 = 100",
+          "rechts": "80 · (1+0,25) = 80 · 1,25 = 100",
+          "fett": true
+        }
+      ]
+    },
+    "formeln": [
+      {
+        "wenn": "Steigern um p %",
+        "formel": "neuer Wert = G · (1 + p)",
+        "beispiel": "um 25 %: G · (1 + 0,25) = G · 1,25"
+      },
+      {
+        "wenn": "Verringern um p %",
+        "formel": "neuer Wert = G · (1 − p)",
+        "beispiel": "um 25 %: G · (1 − 0,25) = G · 0,75"
+      },
+      {
+        "wenn": "Steigern / Verringern auf a %",
+        "formel": "neuer Wert = G · a",
+        "beispiel": "auf 125 %: G · 1,25     auf 25 %: G · 0,25"
+      }
+    ]
+  },
+  "sicherungNach": 2,
+  "aufgaben": [
+    {
+      "nr": 1,
+      "titel": "Zwillinge und Fallen",
+      "yExtra": 0.25,
+      "auchSeite1": true,
+      "zeilenAnz": {
+        "0": 2
+      },
+      "schritte": {
+        "0": 0.51
+      },
+      "text": "Borwins Lehrling bietet sechs weitere Rollen an. Dein Schwert verursacht einen physischen Grundschaden von {{60}}. Welche Rollen bewirken dasselbe? Berechne den neuen Schaden und markiere Rollen mit gleichem Ergebnis.",
+      "tabelle": [
+        "Steigere den Schaden um 40 %",
+        "Steigere den Schaden auf 140 %",
+        "Verringere den Schaden um 40 %",
+        "Verringere den Schaden auf 60 %",
+        "Verringere den Schaden auf 40 %",
+        "Steigere den Schaden um 140 %"
+      ],
+      "tabelleLinie": 94,
+      "zeilenabstand": 0.207,
+      "loesung": {
+        "ergebnisse": [
+          "Steigere den Schaden um 40 %: 84 SP",
+          "Steigere den Schaden auf 140 %: 84 SP",
+          "Verringere den Schaden um 40 %: 36 SP",
+          "Verringere den Schaden auf 60 %: 36 SP",
+          "Verringere den Schaden auf 40 %: 24 SP",
+          "Steigere den Schaden um 140 %: 144 SP"
+        ],
+        "gleichwertig": [
+          [
+            "Verringere den Schaden um 40 %",
+            "Verringere den Schaden auf 60 %"
+          ],
+          [
+            "Steigere den Schaden um 40 %",
+            "Steigere den Schaden auf 140 %"
+          ]
+        ]
+      }
+    },
+    {
+      "nr": 2,
+      "titel": "Die Übersetzungsrolle",
+      "neueSeite": true,
+      "yExtra": 0.09,
+      "teileNach": -0.05,
+      "text": "Schreibe dieselbe Wirkung mit dem anderen Wort („um“ statt „auf“ und umgekehrt).",
+      "teile": [
+        "Steigern um 35 %  →  auf ___________",
+        "Verringern um 15 %  →  auf ___________",
+        "Verringern auf 20 %  →  um ___________",
+        "Steigern auf 250 %  →  um ___________",
+        "Der Schaden wird verdoppelt  →  um ___________ und auf …"
+      ],
+      "teileSpalten": 2,
+      "nachTeile": {
+        "text": "Vervollständige die Lücken:\n\nSteigern um p %  ⇔  Steigern auf (_______ + p).\n\nVerringern um p %  ⇔  Verringern auf (100 %  ________).",
+        "zeilen": 6,
+        "gap": 0.12
+      },
+      "loesung": [
+        "Faktor 1,35 → Steigern auf 135 %",
+        "Faktor 0,85 → Verringern auf 85 %",
+        "Faktor 0,2 → Verringern um 80 %",
+        "Faktor 2,5 → Steigern um 150 %",
+        "Steigern um 100 % = Steigern auf 200 %",
+        "Lücken: Steigern um p % ⇔ Steigern auf (100 % + p). Verringern um p % ⇔ Verringern auf (100 % − p)."
+      ]
+    },
+    {
+      "nr": 3,
+      "titel": "Wer hat recht?",
+      "yExtra": 0.2,
+      "text": "Lena sagt: „Verringern auf 20 % heißt, der Schaden wird um 20 % kleiner.“ Tim sagt: „Steigern auf 150 % heißt, der Schaden wird um 150 % größer.“ Prüfe beide Aussagen mit Grundschaden 60 (Lena) bzw. 40 (Tim).",
+      "loesung": [
+        "Lena: richtig 12 SP (60 · 0,2); nach Lena wären es 48 SP (60 · 0,8) → falsch.",
+        "Tim: richtig 60 SP (40 · 1,5); nach Tim wären es 100 SP (40 · 2,5) → falsch."
+      ]
+    },
+    {
+      "nr": 4,
+      "titel": "Zwei Golems",
+      "neueSeite": true,
+      "yExtra": 0.17,
+      "einBlock": true,
+      "blockSpPt": 4,
+      "zeilenAnz": {
+        "0": 3
+      },
+      "blockExtra": 0.06,
+      "text": "Du kämpfst mit {{Feuersturm}} (rechne mit dem Mittelwert) gegen den {{Moosgolem}} und den {{Aschegolem}}. Die Eigenschaften kannst du der Übersicht für Einheit 4 entnehmen.\nWie viel Schaden macht ein Treffer jeweils? Wie viele Treffer brauchst du?",
+      "loesung": [
+        "Ohne Golem: FEUER: Grundschaden 20–40, Modifikatoren +50 % → Faktor 1,5 → 30–60 SP | PHYSISCH: Grundschaden 6–15, Modifikatoren +0 % → Faktor 1 → 6–15 SP",
+        "Moosgolem: FEUER 45 · (1 − 0,4) = 27; dazu PHYSISCH 10,5 → 37,5 SP pro Treffer → 4 Treffer",
+        "Aschegolem: FEUER 45 · 0,4 = 18; dazu PHYSISCH 10,5 → 28,5 SP pro Treffer → 5 Treffer"
+      ]
+    },
+    {
+      "nr": 5,
+      "titel": "Ausrüstung kombinieren",
+      "yExtra": 0.16,
+      "schritte": {
+        "0": 0.54
+      },
+      "kombiNach": 0.08,
+      "einBlock": true,
+      "zeilenAnz": {
+        "0": 2
+      },
+      "kombiPt": 11,
+      "kombiGap": 0.14,
+      "text": "Berechne für jede den durchschnittlichen Schaden (Mittelwert). Welche ist die beste?\nVerwende die neue Formel zur Berechnung von Modifikatoren.",
+      "kombinationen": [
+        "Mjölnir + Gewitterstein",
+        "Valdorils Vermächtnis + Frostsiegel",
+        "Weltenschaffer + Rune der Glut",
+        "Baldars Weißheit + Rune der Meisterschaft"
+      ],
+      "nachTeile": {
+        "text": "e) Berechne für die beste Kombination Minimum, Mittelwert und Maximum.",
+        "zeilen": 2
+      },
+      "loesung": {
+        "kombinationen": [
+          {
+            "name": "Mjölnir + Gewitterstein",
+            "rechnung": [
+              "BLITZ: Grundschaden 40–40, Modifikatoren +110 % → Faktor 2,1 → 84–84 SP",
+              "PHYSISCH: Grundschaden 20–30, Modifikatoren +0 % → Faktor 1 → 20–30 SP"
+            ],
+            "mittel": 109
+          },
+          {
+            "name": "Valdorils Vermächtnis + Frostsiegel",
+            "rechnung": [
+              "EIS: Grundschaden 20–50, Modifikatoren +125 % → Faktor 2,25 → 45–112,5 SP"
+            ],
+            "mittel": 78.75
+          },
+          {
+            "name": "Weltenschaffer + Rune der Glut",
+            "rechnung": [
+              "FEUER: Grundschaden 20–40, Modifikatoren +50 % → Faktor 1,5 → 30–60 SP",
+              "EIS: Grundschaden 10–20, Modifikatoren +0 % → Faktor 1 → 10–20 SP",
+              "PHYSISCH: Grundschaden 5–10, Modifikatoren +0 % → Faktor 1 → 5–10 SP"
+            ],
+            "mittel": 67.5
+          },
+          {
+            "name": "Baldars Weißheit + Rune der Meisterschaft",
+            "rechnung": [
+              "FEUER: Grundschaden 10–20, Modifikatoren +0 % → Faktor 1 → 10–20 SP",
+              "EIS: Grundschaden 10–20, Modifikatoren +0 % → Faktor 1 → 10–20 SP",
+              "BLITZ: Grundschaden 10–20, Modifikatoren +0 % → Faktor 1 → 10–20 SP",
+              "PHYSISCH: Grundschaden 10–20, Modifikatoren +30 % → Faktor 1,3 → 13–26 SP"
+            ],
+            "mittel": 64.5
+          }
+        ],
+        "beste": "Mjölnir + Gewitterstein",
+        "wuerfel": {
+          "min": 104,
+          "mittel": 109,
+          "max": 114
+        }
+      }
+    },
+    {
+      "nr": 6,
+      "titel": "Echte Fallen",
+      "yExtra": 0.1,
+      "text": "Borwin hat noch Rollen im Angebot, bei denen man genau lesen muss. Ordne jede Rolle ein, ohne zu rechnen:\nMacht sie mehr Schaden, weniger Schaden, bleibt der Schaden gleich oder ist die Rolle Unsinn? Begründe kurz.\nZwei Rollen haben dieselbe Wirkung. Welche?",
+      "zeilenAnz": {
+        "0": 1,
+        "1": 1,
+        "2": 1
+      },
+      "teile": [
+        "Steigere den Schaden auf 90 %",
+        "Steigere den Schaden um 100 %",
+        "Verringere den Schaden auf 0 %",
+        "Verringere den Schaden um 120 %",
+        "Steigere den Schaden auf 100 %",
+        "Verringere den Schaden um 100 %"
+      ],
+      "teileSpalten": 3,
+      "loesung": [
+        "a) Steigere den Schaden auf 90 %: weniger Schaden (bei Grundschaden 100: 90 SP) – Faktor 0,9: trotz „Steigere“ sinkt der Schaden auf 90 %.",
+        "b) Steigere den Schaden um 100 %: mehr Schaden (bei Grundschaden 100: 200 SP) – Faktor 2: der Schaden wird verdoppelt (= Steigere auf 200 %).",
+        "c) Verringere den Schaden auf 0 %: weniger Schaden (bei Grundschaden 100: 0 SP) – Faktor 0: der Schaden ist 0 (gleiche Wirkung wie „Verringere um 100 %“).",
+        "d) Verringere den Schaden um 120 %: Unsinn (bei Grundschaden 100: -20 SP) – Faktor 1 − 1,2 = −0,2: der Schaden wäre negativ – mehr als 100 % kann man nicht wegnehmen.",
+        "e) Steigere den Schaden auf 100 %: bleibt gleich (bei Grundschaden 100: 100 SP) – Faktor 1: nichts ändert sich.",
+        "f) Verringere den Schaden um 100 %: weniger Schaden (bei Grundschaden 100: 0 SP) – Faktor 0: der Schaden ist 0 (gleiche Wirkung wie „Verringere auf 0 %“).",
+        "Dieselbe Wirkung haben „Verringere den Schaden auf 0 %“ und „Verringere den Schaden um 100 %“ (beide: Schaden 0)."
+      ]
+    },
+    {
+      "nr": 7,
+      "titel": "★ Die Gegenrolle",
+      "differenzierung": true,
+      "text": "Borwin sagt: „Zu jeder Rolle gibt es eine Gegenrolle, die sie rückgängig macht.“ Dein Schwert hat Grundschaden 80.\na) Wende „Verringere um 20 %“ an. Mit welcher „Steigere um …“-Rolle bekommst du wieder 80 SP?\nb) Finde ebenso die Gegenrolle zu „Verringere um 50 %“ und zu „Verringere um 75 %“.\nc) Was fällt dir auf? Warum ist die Gegenrolle nicht einfach „Steigere um 20 %“?\nd) Gibt es eine Gegenrolle zu „Verringere um 100 %“? Begründe.",
+      "teilGap": 0.1,
+      "loesung": [
+        "a) „Verringere um 20 %“: 80 · 0,8 = 64; Gegenrolle: Faktor 1 : 0,8 = 1,25, also „Steigere um 25 %“ (64 · 1,25 = 80).",
+        "b) „Verringere um 50 %“: 80 · 0,5 = 40; Gegenrolle: Faktor 1 : 0,5 = 2, also „Steigere um 100 %“ (40 · 2 = 80). „Verringere um 75 %“: 80 · 0,25 = 20; Gegenrolle: Faktor 1 : 0,25 = 4, also „Steigere um 300 %“ (20 · 4 = 80).",
+        "c) Die Gegenrolle hat immer einen größeren Prozentsatz: Nach „Verringere um 20 %“ bleiben nur 80 % des Schadens übrig. 20 % von 80 sind weniger als 20 % von 100 – man muss also mehr als 20 % steigern. Der Faktor der Gegenrolle ist der Kehrwert des Faktors (1 : 0,8 = 1,25).",
+        "d) Nein: Nach „Verringere um 100 %“ ist der Schaden 0, und 0 mal jeder Faktor ist wieder 0."
+      ]
+    }
+  ],
+  "dy": {
+    "einstieg": 0.09
+  }
+}

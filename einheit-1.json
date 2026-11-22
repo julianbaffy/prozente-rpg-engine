@@ -1,0 +1,264 @@
+{
+  "einheit": 1,
+  "titel": "Die Schmiede",
+  "untertitel": "Schaden berechnen und Ausrüstung kombinieren",
+  "einstieg": "In der Schmiede von Zahlheim hängen Waffen und Zaubergegenstände an den Wänden. Der Schmied verspricht: „Mit der richtigen Kombination triffst du härter als jeder andere Held!“ Aber welche ist die richtige? Das musst du ausrechnen.",
+  "kurzregeln": {
+    "titel": "Das musst du wissen",
+    "punkte": [
+      "Jede Waffe macht pro Treffer Schaden (SP) zwischen einem Minimum und einem Maximum. Der Mittelwert (Ø) liegt genau dazwischen.",
+      "Jeder Schaden hat eine Schadensart: FEUER, EIS, BLITZ, PHYSISCH oder CHAOS. ELEMENTAR ist der Sammelname für FEUER, EIS und BLITZ.",
+      [
+        "Ein Modifikator wie „+50 % FEUER“ erhöht den FEUERschaden anteilig vom Grundschaden.",
+        "Bonus = Grundschaden · Modifikator; neuer Schaden = Grundschaden + Bonus.",
+        "Beispiel: Grundschaden 30 FEUERschaden, Bonus: 30 SP · 0,5 = 15 SP, neuer Schaden = 30 + 15 = 45 SP"
+      ],
+      [
+        "Modifikatoren mit derselben Schadensart werden zuerst ADDIERT und wirken dann zusammen:",
+        "+50 % und +50 % sind +100 %."
+      ]
+    ],
+    "nummerAuto": [
+      2,
+      3
+    ],
+    "autoPlus": 0.02
+  },
+  "aufgaben": [
+    {
+      "nr": 1,
+      "titel": "Drei Angebote des Schmieds",
+      "text": "Der Schmied legt dir drei Kombinationen aus Waffe und Zaubergegenstand vor. Berechne für jede den durchschnittlichen neuen Schaden pro Treffer (Mittelwert).",
+      "nummern": [
+        "Kombination: {{Verdammnissäher}} & {{Rote Bullentrinkflasche}}",
+        "Kombination: {{Baldars Weißheit}} & {{Feenstaub}}",
+        "Kombination: {{Feuersturm}} & {{Armband des Feuers}}"
+      ],
+      "nachText": "Es kann dir helfen, im Heft jeweils eine solche Tabelle für die Kombinationen anzulegen.",
+      "builds": [
+        {
+          "titel": "Beispiel",
+          "slots": {
+            "waffe": "Verdammnissäher",
+            "ruestung": "",
+            "zauber": "Rote Bullentrinkflasche"
+          },
+          "modus": "kurz",
+          "quellen": [
+            "PHYSISCH"
+          ],
+          "ruestung": false,
+          "besonderheiten": false,
+          "bonus": true,
+          "ohneIcon": false,
+          "ohneTitel": true,
+          "dicht": false,
+          "schadenKopf": "Neuer Schaden (Ø)",
+          "vorgabe": [
+            [
+              "Physisch",
+              "35",
+              "50 % + 50 % = 100 %",
+              "",
+              ""
+            ],
+            [
+              "…",
+              "",
+              "",
+              "",
+              ""
+            ]
+          ]
+        }
+      ],
+      "yExtra": 0.11,
+      "loesung": [
+        "a) Verdammnissäher + Rote Bullentrinkflasche: PHYSISCH 35 + 35 · 1 = 35 + 35 = 70 → Ø 70 SP (Min 40, Max 100)",
+        "b) Baldars Weißheit + Feenstaub: FEUER 15 + 15 · 0,4 = 15 + 6 = 21; EIS 15 + 15 · 0,4 = 15 + 6 = 21; BLITZ 15 + 15 · 0,4 = 15 + 6 = 21; PHYSISCH 15 → Ø 78 SP (Min 52, Max 104)",
+        "c) Feuersturm + Armband des Feuers: FEUER 42,5 + 42,5 · 0,5 = 42,5 + 21,25 = 63,75; PHYSISCH 10,5 → Ø 74,25 SP (Min 43,5, Max 105)"
+      ]
+    },
+    {
+      "nr": 2,
+      "titel": "Die beste Ausstattung",
+      "neueSeite": true,
+      "yExtra": 0.05,
+      "zeilenAnz": {
+        "0": 3
+      },
+      "text": "Statte deine Figur so aus, dass sie maximalen Schaden anrichtet! Du darfst eine Waffe und einen Zaubergegenstand kombinieren (Gegenstandskarten Stufe 1). Trage deinen besten Build in die Vorlage ein, mache alle Überlegungen im Heft und schreibe sie so auf, dass du sie anderen Spielern erklären kannst.",
+      "builds": [
+        {
+          "titel": "Mein bester Build",
+          "slots": {},
+          "modus": "voll",
+          "quellen": [
+            "FEUER",
+            "EIS",
+            "BLITZ",
+            "PHYSISCH",
+            "CHAOS"
+          ],
+          "ruestung": false,
+          "besonderheiten": false,
+          "bonus": true,
+          "ohneIcon": true
+        }
+      ],
+      "loesung": [
+        "Beste Builds nach Mittelwert (54 mögliche Kombinationen): Mjölnir + Glückbringender Magnetstein (Ø 105); Mjölnir + Feenstaub (Ø 101); Mjölnir + Rote Bullentrinkflasche (Ø 97,5); Mjölnir + Armband des Feuers (Ø 97,5); Valdorils Vermächtnis + Ring der Eiskönigin (Ø 87,5).",
+        "Warum Mjölnir? Er macht 40 BLITZ und 25 PHYSISCH und hat selbst +50 % BLITZ. Der Glückbringende Magnetstein gibt noch einmal +50 % auf BLITZ → Summe +100 % → Bonus 40 · 1 = 40 → BLITZ 40 + 40 = 80, dazu PHYSISCH 25 → Ø 105. Der Feenstaub gibt nur +40 % → Summe +90 % → Bonus 40 · 0,9 = 36 → BLITZ 76 → Ø 101.",
+        "Alle Wege zur Lösung zählen, wenn sie begründet sind: Schüler können alle 54 Kombinationen durchrechnen oder gezielt die Waffen mit viel Grundschaden und passenden Modifikatoren vergleichen."
+      ],
+      "loesungBuilds": [
+        {
+          "titel": "Musterlösung",
+          "slots": {
+            "waffe": "Mjölnir",
+            "ruestung": "",
+            "zauber": "Glückbringender Magnetstein"
+          },
+          "modus": "voll",
+          "quellen": [
+            "BLITZ",
+            "PHYSISCH"
+          ],
+          "ruestung": false,
+          "besonderheiten": false,
+          "werte": {
+            "zeilen": {
+              "BLITZ": {
+                "basis": [
+                  "40",
+                  "40",
+                  "40"
+                ],
+                "mods": "+100 %",
+                "faktor": "2",
+                "schaden": [
+                  "80",
+                  "80",
+                  "80"
+                ],
+                "bonus": [
+                  "40",
+                  "40",
+                  "40"
+                ]
+              },
+              "PHYSISCH": {
+                "basis": [
+                  "20",
+                  "25",
+                  "30"
+                ],
+                "mods": "0 %",
+                "faktor": "1",
+                "schaden": [
+                  "20",
+                  "25",
+                  "30"
+                ],
+                "bonus": [
+                  "0",
+                  "0",
+                  "0"
+                ]
+              }
+            },
+            "gesamt": [
+              "100",
+              "105",
+              "110"
+            ]
+          },
+          "besonderheitenText": "",
+          "bonus": true,
+          "ohneIcon": false
+        }
+      ]
+    },
+    {
+      "nr": 3,
+      "titel": "★ Sicher oder riskant?",
+      "differenzierung": true,
+      "einzeilig": [
+        1
+      ],
+      "yExtra": 0.18,
+      "text": "Im Würfelduell zählt manchmal der Glückstreffer. a) Suche den Build, der im besten Fall (Maximum) am meisten Schaden macht, und trage ihn in die Vorlage ein. b) Vergleiche Minimum, Mittelwert und Maximum mit deinem Build aus Aufgabe 2. Wann würdest du welchen wählen?",
+      "builds": [
+        {
+          "titel": "Mein Glücks-Build",
+          "slots": {},
+          "modus": "voll",
+          "quellen": [
+            "FEUER",
+            "EIS",
+            "BLITZ",
+            "PHYSISCH",
+            "CHAOS"
+          ],
+          "ruestung": false,
+          "besonderheiten": false,
+          "bonus": true,
+          "ohneIcon": true,
+          "dicht": true
+        }
+      ],
+      "loesung": [
+        "a) Größtes Maximum: Valdorils Vermächtnis + Ring der Eiskönigin mit Min 50, Ø 87,5, Max 125.",
+        "b) Der Mjölnir-Build liegt eng zusammen (Min 100, Ø 105, Max 110): zuverlässig. Der Glücks-Build hat ein viel größeres Maximum, aber auch ein kleines Minimum (50) – er ist riskant.",
+        "Wer sicher einen bestimmten Wert braucht, wählt den zuverlässigen Build; wer nur mit Glück gewinnen kann, setzt auf das Maximum."
+      ],
+      "loesungBuilds": [
+        {
+          "titel": "Musterlösung",
+          "slots": {
+            "waffe": "Valdorils Vermächtnis",
+            "ruestung": "",
+            "zauber": "Ring der Eiskönigin"
+          },
+          "modus": "voll",
+          "quellen": [
+            "EIS"
+          ],
+          "ruestung": false,
+          "besonderheiten": false,
+          "werte": {
+            "zeilen": {
+              "EIS": {
+                "basis": [
+                  "20",
+                  "35",
+                  "50"
+                ],
+                "mods": "+150 %",
+                "faktor": "2,5",
+                "schaden": [
+                  "50",
+                  "87,5",
+                  "125"
+                ],
+                "bonus": [
+                  "30",
+                  "52,5",
+                  "75"
+                ]
+              }
+            },
+            "gesamt": [
+              "50",
+              "87,5",
+              "125"
+            ]
+          },
+          "besonderheitenText": "",
+          "bonus": true,
+          "ohneIcon": false
+        }
+      ]
+    }
+  ]
+}

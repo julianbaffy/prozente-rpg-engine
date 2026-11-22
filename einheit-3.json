@@ -1,0 +1,619 @@
+{
+  "einheit": 3,
+  "titel": "Die Monsterhöhlen",
+  "untertitel": "Widerstand, Immunität und Anfälligkeit",
+  "einstieg": "Hinter dem Stadttor von Zahlheim beginnen die Monsterhöhlen. Dort lauern Gegner, die manche Schadensarten kaum spüren – und gegen andere besonders empfindlich sind. Dein Gesamtschaden hängt jetzt nicht nur von deiner Ausrüstung ab, sondern auch davon, wen du bekämpfst.",
+  "kurzregeln": {
+    "titel": "Das musst du über Monster wissen",
+    "pt": 11,
+    "punkte": [
+      "Jedes Monster hat Lebenspunkte (LP). Es ist besiegt, wenn seine LP auf 0 oder darunter sinken.",
+      "Die Eigenschaften des Monsters wirken auf deinen fertig berechneten Schaden – für jede Schadensart einzeln. Danach werden die Schadensarten addiert. ELEMENTAR gilt für FEUER, EIS und BLITZ zugleich."
+    ]
+  },
+  "aufgaben": [
+    {
+      "nr": 1,
+      "titel": "Die Monster der Höhlen",
+      "text": "Sechs Monster warten in den Höhlen. Dein Held trägt das Set „Gewitter“ (siehe Build-Tabelle).\na) Fülle die Tabelle auf der Rückseite aus, um zu berechnen, wie viel Schaden du den Monstern machst und wie viele Angriffe du durchschnittlich brauchst.\nb) Welche Monster sind für dieses Set gefährlich? Warum?",
+      "builds": [
+        {
+          "titel": "Set „Gewitter“",
+          "slots": {
+            "waffe": "Mjölnir",
+            "ruestung": "Königin des Waldes",
+            "zauber": "Feenstaub"
+          },
+          "modus": "kurz",
+          "quellen": [
+            "BLITZ",
+            "PHYSISCH"
+          ],
+          "ruestung": true,
+          "besonderheiten": false,
+          "werte": {
+            "zeilen": {
+              "BLITZ": {
+                "basis": [
+                  "60",
+                  "70",
+                  "80"
+                ],
+                "mods": "+90 %",
+                "faktor": "1,9",
+                "schaden": [
+                  "114",
+                  "133",
+                  "152"
+                ],
+                "bonus": [
+                  "54",
+                  "63",
+                  "72"
+                ]
+              },
+              "PHYSISCH": {
+                "basis": [
+                  "20",
+                  "25",
+                  "30"
+                ],
+                "mods": "0 %",
+                "faktor": "1",
+                "schaden": [
+                  "20",
+                  "25",
+                  "30"
+                ],
+                "bonus": [
+                  "0",
+                  "0",
+                  "0"
+                ]
+              }
+            },
+            "gesamt": [
+              "134",
+              "158",
+              "182"
+            ]
+          },
+          "besonderheitenText": "",
+          "bonus": true,
+          "ohneIcon": false,
+          "klein": true
+        }
+      ],
+      "tabellen": [
+        {
+          "kopf": [
+            "Monster",
+            "LP",
+            "BLITZ (Ø)",
+            "PHYSISCH (Ø)",
+            "Schaden pro Treffer",
+            "Treffer nötig"
+          ],
+          "zeilen": [
+            [
+              "Flederbestie",
+              "300",
+              "",
+              "",
+              "",
+              ""
+            ],
+            [
+              "Eisgolem",
+              "300",
+              "",
+              "",
+              "",
+              ""
+            ],
+            [
+              "Fluchritter",
+              "325",
+              "",
+              "",
+              "",
+              ""
+            ],
+            [
+              "Tiefebenenriese",
+              "500",
+              "",
+              "",
+              "",
+              ""
+            ],
+            [
+              "Eiserner Fürst des Stahles",
+              "400",
+              "",
+              "",
+              "",
+              ""
+            ],
+            [
+              "Finsterer Archivar der Algebra",
+              "350",
+              "",
+              "",
+              "",
+              ""
+            ]
+          ],
+          "rowH": 0.31
+        }
+      ],
+      "notizen": {
+        "titel": "Gefährliche Monster für dieses Set",
+        "zeilen": 2
+      },
+      "notizenVorTabelle": true,
+      "tabellenNeueSeite": true,
+      "schritte": {
+        "0": 0.3,
+        "1": 0.52,
+        "2": 0.41
+      },
+      "nachBuild": 0.09,
+      "loesungTabellen": [
+        {
+          "titel": "Musterlösung",
+          "kopf": [
+            "Monster",
+            "LP",
+            "BLITZ (Ø)",
+            "PHYSISCH (Ø)",
+            "Schaden pro Treffer",
+            "Treffer nötig"
+          ],
+          "zeilen": [
+            [
+              "Flederbestie",
+              "300",
+              "66,5",
+              "25",
+              "91,5",
+              "4"
+            ],
+            [
+              "Eisgolem",
+              "300",
+              "133",
+              "12,5",
+              "145,5",
+              "3"
+            ],
+            [
+              "Fluchritter",
+              "325",
+              "133",
+              "18,75",
+              "151,75",
+              "3"
+            ],
+            [
+              "Tiefebenenriese",
+              "500",
+              "133",
+              "25",
+              "158",
+              "4"
+            ],
+            [
+              "Eiserner Fürst des Stahles",
+              "400",
+              "166,25",
+              "0",
+              "166,25",
+              "3"
+            ],
+            [
+              "Finsterer Archivar der Algebra",
+              "350",
+              "66,5",
+              "25",
+              "91,5",
+              "4"
+            ]
+          ]
+        }
+      ],
+      "loesung": [
+        "Flederbestie: BLITZ 70 + 70 · 0,9 = 70 + 63 = 133 · 0,5 = 66,5; PHYSISCH 25 → Ø 91,5 SP (Min 77, Max 106) → 300 : 91,5 = 3,279 → 4 Treffer.",
+        "Eisgolem: BLITZ 70 + 70 · 0,9 = 70 + 63 = 133; PHYSISCH 25 · 0,5 = 12,5 → Ø 145,5 SP (Min 124, Max 167) → 300 : 145,5 = 2,062 → 3 Treffer.",
+        "Fluchritter: BLITZ 70 + 70 · 0,9 = 70 + 63 = 133; PHYSISCH 25 · 0,75 = 18,75 → Ø 151,75 SP (Min 129, Max 174,5) → 325 : 151,75 = 2,142 → 3 Treffer.",
+        "Tiefebenenriese: BLITZ 70 + 70 · 0,9 = 70 + 63 = 133; PHYSISCH 25 → Ø 158 SP (Min 134, Max 182) → 500 : 158 = 3,165 → 4 Treffer.",
+        "Eiserner Fürst des Stahles: BLITZ 70 + 70 · 0,9 = 70 + 63 = 133 · 1,25 = 166,25; PHYSISCH 25 · 0 = 0 → Ø 166,25 SP (Min 142,5, Max 190) → 400 : 166,25 = 2,406 → 3 Treffer.",
+        "Finsterer Archivar der Algebra: BLITZ 70 + 70 · 0,9 = 70 + 63 = 133 · 0,5 = 66,5; PHYSISCH 25 → Ø 91,5 SP (Min 77, Max 106) → 350 : 91,5 = 3,825 → 4 Treffer.",
+        "b) Mit 3 Runden schafft das Set (im Durchschnitt) nur: Eisgolem, Fluchritter, Eiserner Fürst des Stahles. Kritisch sind: Flederbestie, Tiefebenenriese, Finsterer Archivar der Algebra – bei ihnen sind BLITZ oder PHYSISCH gedämpft bzw. der Riese hat zu viele LP."
+      ]
+    },
+    {
+      "nr": 2,
+      "titel": "Zwei Sets für alle Monster",
+      "text": "Vorbereitung ist alles: baue zwei Sets (A und B), jeweils aus Waffe, Rüstung und Zaubergegenstand (Gegenstandskarten Stufe 1 und 2). Du darfst zwischen den Kämpfen das Set wechseln – aber nur komplett.\na) Berechne für beide Sets Min, Mittel und Max Schaden ohne Monster.\nb) Entscheide für jedes Monster, welches Set du einsetzt, und berechne den Schaden pro Treffer gegen dieses Monster. Fülle dafür die Tabelle auf Seite 3 aus.\nc) Prüfe, ob du es in 3 Runden besiegst: mit Pech (3 · Min), im Durchschnitt (3 · Mittel) oder nur mit Glück (3 · Max)?",
+      "zeilenAnz": {
+        "0": 2,
+        "1": 1,
+        "2": 2,
+        "3": 2
+      },
+      "schritte": [
+        0.5,
+        0.23,
+        0.43,
+        0.33
+      ],
+      "botDy": 0.12,
+      "setBoxen": [
+        "Set A",
+        "Set B"
+      ],
+      "tabellenNeueSeite": true,
+      "tabellenYExtra": 0.25,
+      "abstaende": {
+        "nachTabelle": 0.16
+      },
+      "tabellen": [
+        {
+          "kopf": [
+            "Monster",
+            "LP",
+            "Set",
+            "Min",
+            "Mittel",
+            "Max",
+            "3 · Min",
+            "3 · Mittel",
+            "3 · Max",
+            "Besiegt mit"
+          ],
+          "zeilen": [
+            [
+              "Flederbestie",
+              "300",
+              "",
+              "",
+              "",
+              "",
+              "",
+              "",
+              "",
+              ""
+            ],
+            [
+              "Eisgolem",
+              "300",
+              "",
+              "",
+              "",
+              "",
+              "",
+              "",
+              "",
+              ""
+            ],
+            [
+              "Fluchritter",
+              "325",
+              "",
+              "",
+              "",
+              "",
+              "",
+              "",
+              "",
+              ""
+            ],
+            [
+              "Tiefebenenriese",
+              "500",
+              "",
+              "",
+              "",
+              "",
+              "",
+              "",
+              "",
+              ""
+            ],
+            [
+              "Eiserner Fürst des Stahles",
+              "400",
+              "",
+              "",
+              "",
+              "",
+              "",
+              "",
+              "",
+              ""
+            ],
+            [
+              "Finsterer Archivar der Algebra",
+              "350",
+              "",
+              "",
+              "",
+              "",
+              "",
+              "",
+              "",
+              ""
+            ]
+          ],
+          "rowH": 0.491,
+          "kopfH": 0.327,
+          "gew": [
+            1.87,
+            0.56,
+            0.41,
+            0.5,
+            0.5,
+            0.5,
+            0.69,
+            0.69,
+            0.69,
+            0.87
+          ]
+        }
+      ],
+      "notizen": {
+        "titel": "Platz für Rechnungen gegen die Monster",
+        "zeilen": 7
+      },
+      "loesungBuilds": [
+        {
+          "titel": "Musterlösung Set A",
+          "slots": {
+            "waffe": "Verdammnissäher",
+            "ruestung": "Letzte Bastion",
+            "zauber": "Rote Bullentrinkflasche"
+          },
+          "modus": "voll",
+          "quellen": [
+            "PHYSISCH"
+          ],
+          "ruestung": true,
+          "besonderheiten": true,
+          "werte": {
+            "zeilen": {
+              "PHYSISCH": {
+                "basis": [
+                  "70",
+                  "85",
+                  "100"
+                ],
+                "mods": "+100 %",
+                "faktor": "2",
+                "schaden": [
+                  "140",
+                  "170",
+                  "200"
+                ],
+                "bonus": [
+                  "70",
+                  "85",
+                  "100"
+                ]
+              }
+            },
+            "gesamt": [
+              "140",
+              "170",
+              "200"
+            ]
+          },
+          "besonderheitenText": "Verursacht keinen ELEMENTARschaden",
+          "bonus": true,
+          "ohneIcon": false
+        },
+        {
+          "titel": "Musterlösung Set B",
+          "slots": {
+            "waffe": "Mjölnir",
+            "ruestung": "Königin des Waldes",
+            "zauber": "Feenstaub"
+          },
+          "modus": "voll",
+          "quellen": [
+            "BLITZ",
+            "PHYSISCH"
+          ],
+          "ruestung": true,
+          "besonderheiten": true,
+          "werte": {
+            "zeilen": {
+              "BLITZ": {
+                "basis": [
+                  "60",
+                  "70",
+                  "80"
+                ],
+                "mods": "+90 %",
+                "faktor": "1,9",
+                "schaden": [
+                  "114",
+                  "133",
+                  "152"
+                ],
+                "bonus": [
+                  "54",
+                  "63",
+                  "72"
+                ]
+              },
+              "PHYSISCH": {
+                "basis": [
+                  "20",
+                  "25",
+                  "30"
+                ],
+                "mods": "0 %",
+                "faktor": "1",
+                "schaden": [
+                  "20",
+                  "25",
+                  "30"
+                ],
+                "bonus": [
+                  "0",
+                  "0",
+                  "0"
+                ]
+              }
+            },
+            "gesamt": [
+              "134",
+              "158",
+              "182"
+            ]
+          },
+          "besonderheitenText": "",
+          "bonus": true,
+          "ohneIcon": false
+        }
+      ],
+      "loesungTabellen": [
+        {
+          "titel": "Musterlösung (Schaden pro Treffer gegen das jeweilige Monster)",
+          "kopf": [
+            "Monster",
+            "LP",
+            "Set",
+            "Min",
+            "Mittel",
+            "Max",
+            "3 · Min",
+            "3 · Mittel",
+            "3 · Max",
+            "Besiegt mit"
+          ],
+          "zeilen": [
+            [
+              "Flederbestie",
+              "300",
+              "A",
+              "140",
+              "170",
+              "200",
+              "420",
+              "510",
+              "600",
+              "Pech"
+            ],
+            [
+              "Eisgolem",
+              "300",
+              "B",
+              "124",
+              "145,5",
+              "167",
+              "372",
+              "436,5",
+              "501",
+              "Pech"
+            ],
+            [
+              "Fluchritter",
+              "325",
+              "B",
+              "129",
+              "151,75",
+              "174,5",
+              "387",
+              "455,25",
+              "523,5",
+              "Pech"
+            ],
+            [
+              "Tiefebenenriese",
+              "500",
+              "A",
+              "140",
+              "170",
+              "200",
+              "420",
+              "510",
+              "600",
+              "Ø"
+            ],
+            [
+              "Eiserner Fürst des Stahles",
+              "400",
+              "B",
+              "142,5",
+              "166,25",
+              "190",
+              "427,5",
+              "498,75",
+              "570",
+              "Pech"
+            ],
+            [
+              "Finsterer Archivar der Algebra",
+              "350",
+              "A",
+              "140",
+              "170",
+              "200",
+              "420",
+              "510",
+              "600",
+              "Pech"
+            ]
+          ]
+        }
+      ],
+      "loesung": [
+        "Es gibt viele richtige Lösungen. Von 324 vollständigen Sets (Waffe + Rüstung + Zaubergegenstand) gibt es Paare, die alle Monster in 3 Runden schaffen: im Durchschnitt 21 Paare, mit Pech 12 Paare, mit Glück 443 Paare.",
+        "Gezeigt wird das Set „Gewitter“ aus Aufgabe 1 zusammen mit einem PHYSISCH-Set (Set A) – damit wird jedes Monster zumindest im Durchschnitt in 3 Runden besiegt. Die Rechnung gegen ein Monster: jede Schadensart mit dem Faktor des Monsters multiplizieren (Widerstand 1 − p, Anfälligkeit 1 + p, Immunität 0), dann addieren."
+      ]
+    },
+    {
+      "nr": 3,
+      "titel": "Der Kampf: Held gegen Monster",
+      "yExtra": 0.16,
+      "titelGap": 0.06,
+      "schritte": {
+        "0": 0.54
+      },
+      "text": "Jetzt wird es Ernst. Du wagst dich in die Monsterhöhle und trittst ihnen leibhaftig gegenüber. Dabei entscheidet der Würfel über Glück und Pech. Die Tabellen auf der Rückseite können dir helfen, deine Kämpfe zu dokumentieren.",
+      "zeilenAnz": {
+        "0": 2
+      },
+      "regelKasten": {
+        "titel": "Kampfregeln",
+        "pt": 11,
+        "punkte": [
+          "Der Held wählt vor dem Kampf Set A oder Set B.",
+          "Jede Runde würfelt der Held einmal: 1–2 = Min, 3–4 = Mittel, 5–6 = Max. Den Schaden berechnet ihr mit dem Wert für dieses Monster aus Aufgabe 2.",
+          "Dieser Schaden wird von den LP des Monsters abgezogen. Ist das Monster nach höchstens 3 Runden bei 0 LP oder darunter, gewinnt der Held."
+        ]
+      },
+      "regelNachText": true,
+      "protokolle": {
+        "anzahl": 6,
+        "gitter": true,
+        "neueSeite": true
+      },
+      "loesung": [
+        "Das Ergebnis hängt von den Würfen ab. Kontrolle: Der Schaden pro Runde muss genau einem der drei Werte (Min, Mittel, Max) aus der Tabelle von Aufgabe 2 entsprechen, die LP sinken Runde für Runde um diesen Wert.",
+        "Zur Orientierung die Siegchancen der Musterlösung (jede Stufe hat beim W6 die Wahrscheinlichkeit 1/3):",
+        "Flederbestie (Set A): Pech 420, Ø 510, Glück 600 gegen 300 LP → besiegt in 3 Runden mit Wahrscheinlichkeit 100 % (27 von 27 Wurffolgen).",
+        "Eisgolem (Set B): Pech 372, Ø 436,5, Glück 501 gegen 300 LP → besiegt in 3 Runden mit Wahrscheinlichkeit 100 % (27 von 27 Wurffolgen).",
+        "Fluchritter (Set B): Pech 387, Ø 455,25, Glück 523,5 gegen 325 LP → besiegt in 3 Runden mit Wahrscheinlichkeit 100 % (27 von 27 Wurffolgen).",
+        "Tiefebenenriese (Set A): Pech 420, Ø 510, Glück 600 gegen 500 LP → besiegt in 3 Runden mit Wahrscheinlichkeit 63 % (17 von 27 Wurffolgen).",
+        "Eiserner Fürst des Stahles (Set B): Pech 427,5, Ø 498,75, Glück 570 gegen 400 LP → besiegt in 3 Runden mit Wahrscheinlichkeit 100 % (27 von 27 Wurffolgen).",
+        "Finsterer Archivar der Algebra (Set A): Pech 420, Ø 510, Glück 600 gegen 350 LP → besiegt in 3 Runden mit Wahrscheinlichkeit 100 % (27 von 27 Wurffolgen)."
+      ]
+    }
+  ],
+  "abstaende": {
+    "nachKurz": 0.16
+  }
+}

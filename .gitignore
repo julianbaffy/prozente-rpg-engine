@@ -1,0 +1,10 @@
+# Generierte Dateien (pptx, pdf)
+pptx/
+PDFs/
+*.pptx
+*.pdf
+
+# Node / macOS
+node_modules/
+.DS_Store
+~$*

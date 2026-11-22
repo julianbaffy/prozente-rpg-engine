@@ -1,0 +1,477 @@
+{
+  "einheit": 7,
+  "titel": "Duelle",
+  "untertitel": "Absolut oder prozentual?",
+  "einstieg": "Auf dem Turnierplatz von Zahlheim ruft Ritter Absalom den Besten der Stadt zum Duell. Er ist großzügig: Du darfst zwischen zwei Ausrüstungssets wählen – wenn du klug rechnest.",
+  "beispiel": {
+    "problem": "Ritter Absalom schenkt dir einen Gegenstand – du darfst wählen: Handschuhe mit +10 % Schaden oder einen Helm mit +5 Schaden (fester Betrag). Dein Schwert hat Grundschaden 40. Was ist besser? Und was, wenn dein Schwert Grundschaden 80 hätte?",
+    "tabelle": {
+      "kopf": [
+        "Grundschaden G",
+        "Handschuhe: G · 0,1",
+        "Neuer Schaden",
+        "Helm: G + 5",
+        "Neuer Schaden",
+        "Besser"
+      ],
+      "zeilen": [
+        [
+          "40",
+          "40 · 0,1 = 4",
+          "44",
+          "40 + 5",
+          "45",
+          "Helm"
+        ],
+        [
+          "80",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ]
+      ]
+    },
+    "loesungTabelle": {
+      "kopf": [
+        "Grundschaden G",
+        "Handschuhe: G · 0,1",
+        "Neuer Schaden",
+        "Helm: G + 5",
+        "Neuer Schaden",
+        "Besser"
+      ],
+      "zeilen": [
+        [
+          "40",
+          "40 · 0,1 = 4",
+          "44",
+          "40 + 5",
+          "45",
+          "Helm"
+        ],
+        [
+          "80",
+          "80 · 0,1 = 8",
+          "88",
+          "80 + 5",
+          "85",
+          "Handschuhe"
+        ]
+      ]
+    },
+    "loesungText": "Bei G = 80 sind es 8 SP – die Handschuhe gewinnen (88 gegen 85).",
+    "erkenntnis": [
+      "Bei G = 40 bringen 10 % nur 4 SP – der Helm gewinnt.",
+      "Bei G = 80 _______________________________________________________________________________"
+    ],
+    "erkGap": 0.09
+  },
+  "sicherung": {
+    "titel": "Merke: Absoluter oder prozentualer Bonus? (Ergänze die Sätze)",
+    "abstand": 0.24,
+    "luecken": [
+      {
+        "text": "Bei einem geringen Grundwert ist der Prozentwert ______________ als bei einem hohen Grundwert.",
+        "loesungen": [
+          "geringer"
+        ]
+      },
+      {
+        "text": "Bei einem hohen Grundwert ist der Prozentwert ______________ als bei einem geringen Grundwert.",
+        "loesungen": [
+          "höher"
+        ]
+      },
+      {
+        "text": "Ein fester Bonus (z. B. +5) ____________________ sich nicht, egal wie groß der Grundwert ist.",
+        "loesungen": [
+          "ändert"
+        ]
+      },
+      {
+        "text": "Ein prozentualer Bonus wird größer, wenn der Grundwert ___________________.",
+        "loesungen": [
+          "wächst / größer wird"
+        ]
+      },
+      {
+        "text": "Prozentuale Steigerung lohnt sich also bei einem _______________ Grundwert, ein fester Bonus bei einem ____________ Grundwert.",
+        "loesungen": [
+          "hohen",
+          "geringen"
+        ],
+        "zeilenabstand": 1.5
+      }
+    ]
+  },
+  "aufgaben": [
+    {
+      "nr": 1,
+      "titel": "Helm oder Handschuhe?",
+      "schritte": {
+        "0": 0.35
+      },
+      "text": "a) Entscheide für jede Waffe: {{Handschuhe (+10 %)}} oder {{Helm (+5)}}, was ist besser? Fülle die Tabelle aus.",
+      "tabellen": [
+        {
+          "kopf": [
+            "Waffe",
+            "Grundschaden G",
+            "Handschuhe: neuer Schaden",
+            "Helm: neuer Schaden",
+            "Besser"
+          ],
+          "zeilen": [
+            [
+              "Dolch",
+              "20",
+              "",
+              "",
+              ""
+            ],
+            [
+              "Rapier",
+              "30",
+              "",
+              "",
+              ""
+            ],
+            [
+              "Schwert",
+              "50",
+              "",
+              "",
+              ""
+            ],
+            [
+              "Streitaxt",
+              "70",
+              "",
+              "",
+              ""
+            ],
+            [
+              "Zweihänder",
+              "120",
+              "",
+              "",
+              ""
+            ]
+          ],
+          "pt": 10.5,
+          "kopfH": 0.333,
+          "rowH": 0.368,
+          "nachGap": 0.227
+        }
+      ],
+      "nachTabelleBlock": {
+        "zeilen": 3,
+        "hExtra": 0.16,
+        "gap": 0.23
+      },
+      "nachTabelle": [
+        "b) Zeichne in deinem Heft ein Diagramm: x-Achse: Grundschaden, y-Achse: neuer Schaden. Trage die Werte aus der Tabelle ein.",
+        "c) Beschreibe den Verlauf der Graphen. Ab welchem Grundschaden lohnen sich die Handschuhe?"
+      ],
+      "loesung": [
+        "a) Dolch (G = 20): Handschuhe 20 · 1,1 = 22; Helm 20 + 5 = 25 → Helm",
+        "Rapier (G = 30): Handschuhe 30 · 1,1 = 33; Helm 30 + 5 = 35 → Helm",
+        "Schwert (G = 50): Handschuhe 50 · 1,1 = 55; Helm 50 + 5 = 55 → gleich gut",
+        "Streitaxt (G = 70): Handschuhe 70 · 1,1 = 77; Helm 70 + 5 = 75 → Handschuhe",
+        "Zweihänder (G = 120): Handschuhe 120 · 1,1 = 132; Helm 120 + 5 = 125 → Handschuhe",
+        "b) Diagramm (x-Achse: Grundschaden, y-Achse: neuer Schaden). Handschuhe: Gerade durch den Nullpunkt: y=1,1 · x, Punkte (20 | 22), (30 | 33), (50 | 55), (70 | 77), (120 | 132). Helm: Gerade y = x + 5 (parallel zur Winkelhalbierenden), Punkte (20 | 25), (30 | 35), (50 | 55), (70 | 75), (120 | 125). Die beiden Geraden schneiden sich bei G = 50.",
+        "c) Beide Graphen steigen. Die Gerade der Handschuhe ist steiler (Steigung 1,1 gegenüber 1): Bis G = 50 liegt der Helm vorn, bei G = 50 sind beide gleich gut (55 SP), danach liegen die Handschuhe vorn und der Abstand wird immer größer (G = 120: 132 gegen 125). Schwellenwert: 5 : 0,1 = 50. Ab G > 50 lohnen sich die Handschuhe."
+      ]
+    },
+    {
+      "nr": 2,
+      "titel": "Absolut vs. prozentual",
+      "text": "a) Der Helm gibt +5 SP. Welchem Prozentsatz entspricht das bei Grundschaden 25, 40 bzw. 100? b) Handschuhe geben +15 %. Welchem festen Betrag entspricht das bei Grundschaden 60, 30 bzw. 200?",
+      "tabellen": [
+        {
+          "kopf": [
+            "a) Grundschaden G",
+            "5 SP entsprechen p = 5 : G"
+          ],
+          "zeilen": [
+            [
+              "25",
+              ""
+            ],
+            [
+              "40",
+              ""
+            ],
+            [
+              "100",
+              ""
+            ]
+          ],
+          "x": 2.15,
+          "w": 3.97,
+          "gew": [
+            1.625,
+            2.348
+          ],
+          "pt": 11,
+          "vorGap": 0.19,
+          "nachGap": 0.38
+        },
+        {
+          "kopf": [
+            "b) Grundschaden G",
+            "15 % von G"
+          ],
+          "zeilen": [
+            [
+              "60",
+              ""
+            ],
+            [
+              "30",
+              ""
+            ],
+            [
+              "200",
+              ""
+            ]
+          ],
+          "x": 2.15,
+          "w": 3.97,
+          "gew": [
+            1.636,
+            2.337
+          ],
+          "pt": 11
+        }
+      ],
+      "loesung": [
+        "a) G = 25: 5 : 25 = 0,2 = 20 %",
+        "a) G = 40: 5 : 40 = 0,125 = 12,5 %",
+        "a) G = 100: 5 : 100 = 0,05 = 5 %",
+        "b) G = 60: 60 · 0,15 = 9 SP",
+        "b) G = 30: 30 · 0,15 = 4,5 SP",
+        "b) G = 200: 200 · 0,15 = 30 SP"
+      ]
+    },
+    {
+      "nr": 3,
+      "neueSeite": true,
+      "einBlock": true,
+      "zeilenAnz": {
+        "0": 4
+      },
+      "titel": "Armband oder Ring?",
+      "text": "{{Armband des Feuers}} (5–20 FEUER zusätzlich) oder {{Ring der Glut}} (+20 % FEUER)? Das hängt von der Waffe ab. Entscheide für jede Waffe in der Tabelle, ob der Ring oder das Armband besser ist. Ab welchem Grundschaden lohnt sich der Ring? Rechne mit dem Mittelwert des Armbands.\nDie Werte aller Waffen, des Armbands und des Rings findest du in der Übersicht zu Einheit 7.",
+      "tabellen": [
+        {
+          "kopf": [
+            "Waffe",
+            "mit Armband",
+            "mit Ring",
+            "besser"
+          ],
+          "zeilen": [
+            [
+              "Glutdolch",
+              "",
+              "",
+              ""
+            ],
+            [
+              "Flammenschwert",
+              "",
+              "",
+              ""
+            ],
+            [
+              "Lavaklinge",
+              "",
+              "",
+              ""
+            ]
+          ],
+          "gew": [
+            2.356,
+            1.481,
+            2.221,
+            1.212
+          ],
+          "pt": 11
+        }
+      ],
+      "loesung": [
+        "Glutdolch: Armband 37,5 SP, Ring 30 SP → Armband des Feuers",
+        "Flammenschwert: Armband 50 SP, Ring 45 SP → Armband des Feuers",
+        "Lavaklinge: Armband 92,5 SP, Ring 96 SP → Ring der Glut",
+        "Schwelle: 12,5 : 0,2 = 62,5. Bei G > 62,5 lohnt sich der Ring."
+      ]
+    },
+    {
+      "nr": 4,
+      "titel": "Das Duell",
+      "abstaende": {
+        "nachRegeln": 0,
+        "nachTabelle": 0,
+        "nachNachdenken": 0.08
+      },
+      "einBlock": true,
+      "blockSp6": true,
+      "zeilenAnz": {
+        "0": 5
+      },
+      "blockExtra": 0.07,
+      "schritte": {
+        "0": 1.27
+      },
+      "tabelleVorRegeln": true,
+      "trenner": true,
+      "regelPt": 11,
+      "nachdenkenStil": {
+        "pt": 11,
+        "italic": true,
+        "gap": 0.05
+      },
+      "text": "Ritter Absalom der Unnachgiebige bietet dir zwei Sets an: Set A mit prozentualem Bonus, Set B mit festem Bonus. Berechne für beide Sets Minimum, Mittelwert und Maximum eines Treffers. Welches Set ist besser?\nWähle dann ein Set und tritt im Würfelduell gegen Absalom an.\nA Kälteset (anteilig): {{Eislanze}} + {{Fjordgreifer}}\nB Glutset (absolut): {{Flammenschwert}} + {{Handschuhe des Glutschmieds}}",
+      "tabellen": [
+        {
+          "kopf": [
+            "Set",
+            "Minimum",
+            "Mittelwert",
+            "Maximum"
+          ],
+          "zeilen": [
+            [
+              "Kälte",
+              "",
+              "",
+              ""
+            ],
+            [
+              "Glut",
+              "",
+              "",
+              ""
+            ]
+          ],
+          "x": 2.29,
+          "w": 3.7,
+          "gew": [
+            0.883,
+            0.937,
+            0.937,
+            0.937
+          ],
+          "pt": 10.5,
+          "kopfH": 0.28,
+          "rowH": 0.31,
+          "nachGap": 0.26
+        }
+      ],
+      "regeln": [
+        "Beide haben 200 LP. Du wählst zuerst ein Set, Absalom bekommt das andere.",
+        "Jede Runde würfeln beide einmal: 1–2 → Min, 3–4 → Mittel, 5–6 → Max. Du würfelst auch für Absalom.",
+        "Der Schaden wird gleichzeitig von den LP des anderen abgezogen.",
+        "Sobald jemand 0 LP oder weniger hat, endet das Duell. Wer weniger tief im Minus liegt, gewinnt (genau gleich: Rückkampf)."
+      ],
+      "tabellen2": [
+        {
+          "kopf": [
+            "Runde",
+            "Dein Wurf",
+            "Dein Schaden",
+            "LP Gegenüber",
+            "Gegenüber: Wurf",
+            "Gegenüber: Schaden",
+            "Deine LP"
+          ],
+          "zeilen": [
+            [
+              "1",
+              "",
+              "",
+              "",
+              "",
+              "",
+              ""
+            ],
+            [
+              "2",
+              "",
+              "",
+              "",
+              "",
+              "",
+              ""
+            ],
+            [
+              "3",
+              "",
+              "",
+              "",
+              "",
+              "",
+              ""
+            ],
+            [
+              "4",
+              "",
+              "",
+              "",
+              "",
+              "",
+              ""
+            ],
+            [
+              "5",
+              "",
+              "",
+              "",
+              "",
+              "",
+              ""
+            ],
+            [
+              "6",
+              "",
+              "",
+              "",
+              "",
+              "",
+              ""
+            ]
+          ],
+          "pt": 10,
+          "randFrei": true
+        }
+      ],
+      "nachdenken": [
+        "Hat das bessere Set gewonnen? War es Glück oder Pech?",
+        "Spielt das Duell 10-mal und sammelt die Ergebnisse der Klasse: Wie oft gewinnt Set A, wie oft Set B?"
+      ],
+      "loesung": [
+        "Set A – Kälte (prozentual): EIS: Grundschaden 35–45, Modifikatoren +10 % → Faktor 1,1 → 38,5–49,5 SP → Min 38,5 / Mittel 44 / Max 49,5",
+        "Set B – Glut (absolut): Flammenschwert 32,5–42,5 + Handschuhe 10 → Min 42,5 / Mittel 47,5 / Max 52,5",
+        "Begründung: Der Grundwert ist klein (40 bzw. 37,5), 10 % davon sind nur 4 SP – der feste Bonus von 10 SP ist mehr als doppelt so viel. Set B ist besser (Mittelwert 47,5 gegen 44). Schwellenwert für +10 %: 10 : 0,1 = 100 – erst über Grundschaden 100 wären Prozente besser.",
+        "Exakte Gewinnchancen bei 200 LP: Set A – Kälte (prozentual) 8,78 %, Set B – Glut (absolut) 91,2 % (unentschieden 0,03 %).",
+        "Das Duell dauert im Durchschnitt etwa 4,81 Runden. Das bessere Set gewinnt deutlich öfter, aber nicht immer."
+      ]
+    }
+  ],
+  "abstaende": {
+    "nachBeispiel": 0.16
+  },
+  "duell": {
+    "id": "d1",
+    "lp": 200,
+    "gewinnchance": {
+      "A": 0.0877745601110942,
+      "B": 0.9119544784839704,
+      "unentschieden": 0.00027096140493488457,
+      "erwarteteRunden": 4.814814814814833
+    }
+  }
+}
