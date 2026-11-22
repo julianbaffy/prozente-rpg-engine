@@ -40,6 +40,8 @@ const el = (tag, attrs = {}, ...kinder) => {
   for (const k of kinder.flat()) if (k !== null && k !== undefined && k !== false) e.append(k);
   return e;
 };
+/** Wie replaceChildren, überspringt aber null/false und glättet Arrays. */
+const fuellen = (ziel, ...kinder) => ziel.replaceChildren(...kinder.flat(Infinity).filter(k => k !== null && k !== undefined && k !== false));
 const zahl = x => rpg.fmt(Math.abs(x) < 1e-9 ? 0 : x);
 const prozent = p => (p >= 0 ? '+' : '−') + zahl(Math.abs(p)) + ' %';
 const faktorText = f => zahl(f);
@@ -170,7 +172,7 @@ function zeichneAuswahl() {
 
 /* ---------- Einstellungen ---------- */
 function umschalter(ziel, optionen, key) {
-  ziel.replaceChildren(...optionen.map(o => el('button', {
+  fuellen(ziel, ...optionen.map(o => el('button', {
     type: 'button', 'aria-pressed': String(zustand[key] === o.key), 'data-fokus': key + '-' + o.key,
     onclick: () => { zustand[key] = o.key; aktualisieren(); }
   }, o.titel, o.klein ? el('small', {}, o.klein) : null)));
@@ -187,14 +189,14 @@ function modZelle(q) {
   const teile = liste.map(m => el('div', {}, `${prozent(m.prozent)} `, el('span', { class: 'von' }, m.von)));
   if (liste.length > 1) teile.push(el('div', { class: 'summe' }, `= ${prozent(q.modifikatorSumme)}`));
   if (q.nachtraeglichFaktor) teile.push(el('div', { class: 'nachhall' }, `danach × ${faktorText(q.nachtraeglichFaktor)}`));
-  return el('td', { class: 'mods' }, teile.length ? teile : '–');
+  return el('td', { class: 'mods' }, teile.length ? el('div', { class: 'mods-liste' }, teile) : '–');
 }
 
 function zeichneErgebnis() {
   const ziel = $('#ergebnis');
   const b = build();
   if (!Object.keys(b).some(k => SLOTS.some(s => s.key === k))) {
-    ziel.replaceChildren(el('p', { class: 'hinweis' }, 'Wähle oben mindestens einen Gegenstand.'));
+    fuellen(ziel, el('p', { class: 'hinweis' }, 'Wähle oben mindestens einen Gegenstand.'));
     return;
   }
   const profil = rpg.profil(b);
@@ -213,7 +215,7 @@ function zeichneErgebnis() {
     el('th', { scope: 'col', rowspan: mehrere ? 2 : 1 }, 'Modifikatoren'),
     bonusSpalte ? wert('Bonus') : el('th', { scope: 'col', rowspan: mehrere ? 2 : 1 }, 'Faktor'),
     wert('Schaden'),
-    g ? el('th', { scope: 'col', rowspan: mehrere ? 2 : 1, class: 'gegner-spalte' }, g.name) : null,
+    g ? el('th', { scope: 'col', rowspan: mehrere ? 2 : 1, class: 'gegner-spalte' }, `Faktor ${g.name}`) : null,
     g ? wert('Treffer') : null);
   const kopf2 = mehrere ? el('tr', { class: 'unterkopf' },
     [0, 1, 2, 3].filter(i => (bonusSpalte || i !== 1) && (g || i !== 3)).flatMap(() => modi.map(m => el('th', { scope: 'col' }, m.titel)))) : null;
@@ -249,12 +251,16 @@ function zeichneErgebnis() {
     g ? el('td', { class: 'gegner-spalte' }) : null,
     g ? modi.map(m => el('td', { class: 'num treffer' }, zahl(treffer[m.treffer]) + ' SP')) : null);
 
-  ziel.replaceChildren(
-    el('div', { class: 'tabelle-rahmen' },
-      el('table', { class: 'werte' },
-        el('thead', {}, kopf1, kopf2),
-        el('tbody', {}, koerper.length ? koerper : el('tr', {}, el('td', { colspan: 99, class: 'hinweis' }, 'Diese Ausrüstung macht keinen Schaden.'))),
-        el('tfoot', {}, fuss))),
+  const tabelle = el('table', { class: 'werte' + (mehrere ? ' fest-links' : ' stapel') },
+    el('thead', {}, kopf1, kopf2),
+    el('tbody', {}, koerper.length ? koerper : el('tr', {}, el('td', { colspan: 99, class: 'hinweis' }, 'Diese Ausrüstung macht keinen Schaden.'))),
+    el('tfoot', {}, fuss));
+  if (!mehrere) {             // Beschriftungen für die Kartenansicht auf dem Handy
+    const titel = [...kopf1.children].map(th => th.textContent);
+    tabelle.querySelectorAll('tbody tr, tfoot tr').forEach(tr => [...tr.children].forEach((z, i) => { if (i > 0 && titel[i]) z.dataset.label = titel[i]; }));
+  }
+  fuellen(ziel, 
+    el('div', { class: 'tabelle-rahmen' }, tabelle),
     el('p', { class: 'erklaerung' }, bonusSpalte
       ? 'Bonus = Grundschaden · Modifikator; Schaden = Grundschaden + Bonus. Modifikatoren auf dieselbe Schadensart werden addiert.'
       : 'Schaden = Grundschaden · (1 + Summe der Modifikatoren). Modifikatoren auf dieselbe Schadensart werden addiert.'),
@@ -307,7 +313,8 @@ const svg = (tag, attrs = {}, ...kinder) => {
 /** Säulendiagramm über die Angriffe. werte = Zahlen je Angriff; opt.linie = waagerechte Linie { wert, text, klasse };
  *  opt.markiere = Index der hervorgehobenen Säule (Sieg). */
 function diagramm(zeilen, werte, opt = {}) {
-  const B = 640, H = 250, L = 52, R = 14, O = 16, U = 38;
+  const schmal = innerWidth < 600;                       // auf dem Handy schmaleres Koordinatensystem = größere Schrift
+  const B = schmal ? 380 : 640, H = schmal ? 230 : 250, L = 46, R = 10, O = 16, U = 38;
   const w = B - L - R, h = H - O - U, n = zeilen.length;
   const a = achse(Math.max(...werte, opt.linie ? opt.linie.wert : 0) * 1.05);
   const y = v => O + h - v / a.oben * h;
@@ -320,7 +327,7 @@ function diagramm(zeilen, werte, opt = {}) {
     x: L + i * breite + breite * 0.15, y: y(v), width: breite * 0.7, height: Math.max(0, O + h - y(v)),
     class: 'saeule' + (i === opt.markiere ? ' sieg' : '') + (opt.klasse ? ' ' + opt.klasse : '')
   }, svg('title', {}, `${zeilen[i].angriff}. Angriff: ${zahl(v)} SP`))));
-  const jede = Math.ceil(n / 15);
+  const jede = Math.ceil(n / (schmal ? 10 : 15));
   zeilen.forEach((z, i) => { if (i % jede === 0 || i === n - 1) teile.push(svg('text', { x: L + (i + 0.5) * breite, y: O + h + 16, 'text-anchor': 'middle', class: 'achse' }, String(z.angriff))); });
   teile.push(svg('text', { x: L + w / 2, y: H - 3, 'text-anchor': 'middle', class: 'achse titel' }, 'Angriff'));
   if (opt.linie) {
@@ -356,7 +363,7 @@ function zeichneVerlauf() {
       el('th', { scope: 'col' }, 'Schaden'),
       el('th', { scope: 'col' }, 'Zuwachs'),
       el('th', { scope: 'col' }, 'Summe'),
-      g ? el('th', { scope: 'col' }, `LP ${g.name}`) : null)),
+      g ? el('th', { scope: 'col', title: `verbleibende LP ${g.name}` }, 'Rest-LP') : null)),
     el('tbody', {}, zeilen.map((z, i) => el('tr', { class: z === sieg ? 'sieg' : null },
       el('th', { scope: 'row', class: 'num' }, String(z.angriff)),
       apr > 1 ? el('td', { class: 'num' }, String(z.runde)) : null,
@@ -365,7 +372,7 @@ function zeichneVerlauf() {
       el('td', { class: 'num' }, zahl(z.summe)),
       g ? el('td', { class: 'num' }, z.restLP === 0 ? '0 ✔' : zahl(z.restLP)) : null))));
 
-  $('#verlauf').replaceChildren(
+  fuellen($('#verlauf'), 
     el('p', {}, el('strong', {}, waffe.name), ': ', aufbauText(waffe.aufbau), apr > 1 ? ` ${apr} Angriffe pro Runde.` : '',
       ` Wurf: ${modus.titel}${zustand.modus === 'alle' ? ' (oben Min oder Max wählen)' : ''}.`),
     el('label', { class: 'anzahl' }, 'Angriffe: ', eingabe,
@@ -387,6 +394,26 @@ function zeichneVerlauf() {
       : 'Der Zuwachs ist bei jedem Angriff gleich groß (linear). Der Zähler beginnt in jedem Kampf neu.'));
 }
 
+/* ---------- Ergebnisleiste unten (bleibt beim Auswählen sichtbar) ---------- */
+function zeichneLeiste() {
+  const leiste = $('#leiste');
+  const b = build();
+  if (!SLOTS.some(s => b[s.key])) { leiste.hidden = true; return; }
+  const g = zustand.gegner ? rpg.gegner(zustand.gegner) : null;
+  const t = rpg.treffer(b, g);
+  const modi = aktiveModi();
+  const werte = modi.map(m => zahl(t[m.treffer])).join(' / ');
+  const teile = [el('span', {}, g ? `Treffer gegen ${g.name}` : 'Schaden', modi.length === 1 ? ` (${modi[0].titel})` : '', ': ', el('strong', {}, werte + ' SP'))];
+  if (g && b.waffe) {
+    const k = rpg.kampf(b, g, { modus: modi.length === 1 ? modi[0].treffer : 'avg' });
+    const vorsatz = modi.length === 1 ? '' : 'Mittel: ';
+    teile.push(el('span', {}, k.besiegt ? `${vorsatz}${k.angriffe} Treffer bis zum Sieg` : 'nicht zu besiegen'));
+  }
+  teile.push(el('a', { href: '#ergebnis-titel', onclick: ev => { ev.preventDefault(); $('#ergebnis-titel').scrollIntoView({ behavior: 'smooth' }); } }, 'Tabelle ↓'));
+  fuellen(leiste, ...teile);
+  leiste.hidden = false;
+}
+
 /* ---------- Ablauf ---------- */
 function aktualisieren() {
   const fokus = document.activeElement?.dataset?.fokus;      // Fokus nach dem Neuzeichnen wiederherstellen (Tastatur)
@@ -395,6 +422,7 @@ function aktualisieren() {
   zeichneAuswahl();
   zeichneErgebnis();
   zeichneVerlauf();
+  zeichneLeiste();
   if (fokus) document.querySelector(`[data-fokus="${fokus}"]`)?.focus({ preventScroll: true });
 }
 
@@ -417,6 +445,7 @@ async function start() {
     if (zustand.gegner && !sichtbar(rpg.gegner(zustand.gegner))) zustand.gegner = null;
     aktualisieren();
   });
+  matchMedia('(max-width: 599px)').addEventListener('change', zeichneVerlauf);   // Handy gedreht: Diagramm neu zeichnen
   ausAdresse();
   aktualisieren();
 }

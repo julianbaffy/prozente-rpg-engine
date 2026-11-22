@@ -10,7 +10,7 @@ Ausführliches Konzept: `KONZEPT.md` (Stufen 1–9, Regeln, Gegenstände, offene
 - `arbeitsblaetter.js` – erzeugt Inhalt der Arbeitsblätter (`einheit-N.md/.json` inkl. Lösungen)
 - `layout/` – Generatoren für pptx (`build-arbeitsblatt.js`, `build-karten.js`, `build-regeln.js`, `icons.js`, `make-assets.js`, `make-icons.js`, `kartentext.js`, `pergament-zu-ohne.py`, `loesungen-tauschen.py`), Bilder in `layout/assets/`
 - `pptx/`, `PDFs/` – generierte Dateien (nicht in Git, siehe `.gitignore`)
-- `web/` – (geplant) browserbasiertes Tool: Gegenstände wählen, Werte berechnen lassen
+- `web/` – browserbasiertes Tool (`index.html`, `app.js`, `style.css`): Gegenstände wählen, Werte berechnen lassen
 
 ## Befehle
 - `node test.js` – Engine-Tests (muss nach jeder Änderung an Engine/JSON grün sein)
@@ -46,11 +46,12 @@ Ausführliches Konzept: `KONZEPT.md` (Stufen 1–9, Regeln, Gegenstände, offene
 - Engine-Regel `nachtraeglich` (Helm des Nachhalls): +25 % wirken nach den addierten Modifikatoren multiplikativ auf eine wählbare Schadensart.
 - Handschuhe zählen als Rüstung, Ringe/Armbänder als Zaubergegenstände.
 
-## Web-Tool (geplant, `web/`)
+## Web-Tool (`web/`)
 Zweck: Julian und Schüler prüfen damit eigene Rechnungen (Gegenstände wählen, Werte werden berechnet). Es läuft nur online, Offline-Nutzung per Doppelklick ist nicht nötig.
 - Reines HTML/CSS/JavaScript, kein Framework, kein Build-Schritt, keine npm-Abhängigkeiten im Browser.
 - Der Browser lädt dieselbe `engine.js` wie Node (über `../engine.js`) und `gegenstaende.json` per `fetch`. Keine Kopien der Engine oder der Daten anlegen.
-- `engine.js` auf ES-Modul umstellen (`export`/`import`, `"type": "module"` in `package.json`), sodass Node und Browser sie gemeinsam nutzen. Alle Generatoren in `layout/`, `arbeitsblaetter.js` und `test.js` müssen danach weiter laufen (`node test.js` grün).
+- `engine.js` ist ein ES-Modul (`export`/`import`, `"type": "module"` in `package.json`) und wird von Node und Browser gemeinsam genutzt. Alle Generatoren in `layout/`, `arbeitsblaetter.js` und `test.js` nutzen `import`; JSON wird per `fs.readFileSync` gelesen.
+- `app.js` stellt nur dar; Zahlen kommen aus `profil()`, `treffer()`, `kampf()`, `schadenNachRunden()` und `verlauf()` der Engine. Der Zustand (Auswahl, Würfel, Rechenweg) steht in der Adresse (`#waffe=…&gegner=…`), Links lassen sich teilen.
 - Funktionen: Waffe/Rüstung/Zaubergegenstand wählen, Gegner wählen, Min/Mittel/Max, Aufbau/Zins-Verlauf, Gesamtschaden gegen einen Gegner.
 - Optik: Fantasy / Pen-and-Paper, passend zu den Arbeitsblättern; für Handy und Tablet im Klassenraum geeignet.
 - Lokal testen mit einem Server im Repo-Hauptordner (z. B. `npx serve .` oder `python3 -m http.server`), da Module und `fetch` nicht über `file://` laufen.
