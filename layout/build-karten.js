@@ -22,20 +22,6 @@ let CW = (PW - 2 * MX - (COLS - 1) * GAP) / COLS; const CW0 = CW;
 let SPALTEN = COLS;
 const ABSCHNITTE = [['waffe', 'Waffen'], ['zauber', 'Zaubergegenstände'], ['ruestung', 'Ausrüstung']];
 
-function modZeilen(it) {
-  const z = kt.absolutZeilen(it).flatMap(t => t.replace(' (Min', '\n(Min').split('\n')).concat((it.modifikatoren || []).map(m => m.auf !== undefined ? `Schaden AUF ${m.auf} %  (${m.quelle})`
-    : `${m.prozent >= 0 ? '+' : '−'}${Math.abs(m.prozent)} %  ${m.quelle}`));
-  (it.effekte || []).forEach(ef => {
-    if (ef.typ === 'umwandlung') z.push(`${ef.anteil} % jedes Grundschadens werden zu ${ef.nach}schaden`);
-    if (ef.typ === 'keinSchaden') z.push(`Verursacht keinen ${ef.quellen.join('- oder ')}schaden`);
-    if (ef.typ === 'nachtraeglich') z.push(`Nachträglich: Der fertig berechnete Schaden einer Schadensart deiner Wahl steigt noch einmal um ${ef.prozent} %`);
-    if (ef.typ === 'alleModifikatorenAuf') z.push(`Alle Modifikatoren wirken ${ef.faktor === 2 ? 'verdoppelt' : 'mal ' + ef.faktor} auf ${ef.nach}schaden`);
-  });
-  if (it.angriffeProRunde) z.push(`${it.angriffeProRunde} Angriff${it.angriffeProRunde > 1 ? 'e' : ''} pro Runde`);
-  if (it.aufbau) z.push(it.aufbau.art === 'zins' ? `Jeder Angriff: +${it.aufbau.prozent} % Schaden (Zinsen: ${it.aufbau.prozent} % vom Angriff davor)` : (it.aufbau.betrag !== undefined ? `Jeder Angriff: ${it.aufbau.betrag} SP mehr (fest)` : `Jeder Angriff: +${it.aufbau.prozent} % des Grundschadens (fest)`));
-  return z;
-}
-
 /* ---------- Layout: A4 quer, 3 Spalten, Zeilenhöhe richtet sich nach dem Inhalt ---------- */
 const FLOW_TOP = TOP, FLOW_BOT = BOT, HEAD_H = 0.42;
 let SQ = 0.9;
@@ -76,7 +62,7 @@ function bild(pres, slide, id, name, x, y) {
 
 /* Inhalt einer Gegenstandskarte: rechts neben dem Bild erst die Schadenstabelle, darunter die Modifikatoren; unten das Würfelband */
 function itemLayout(it) {
-  const mods = modZeilen(it);
+  const mods = kt.modZeilen(it);
   const tb = kt.tabelle(it), rows = tb.length ? tb.length + 1 : 0;
   const desc = (it.beschreibung && !tb.length && !kt.absolutZeilen(it).length) ? it.beschreibung : null;
   const lines = mods.reduce((n, m) => n + wrapLines(m, RCH), 0) + (desc ? wrapLines(desc, RCH + 2) : 0);
@@ -118,12 +104,8 @@ function karte(pres, slide, it, x, y, h, PLAIN) {
 }
 
 /* Gegnerkarte: links Bild, rechts LP + Eigenschaften (Widerstand / Immunität / Anfälligkeit) */
-const widerstandText = w => w.immun ? `Immun gegen ${w.quelle}schaden`
-  : w.auf !== undefined ? `Erleidet nur ${w.auf} % des ${w.quelle}schadens`
-  : `${w.prozent >= 0 ? '+' : '−'}${Math.abs(w.prozent)} % erlittener ${w.quelle}schaden`;
-const gegnerZeilen = g => g.beschreibung ? [g.beschreibung.replace(/\.$/, '')] : (g.widerstaende.length ? g.widerstaende.map(widerstandText) : ['Keine Widerstände']);
 function gegnerLayout(g) {
-  const zl = gegnerZeilen(g);
+  const zl = kt.gegnerZeilen(g);
   const lines = zl.reduce((n, t) => n + wrapLines(t, RCH), 0);
   const tH = lines * 0.15;
   return { zl, tH, h: IY + Math.max(SQ, 0.36 + 0.07 + tH) + 0.1 };
@@ -192,12 +174,12 @@ function gegnerGrossKarte(pres, slide, g, x, y, w, h, pic, PLAIN) {
   slide.addImage({ path: A('lp-verlauf.png'), x: px, y: py + pic - vh, w: pic, h: vh, altText: '' });
   slide.addShape(pres.ShapeType.rect, { x: px, y: py, w: pic, h: pic, fill: { type: 'none' }, line: { color: INK, width: 1.5 } });
   slide.addText(`Lebenspunkte: ${g.lp}`, { x: px, y: py + pic - 0.36, w: pic, h: 0.36, fontFace: HEAD, fontSize: 13, bold: true, color: 'FFFFFF', align: 'center', valign: 'middle', margin: 0, isTextBox: true });
-  const zl = gegnerZeilen(g);
+  const zl = kt.gegnerZeilen(g);
   slide.addText(zl.map((t, k) => ({ text: t, options: { breakLine: k < zl.length - 1 } })), { x: x + 0.15, y: py + pic + 0.08, w: w - 0.3, h: y + h - 0.12 - (py + pic + 0.08), fontFace: BODY, fontSize: 10.5, bold: true, color: INK, align: 'center', valign: 'middle', margin: 0, isTextBox: true, paraSpaceAfter: 2 });
 }
 const grossTextH = (items, w) => {
   const cpl = Math.floor((w - 0.3) * 72 / (10.5 * 0.47));
-  return Math.max(...items.map(g => gegnerZeilen(g).reduce((k, t) => k + wrapLines(t, cpl), 0))) * 0.17;
+  return Math.max(...items.map(g => kt.gegnerZeilen(g).reduce((k, t) => k + wrapLines(t, cpl), 0))) * 0.17;
 };
 const grossPic = (items, w, h) => Math.min(w - 0.3, h - (0.1 + 0.34 + 0.1) - 0.08 - grossTextH(items, w) - 0.14);
 function gegnerGross(pres, slide, items, PLAIN) {

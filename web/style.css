@@ -118,10 +118,16 @@ button.klein {
 select:focus-visible, input:focus-visible { box-shadow: var(--gold-innen); border-color: var(--gold); }
 summary:focus-visible { box-shadow: var(--gold-innen); }
 
-/* ---------- Auswahl: Abschnitte und Icon-Raster ---------- */
-.auswahl { display: grid; grid-template-columns: minmax(0, 1fr); gap: 0 16px; }
+/* ---------- Werkbank: links Auswahl, rechts „Deine Ausrüstung“ ---------- */
+.werkbank { display: grid; grid-template-columns: minmax(0, 1fr); gap: 0 16px; align-items: start; }
+@media (min-width: 900px) {
+  .werkbank { grid-template-columns: minmax(0, 1fr) minmax(360px, 420px); }
+  .ausruestung { position: sticky; top: 12px; max-height: calc(100vh - 88px); overflow-y: auto; }
+}
+.auswahl { display: grid; grid-template-columns: minmax(0, 1fr); }
 .auswahl > * { min-width: 0; }
-@media (min-width: 900px) { .auswahl { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); } .slot-gegner { grid-column: 1 / -1; } }
+
+/* ---------- Auswahl: Abschnitte und Icon-Raster (nur Bilder) ---------- */
 .slot { padding: 0 12px 12px; margin: 8px 0; }
 .slot > summary {
   display: flex; align-items: baseline; justify-content: space-between; gap: 12px;
@@ -136,55 +142,115 @@ summary:focus-visible { box-shadow: var(--gold-innen); }
 .slot-titel { font-weight: bold; font-size: 1.15rem; margin-right: auto; }
 .slot-wahl { color: var(--grau); font-style: italic; text-align: right; min-width: 0; overflow-wrap: anywhere; }
 
-.raster { display: grid; grid-template-columns: repeat(auto-fill, minmax(78px, 1fr)); gap: 8px; }
+.raster { display: grid; grid-template-columns: repeat(auto-fill, minmax(64px, 1fr)); gap: 8px; }
 .kachel {
   position: relative;
-  display: flex; flex-direction: column; align-items: center; gap: 4px;
-  padding: 6px 4px 7px;
+  aspect-ratio: 1;
+  padding: 4px;
   border: 1.5px solid var(--linie);
   border-radius: var(--radius);
   background: var(--papier);
   cursor: pointer;
-  transition: border-color 0.15s ease-out, background-color 0.15s ease-out;
+  transition: border-color 0.15s ease-out;
   touch-action: manipulation;
   user-select: none;
   -webkit-user-select: none;
+  -webkit-touch-callout: none;
 }
-.kachel img {
-  width: 100%; max-width: 64px; height: auto; aspect-ratio: 1;
-  border: 1px solid var(--tinte);
-  border-radius: 4px;
-  display: block;
-}
-.kachel-name { font-size: 0.74rem; line-height: 1.15; text-align: center; hyphens: auto; -webkit-hyphens: auto; overflow-wrap: anywhere; }
-.kachel-info { font-size: 0.66rem; color: var(--grau); }
+.kachel img { width: 100%; height: 100%; object-fit: cover; display: block; border: 1px solid var(--tinte); border-radius: 3px; pointer-events: none; }
 @media (hover: hover) { .kachel:hover { border-color: var(--tinte); } }
-.kachel:active { background: var(--creme); }
-.kachel[aria-pressed="true"] { border-color: var(--gold); background: var(--creme); box-shadow: var(--gold-innen); }
-.kachel[aria-pressed="true"] .kachel-name { font-weight: bold; }
+.kachel[aria-pressed="true"] { border-color: var(--gold); background: var(--gold-hell); }
+/* Gold, das nach innen scheint – als Schicht ÜBER dem Bild, damit man es auch auf dunklen Icons sieht */
+.kachel::before {
+  content: ""; position: absolute; inset: 4px; border-radius: 3px; pointer-events: none;
+  box-shadow: none; transition: box-shadow 0.15s ease-out; z-index: 1;
+}
+.kachel[aria-pressed="true"]::before, .kachel:focus-visible::before { box-shadow: var(--gold-innen); }
+.kachel:focus-visible { border-color: var(--gold); box-shadow: none; }
 .kachel[aria-pressed="true"]::after {              /* Häkchen: gewählt (unterscheidet Auswahl vom Tastatur-Fokus) */
   content: "✔";
-  position: absolute; top: 3px; right: 3px;
+  position: absolute; top: -6px; right: -6px; z-index: 2;
   width: 20px; height: 20px; border-radius: 50%;
   display: grid; place-items: center;
   font-size: 12px; line-height: 1;
   color: var(--tinte); background: var(--gold-hell);
   border: 1px solid var(--tinte);
 }
-.kachel:focus-visible { border-color: var(--gold); }
 
-.detail {
-  margin-top: 12px;
-  padding: 10px 12px;
-  background: var(--creme);
-  border-left: 4px solid var(--gold);
-  border-radius: 2px;
+/* ---------- Karten wie im Material ---------- */
+.karte {
+  --k-schrift: Calibri, Carlito, "Segoe UI", Candara, "Helvetica Neue", Arial, sans-serif;
+  background: var(--papier);
+  border: 3px solid var(--tinte);
+  outline: 1px solid var(--tinte);
+  outline-offset: -7px;
+  padding: 10px 10px 10px;
+  font-family: var(--k-schrift);
+  color: var(--tinte);
 }
-.detail-kopf { margin: 0 0 4px; }
-.detail ul { margin: 4px 0; padding-left: 1.2em; }
-.detail li::marker { content: "◆  "; color: var(--grau); font-size: 0.7em; }
-.detail-text { margin: 6px 0 0; font-style: italic; color: var(--grau); }
-.detail-wahl { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-top: 8px; }
+.karte-name {
+  margin: 0;
+  padding: 5px 8px;
+  background: var(--tinte);
+  color: #fff;
+  font-family: var(--schrift);
+  font-size: 1.2rem;
+  text-align: center;
+}
+.karte-typ { margin: 4px 0 6px; text-align: center; font-style: italic; color: var(--grau); font-size: 0.92rem; }
+.karte-inhalt { display: grid; grid-template-columns: 88px minmax(0, 1fr); gap: 10px; align-items: start; }
+.karte-bild { width: 88px; height: 88px; object-fit: cover; border: 1.5px solid var(--tinte); display: block; }
+.karte-rechts { min-width: 0; }
+.karte-tabelle { border-collapse: collapse; width: 100%; table-layout: fixed; font-size: 0.9rem; }
+.karte-tabelle th, .karte-tabelle td { border: 1px solid var(--tinte); padding: 2px 3px; overflow-wrap: anywhere; }
+.karte-tabelle th:first-child { width: 38%; }                 /* Spaltenbreiten wie auf den Karten: 38 / 17 / 25 / 20 % */
+.karte-tabelle thead th:nth-child(2):not(:last-child) { width: 17%; }
+.karte-tabelle thead th:nth-child(3) { width: 25%; }
+.karte-tabelle thead th { background: var(--sand); font-weight: bold; text-align: center; font-size: 0.88em; overflow-wrap: normal; }
+.karte-tabelle tbody th { font-weight: normal; text-align: left; font-size: 0.85em; }
+.karte-tabelle td { text-align: center; font-variant-numeric: tabular-nums; }
+.karte-mods { list-style: none; margin: 8px 0 0; padding: 0; font-weight: bold; font-size: 0.95rem; line-height: 1.3; }
+.karte-mods li + li { margin-top: 3px; }
+.karte-tabelle + .karte-mods { margin-top: 10px; }
+.karte-text { margin: 6px 0 0; font-style: italic; font-size: 0.92rem; }
+.karte-lp { margin: 0; padding: 6px 8px; background: var(--sand); border: 1px solid var(--tinte); text-align: center; font-family: var(--schrift); font-weight: bold; }
+.karte-wuerfel { margin: 10px 0 0; padding: 4px 6px; background: var(--sand); border: 1px solid var(--tinte); text-align: center; font-weight: bold; font-size: 0.9rem; }
+.karte-wahl { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; margin-top: 8px; font-size: 0.92rem; }
+
+/* Karte beim Zeigen/Tippen */
+.karte-pop {
+  position: fixed; z-index: 20;
+  width: min(380px, calc(100vw - 16px));
+  pointer-events: none;
+  filter: drop-shadow(0 6px 14px rgba(46, 33, 20, 0.35));
+  animation: auftauchen 0.12s ease-out;
+}
+.karte-pop[hidden] { display: none; }
+@keyframes auftauchen { from { opacity: 0; transform: translateY(3px); } }
+
+/* „Deine Ausrüstung“: Karten untereinander */
+.ausruestung {
+  background: rgba(255, 253, 246, 0.82);
+  border: 2px solid var(--tinte);
+  outline: 1px solid var(--tinte);
+  outline-offset: -6px;
+  margin: 8px 0 16px;
+  padding: 12px 14px 14px;
+}
+.ausruestung h2 { margin: 2px 0 10px; text-align: center; font-size: 1.25rem; }
+.ausruestung h2::after { content: ""; display: block; height: 12px; margin: 5px auto 0; max-width: 300px; background: url("../layout/assets/trenner.png") center / contain no-repeat; }
+.platz { position: relative; margin: 0 0 12px; }
+.platz:last-child { margin-bottom: 0; }
+.platz-titel { display: block; font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--grau); margin: 0 0 3px 2px; }
+.platz-gegner { margin-top: 18px; padding-top: 12px; border-top: 1.5px dashed var(--grau); }
+.karte-leer { margin: 0; padding: 12px; border: 1.5px dashed var(--grau); text-align: center; font-style: italic; color: var(--grau); }
+.ablegen {
+  position: absolute; top: -4px; right: 0;
+  min-width: 32px; min-height: 28px;
+  border: 1px solid var(--linie); border-radius: var(--radius);
+  background: var(--papier); color: var(--grau); cursor: pointer; font-size: 0.85rem;
+}
+@media (hover: hover) { .ablegen:hover { border-color: var(--tinte); color: var(--tinte); } }
 
 /* ---------- Tabellen ---------- */
 .tabelle-rahmen { overflow-x: auto; -webkit-overflow-scrolling: touch; margin: 0 -4px; padding: 0 4px; }
@@ -266,7 +332,11 @@ td.nicht { color: var(--rot); font-style: italic; }
   .einstellungen { padding: 12px 10px; }
   .ergebnis, .verlauf { padding: 12px 8px 14px; }
   .slot { padding: 0 8px 10px; }
-  .raster { grid-template-columns: repeat(auto-fill, minmax(72px, 1fr)); gap: 6px; }
+  .raster { grid-template-columns: repeat(auto-fill, minmax(58px, 1fr)); gap: 6px; }
+  .ausruestung { padding: 10px 8px 12px; }
+  .karte-inhalt { grid-template-columns: 76px minmax(0, 1fr); }
+  .karte-bild { width: 76px; height: 76px; }
+  .karte-wuerfel { font-size: 0.78rem; padding: 4px 2px; }
   table.werte { font-size: 0.88rem; }
   table.werte th, table.werte td { padding: 5px 6px; }
 }
@@ -294,5 +364,5 @@ td.nicht { color: var(--rot); font-style: italic; }
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
 @media print {
   body { background: none; padding: 0; }
-  .einstellungen, .auswahl, .leiste { display: none; }
+  .einstellungen, .auswahl, .leiste, .karte-pop, .ablegen { display: none; }
 }

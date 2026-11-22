@@ -2,6 +2,7 @@
  * Alle Zahlen kommen aus der Rechenmaschine (../engine.js) und den Daten (../gegenstaende.json).
  * Hier wird nur dargestellt, nicht gerechnet (außer Bonus = Schaden − Grundschaden und Summen). */
 import { erzeuge } from '../engine.js';
+import * as kt from '../layout/kartentext.js';   // dieselben Kartentexte wie die gedruckten Gegenstandskarten
 
 const ICONS = '../layout/assets/icons-klein/';
 const SLOTS = [
@@ -69,74 +70,99 @@ function inAdresse() {
   history.replaceState(null, '', '#' + p.toString());
 }
 
-/* ---------- Texte zu Gegenständen ---------- */
-function schadenText(s) {
-  if (s.min === s.max) return `${zahl(s.min)} ${s.quelle}schaden (fest)`;
-  return `${zahl(s.min)} / ${zahl(s.mittel ?? (s.min + s.max) / 2)} / ${zahl(s.max)} ${s.quelle}schaden`;
-}
-function modText(m) {
-  if (m.auf !== undefined) return `${m.quelle}schaden auf ${zahl(m.auf)} %`;
-  return `${prozent(m.prozent)} ${m.quelle}schaden`;
-}
-function effektText(e) {
-  switch (e.typ) {
-    case 'umwandlung': return `${zahl(e.anteil)} % jedes anderen Grundschadens wird zu ${e.nach}schaden.`;
-    case 'keinSchaden': return `Verursacht keinen ${e.quellen.map(q => q + 'schaden').join(' und keinen ')}.`;
-    case 'alleModifikatorenAuf': return `Alle Modifikatoren werden ×${zahl(e.faktor)} genommen und wirken auf ${e.nach}schaden.`;
-    case 'nachtraeglich': return `Danach wird eine Schadensart noch einmal um ${zahl(e.prozent)} % gesteigert (multipliziert).`;
-    default: return e.typ;
-  }
-}
+/* ---------- Texte ---------- */
 function aufbauText(a) {
   if (a.art === 'zins') return `Jeder Angriff macht ${zahl(a.prozent)} % mehr Schaden als der vorherige.`;
   if (a.art === 'linear') return a.betrag !== undefined ? `Jeder Angriff macht ${zahl(a.betrag)} SP mehr als der vorherige.` : `Jeder Angriff macht ${zahl(a.prozent)} % des ersten Angriffs mehr.`;
   return '';
 }
 
-/** Widerstand eines Gegners als Text, z. B. „PHYSISCH −50 % (× 0,5)“. */
-function widerstandText(w) {
-  if (w.immun) return `${w.quelle}: immun (× 0)`;
-  const p = w.auf !== undefined ? w.auf - 100 : w.prozent;
-  const art = p < 0 ? 'Widerstand' : 'Anfälligkeit';
-  return w.auf !== undefined
-    ? `${w.quelle}: erleidet nur ${zahl(w.auf)} % (× ${zahl(w.auf / 100)}) – ${art}`
-    : `${w.quelle}: ${prozent(p)} (× ${zahl(1 + p / 100)}) – ${art}`;
+/* ---------- Karten wie im Material (Texte aus layout/kartentext.js, wie die gedruckten Karten) ---------- */
+function bildKarte(id, name) {
+  return el('img', { class: 'karte-bild', src: ICONS + id + '.jpg', alt: name, width: 300, height: 300 });
 }
-
-/* ---------- Auswahl (Grid mit Icons) ---------- */
-function kachel(item, gewaehlt, onclick) {
-  return el('button', { type: 'button', class: 'kachel', 'aria-pressed': String(gewaehlt), title: item.name, 'data-fokus': 'k-' + item.id, onclick },
-    el('img', { src: ICONS + item.id + '.jpg', alt: '', loading: 'lazy', width: 300, height: 300 }),
-    el('span', { class: 'kachel-name' }, item.name),
-    item.lp !== undefined ? el('span', { class: 'kachel-info' }, `${zahl(item.lp)} LP`) : el('span', { class: 'kachel-info' }, `Stufe ${item.stufe}`));
+function karteRahmen(name, typ, inhalt, fuss) {
+  return el('article', { class: 'karte' },
+    el('h3', { class: 'karte-name' }, name),
+    el('p', { class: 'karte-typ' }, typ),
+    el('div', { class: 'karte-inhalt' }, inhalt),
+    fuss);
 }
-
-function detailKarte(item) {
-  const zeilen = [];
-  (item.schaden || []).forEach(s => zeilen.push(el('li', {}, (item.slot === 'waffe' ? '' : '+ ') + schadenText(s))));
-  (item.modifikatoren || []).forEach(m => zeilen.push(el('li', {}, modText(m))));
-  (item.effekte || []).forEach(e => zeilen.push(el('li', {}, effektText(e))));
-  if (item.angriffeProRunde > 1) zeilen.push(el('li', {}, `${item.angriffeProRunde} Angriffe pro Runde`));
-  if (item.aufbau) zeilen.push(el('li', {}, aufbauText(item.aufbau)));
-  const karte = el('div', { class: 'detail' },
-    el('p', { class: 'detail-kopf' }, el('strong', {}, item.name), ` · ${item.typ} · Stufe ${item.stufe}`),
-    zeilen.length ? el('ul', {}, zeilen) : null,
-    item.beschreibung ? el('p', { class: 'detail-text' }, item.beschreibung) : null);
-  if ((item.effekte || []).some(e => e.typ === 'nachtraeglich')) {
-    const sel = el('select', { onchange: ev => { zustand.nachtraeglichAuf = ev.target.value; aktualisieren(); } },
-      el('option', { value: '' }, 'automatisch (höchster Mittelwert)'),
-      daten.quellen.map(q => el('option', { value: q, selected: zustand.nachtraeglichAuf === q }, q)));
-    karte.append(el('label', { class: 'detail-wahl' }, 'Nachhall wirkt auf ', sel));
+/** Gegenstandskarte: Bild, Schadenstabelle (nur Waffen), fett die Modifikatoren/Effekte, unten das Würfelband. */
+function gegenstandKarte(it, extra = null) {
+  const tb = kt.tabelle(it);
+  let tabelle = null;
+  if (tb.length) {
+    const fest = kt.alleFest(tb);
+    const kopf = fest ? ['Schadensart', kt.KOPF_FEST] : ['Schadensart', 'Min', 'Mittel', 'Max'];
+    tabelle = el('table', { class: 'karte-tabelle' },
+      el('thead', {}, el('tr', {}, kopf.map(k => el('th', { scope: 'col' }, k)))),
+      el('tbody', {}, tb.map(z => el('tr', {}, el('th', { scope: 'row' }, z.quelle),
+        (fest ? [z.mittel] : [z.min, z.mittel, z.max]).map(v => el('td', {}, zahl(v)))))));
   }
-  return karte;
+  const mods = kt.modZeilen(it);
+  const beschreibung = it.beschreibung && !tb.length && !kt.absolutZeilen(it).length ? it.beschreibung : null;
+  return karteRahmen(it.name, it.typ, [
+    bildKarte(it.id, it.name),
+    el('div', { class: 'karte-rechts' }, tabelle,
+      mods.length ? el('ul', { class: 'karte-mods' }, mods.map(m => el('li', {}, m))) : null,
+      beschreibung ? el('p', { class: 'karte-text' }, beschreibung) : null,
+      extra)
+  ], kt.hatWuerfel(it) ? el('p', { class: 'karte-wuerfel' }, 'Würfel:  1–2 = Min ·  3–4 = Mittel ·  5–6 = Max') : null);
+}
+/** Gegnerkarte: Bild, Lebenspunkte, Eigenschaften. */
+function gegnerKarte(g) {
+  return karteRahmen(g.name, 'Gegner', [
+    bildKarte(g.id, g.name),
+    el('div', { class: 'karte-rechts' },
+      el('p', { class: 'karte-lp' }, `Lebenspunkte (LP): ${zahl(g.lp)}`),
+      el('ul', { class: 'karte-mods' }, kt.gegnerZeilen(g).map(z => el('li', {}, z))))
+  ], null);
+}
+const karteVon = id => (daten.gegner.some(g => g.id === id) ? gegnerKarte(rpg.gegner(id)) : gegenstandKarte(rpg.item(id)));
+
+/* ---------- Karte beim Zeigen (Maus), Tippen (Touch) oder Tastatur-Fokus ---------- */
+const pop = { el: null, id: null, fest: false, zeiger: 'mouse' };
+function zeigeKarte(id, anker, fest = false) {
+  if (!anker) return versteckeKarte(true);
+  if (pop.id !== id) fuellen(pop.el, karteVon(id));
+  pop.id = id; pop.fest = fest;
+  pop.el.hidden = false;
+  const r = anker.getBoundingClientRect(), b = pop.el.offsetWidth, h = pop.el.offsetHeight, rand = 8;
+  const unten = r.bottom + 8 + h <= innerHeight - rand || r.top - 8 - h < rand;
+  let y = unten ? r.bottom + 8 : r.top - 8 - h;
+  y = Math.max(rand, Math.min(y, innerHeight - h - rand));
+  const x = Math.max(rand, Math.min(r.left + r.width / 2 - b / 2, innerWidth - b - rand));
+  pop.el.style.left = x + 'px'; pop.el.style.top = y + 'px';
+}
+function versteckeKarte(auchFest = false) {
+  if (pop.fest && !auchFest) return;
+  pop.el.hidden = true; pop.id = null; pop.fest = false;
 }
 
-function gegnerKarte(g) {
-  const w = g.widerstaende || [];
-  return el('div', { class: 'detail' },
-    el('p', { class: 'detail-kopf' }, el('strong', {}, g.name), ` · ${zahl(g.lp)} LP · Stufe ${g.stufe}`),
-    el('ul', {}, w.length ? w.map(x => el('li', {}, widerstandText(x))) : el('li', {}, 'Keine Widerstände oder Anfälligkeiten.')),
-    g.beschreibung ? el('p', { class: 'detail-text' }, g.beschreibung) : null);
+/* ---------- Auswahl: nur Icons ---------- */
+function kachel(item, gewaehlt, onwahl) {
+  const id = item.id;
+  return el('button', {
+    type: 'button', class: 'kachel', 'aria-pressed': String(gewaehlt), 'aria-label': item.name, 'data-fokus': 'k-' + id, 'data-id': id,
+    onpointerdown: ev => { pop.zeiger = ev.pointerType; },
+    onpointerenter: ev => { if (ev.pointerType === 'mouse') zeigeKarte(id, ev.currentTarget); },
+    onpointerleave: ev => { if (ev.pointerType === 'mouse') versteckeKarte(); },
+    onfocus: ev => { if (ev.currentTarget.matches(':focus-visible')) zeigeKarte(id, ev.currentTarget); },
+    onblur: () => { if (!pop.fest) versteckeKarte(); },
+    onclick: () => {
+      const touch = pop.zeiger === 'touch' || pop.zeiger === 'pen';
+      onwahl();
+      // Nach dem Neuzeichnen: auf Touch-Geräten bleibt die Karte des getippten Icons stehen, bis woanders getippt wird
+      if (touch) zeigeKarte(id, document.querySelector(`[data-fokus="k-${id}"]`), true);
+    }
+  }, el('img', { src: ICONS + id + '.jpg', alt: '', loading: 'lazy', width: 300, height: 300, draggable: 'false' }));
+}
+
+function abschnitt(key, titel, wahlText, inhalt, klasse = '') {
+  return el('details', { class: 'slot ' + klasse, open: !zu.has(key), ontoggle: ev => { if (ev.target.open) zu.delete(key); else zu.add(key); } },
+    el('summary', {}, el('span', { class: 'slot-titel' }, titel), el('span', { class: 'slot-wahl' }, wahlText)),
+    inhalt);
 }
 
 function zeichneAuswahl() {
@@ -145,29 +171,49 @@ function zeichneAuswahl() {
   SLOTS.forEach(s => {
     const items = daten.gegenstaende.filter(i => i.slot === s.key && sichtbar(i));
     const gewaehlt = zustand[s.key] ? rpg.item(zustand[s.key]) : null;
-    const gruppe = el('div', { class: 'raster', role: 'group', 'aria-label': s.titel },
-      items.map(i => kachel(i, i.id === zustand[s.key], () => {
-        zustand[s.key] = zustand[s.key] === i.id ? null : i.id;      // nochmal tippen = abwählen
-        if (s.key === 'ruestung') zustand.nachtraeglichAuf = '';
-        aktualisieren();
-      })));
-    ziel.append(el('details', { class: 'slot', open: !zu.has(s.key), ontoggle: ev => { if (ev.target.open) zu.delete(s.key); else zu.add(s.key); } },
-      el('summary', {}, el('span', { class: 'slot-titel' }, s.titel), el('span', { class: 'slot-wahl' }, gewaehlt ? gewaehlt.name : '– nichts gewählt –')),
-      items.length ? gruppe : el('p', { class: 'hinweis' }, 'Auf dieser Stufe gibt es noch keine Gegenstände hier.'),
-      gewaehlt ? detailKarte(gewaehlt) : null));
+    ziel.append(abschnitt(s.key, s.titel, gewaehlt ? gewaehlt.name : '– nichts gewählt –',
+      items.length
+        ? el('div', { class: 'raster', role: 'group', 'aria-label': s.titel }, items.map(i => kachel(i, i.id === zustand[s.key], () => {
+          zustand[s.key] = zustand[s.key] === i.id ? null : i.id;      // nochmal tippen = abwählen
+          if (s.key === 'ruestung') zustand.nachtraeglichAuf = '';
+          aktualisieren();
+        })))
+        : el('p', { class: 'hinweis' }, 'Auf dieser Stufe gibt es hier noch keine Gegenstände.')));
   });
-  // Gegner
   const gegner = daten.gegner.filter(sichtbar);
-  const gewaehlt = zustand.gegner ? rpg.gegner(zustand.gegner) : null;
-  ziel.append(el('details', { class: 'slot slot-gegner', open: !zu.has('gegner'), ontoggle: ev => { if (ev.target.open) zu.delete('gegner'); else zu.add('gegner'); } },
-    el('summary', {}, el('span', { class: 'slot-titel' }, 'Gegner'), el('span', { class: 'slot-wahl' }, gewaehlt ? gewaehlt.name : '– ohne Gegner –')),
+  const g = zustand.gegner ? rpg.gegner(zustand.gegner) : null;
+  ziel.append(abschnitt('gegner', 'Gegner', g ? g.name : '– ohne Gegner –',
     gegner.length
-      ? el('div', { class: 'raster', role: 'group', 'aria-label': 'Gegner' }, gegner.map(g => kachel(g, g.id === zustand.gegner, () => {
-        zustand.gegner = zustand.gegner === g.id ? null : g.id;
+      ? el('div', { class: 'raster', role: 'group', 'aria-label': 'Gegner' }, gegner.map(x => kachel(x, x.id === zustand.gegner, () => {
+        zustand.gegner = zustand.gegner === x.id ? null : x.id;
         aktualisieren();
       })))
-      : el('p', { class: 'hinweis' }, 'Gegner gibt es ab Stufe 3.'),
-    gewaehlt ? gegnerKarte(gewaehlt) : null));
+      : el('p', { class: 'hinweis' }, 'Gegner gibt es ab Stufe 3.'), 'slot-gegner'));
+}
+
+/* ---------- Ausrüstung: die gewählten Karten untereinander ---------- */
+function ablegen(titel, onclick) {
+  return el('button', { type: 'button', class: 'ablegen', 'aria-label': titel + ' ablegen', title: 'ablegen', 'data-fokus': 'ab-' + titel, onclick }, '✕');
+}
+function zeichneAusruestung() {
+  const teile = SLOTS.map(s => {
+    const it = zustand[s.key] ? rpg.item(zustand[s.key]) : null;
+    if (!it) return el('div', { class: 'platz leer' }, el('span', { class: 'platz-titel' }, s.titel), el('p', { class: 'karte-leer' }, `${s.key === 'zauber' ? 'Kein' : 'Keine'} ${s.titel} gewählt`));
+    let extra = null;
+    if ((it.effekte || []).some(e => e.typ === 'nachtraeglich')) {
+      const sel = el('select', { 'data-fokus': 'nachhall', onchange: ev => { zustand.nachtraeglichAuf = ev.target.value; aktualisieren(); } },
+        el('option', { value: '' }, 'automatisch (höchster Mittelwert)'),
+        daten.quellen.map(q => el('option', { value: q, selected: zustand.nachtraeglichAuf === q }, q)));
+      extra = el('label', { class: 'karte-wahl' }, 'Nachhall wirkt auf ', sel);
+    }
+    return el('div', { class: 'platz' }, el('span', { class: 'platz-titel' }, s.titel),
+      ablegen(s.titel, () => { zustand[s.key] = null; if (s.key === 'ruestung') zustand.nachtraeglichAuf = ''; aktualisieren(); }),
+      gegenstandKarte(it, extra));
+  });
+  const g = zustand.gegner ? rpg.gegner(zustand.gegner) : null;
+  if (g) teile.push(el('div', { class: 'platz platz-gegner' }, el('span', { class: 'platz-titel' }, 'Gegner'),
+    ablegen('Gegner', () => { zustand.gegner = null; aktualisieren(); }), gegnerKarte(g)));
+  fuellen($('#ausruestung-karten'), teile);
 }
 
 /* ---------- Einstellungen ---------- */
@@ -420,10 +466,15 @@ function aktualisieren() {
   inAdresse();
   zeichneEinstellungen();
   zeichneAuswahl();
+  zeichneAusruestung();
   zeichneErgebnis();
   zeichneVerlauf();
   zeichneLeiste();
   if (fokus) document.querySelector(`[data-fokus="${fokus}"]`)?.focus({ preventScroll: true });
+  if (pop.id) {                 // offene Karte an das neu gezeichnete Icon hängen
+    const anker = document.querySelector(`.kachel[data-id="${pop.id}"]`);
+    if (anker) zeigeKarte(pop.id, anker, pop.fest); else versteckeKarte(true);
+  }
 }
 
 async function start() {
@@ -445,6 +496,11 @@ async function start() {
     if (zustand.gegner && !sichtbar(rpg.gegner(zustand.gegner))) zustand.gegner = null;
     aktualisieren();
   });
+  pop.el = $('#karte-pop');
+  document.addEventListener('pointerdown', ev => { if (!ev.target.closest('.kachel, #karte-pop')) versteckeKarte(true); });
+  document.addEventListener('keydown', ev => { if (ev.key === 'Escape') versteckeKarte(true); });
+  addEventListener('scroll', () => versteckeKarte(true), { passive: true });
+  addEventListener('resize', () => versteckeKarte(true));
   matchMedia('(max-width: 599px)').addEventListener('change', zeichneVerlauf);   // Handy gedreht: Diagramm neu zeichnen
   ausAdresse();
   aktualisieren();

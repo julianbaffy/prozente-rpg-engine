@@ -51,6 +51,7 @@ Zweck: Julian und Schüler prüfen damit eigene Rechnungen (Gegenstände wählen
 - Reines HTML/CSS/JavaScript, kein Framework, kein Build-Schritt, keine npm-Abhängigkeiten im Browser.
 - Der Browser lädt dieselbe `engine.js` wie Node (über `../engine.js`) und `gegenstaende.json` per `fetch`. Keine Kopien der Engine oder der Daten anlegen.
 - `engine.js` ist ein ES-Modul (`export`/`import`, `"type": "module"` in `package.json`) und wird von Node und Browser gemeinsam genutzt. Alle Generatoren in `layout/`, `arbeitsblaetter.js` und `test.js` nutzen `import`; JSON wird per `fs.readFileSync` gelesen.
+- Gegenstände und Gegner erscheinen nur als Icon; beim Zeigen (Maus), Tippen (Touch) oder Tastatur-Fokus erscheint die Karte wie im Material. „Deine Ausrüstung“ zeigt die Karten von Waffe, Rüstung, Zaubergegenstand (und Gegner) untereinander. Die Kartentexte (`modZeilen`, `gegnerZeilen`) stehen in `layout/kartentext.js` und werden von `build-karten.js` und `web/app.js` gemeinsam genutzt.
 - `app.js` stellt nur dar; Zahlen kommen aus `profil()`, `treffer()`, `kampf()`, `schadenNachRunden()` und `verlauf()` der Engine. Der Zustand (Auswahl, Würfel, Rechenweg) steht in der Adresse (`#waffe=…&gegner=…`), Links lassen sich teilen.
 - Funktionen: Waffe/Rüstung/Zaubergegenstand wählen, Gegner wählen, Min/Mittel/Max, Aufbau/Zins-Verlauf, Gesamtschaden gegen einen Gegner.
 - Optik: Fantasy / Pen-and-Paper, passend zu den Arbeitsblättern; für Handy und Tablet im Klassenraum geeignet.

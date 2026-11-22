@@ -25,7 +25,13 @@
       <div class="umschalter" role="group" aria-label="Rechenweg" id="rechenweg"></div>
     </section>
 
-    <section class="auswahl" id="auswahl" aria-label="Ausrüstung wählen"></section>
+    <div class="werkbank">
+      <section class="auswahl" id="auswahl" aria-label="Ausrüstung wählen"></section>
+      <aside class="ausruestung" aria-labelledby="ausruestung-titel">
+        <h2 id="ausruestung-titel">Deine Ausrüstung</h2>
+        <div id="ausruestung-karten"></div>
+      </aside>
+    </div>
 
     <section class="ergebnis" aria-labelledby="ergebnis-titel">
       <h2 id="ergebnis-titel">Schaden pro Angriff</h2>
@@ -38,6 +44,7 @@
     </section>
   </main>
 
+  <div class="karte-pop" id="karte-pop" hidden></div>
   <div class="leiste" id="leiste" role="status" aria-live="polite" hidden></div>
 
   <noscript><p class="hinweis">Für den Rechner muss JavaScript eingeschaltet sein.</p></noscript>

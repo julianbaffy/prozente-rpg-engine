@@ -22,4 +22,26 @@ const absolutZeilen = it => (it.slot === 'waffe' ? [] : (it.schaden || []).map(s
     : `+${fmt(w.min)} bis ${fmt(w.max)} ${s.quelle}schaden (Min ${fmt(w.min)} · Mittel ${fmt(w.mittel)} · Max ${fmt(w.max)})`;
 }));
 
-export { KOPF_FEST, werte, tabelle, alleFest, hatWuerfel, absolutZeilen };
+/** Textzeilen unter der Schadenstabelle einer Gegenstandskarte (absoluter Schaden, Modifikatoren, Effekte, Angriffe, Aufbau).
+ *  Wird von layout/build-karten.js und vom Web-Tool (web/app.js) genutzt. */
+function modZeilen(it) {
+  const z = absolutZeilen(it).flatMap(t => t.replace(' (Min', '\n(Min').split('\n')).concat((it.modifikatoren || []).map(m => m.auf !== undefined ? `Schaden AUF ${m.auf} %  (${m.quelle})`
+    : `${m.prozent >= 0 ? '+' : '−'}${Math.abs(m.prozent)} %  ${m.quelle}`));
+  (it.effekte || []).forEach(ef => {
+    if (ef.typ === 'umwandlung') z.push(`${ef.anteil} % jedes Grundschadens werden zu ${ef.nach}schaden`);
+    if (ef.typ === 'keinSchaden') z.push(`Verursacht keinen ${ef.quellen.join('- oder ')}schaden`);
+    if (ef.typ === 'nachtraeglich') z.push(`Nachträglich: Der fertig berechnete Schaden einer Schadensart deiner Wahl steigt noch einmal um ${ef.prozent} %`);
+    if (ef.typ === 'alleModifikatorenAuf') z.push(`Alle Modifikatoren wirken ${ef.faktor === 2 ? 'verdoppelt' : 'mal ' + ef.faktor} auf ${ef.nach}schaden`);
+  });
+  if (it.angriffeProRunde) z.push(`${it.angriffeProRunde} Angriff${it.angriffeProRunde > 1 ? 'e' : ''} pro Runde`);
+  if (it.aufbau) z.push(it.aufbau.art === 'zins' ? `Jeder Angriff: +${it.aufbau.prozent} % Schaden (Zinsen: ${it.aufbau.prozent} % vom Angriff davor)` : (it.aufbau.betrag !== undefined ? `Jeder Angriff: ${it.aufbau.betrag} SP mehr (fest)` : `Jeder Angriff: +${it.aufbau.prozent} % des Grundschadens (fest)`));
+  return z;
+}
+
+/* Gegnerkarte: Eigenschaften (Widerstand / Immunität / Anfälligkeit) */
+const widerstandText = w => w.immun ? `Immun gegen ${w.quelle}schaden`
+  : w.auf !== undefined ? `Erleidet nur ${w.auf} % des ${w.quelle}schadens`
+  : `${w.prozent >= 0 ? '+' : '−'}${Math.abs(w.prozent)} % erlittener ${w.quelle}schaden`;
+const gegnerZeilen = g => g.beschreibung ? [g.beschreibung.replace(/\.$/, '')] : (g.widerstaende.length ? g.widerstaende.map(widerstandText) : ['Keine Widerstände']);
+
+export { KOPF_FEST, werte, tabelle, alleFest, hatWuerfel, absolutZeilen, modZeilen, widerstandText, gegnerZeilen };
