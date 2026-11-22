@@ -21,3 +21,12 @@ table.werte th, table.werte td { border: 1px solid var(--tinte); padding: 4px 8p
 .leer { color: var(--grau); }
 .von { color: var(--grau); font-size: 0.85em; }
 .hinweis { color: var(--grau); font-style: italic; }
+.diagramm { width: 100%; height: auto; max-width: 760px; display: block; }
+.diagramm .gitter { stroke: #d8c9a0; }
+.diagramm .achse { font-size: 11px; fill: var(--grau); }
+.diagramm .linien-text { font-size: 12px; fill: var(--tinte); paint-order: stroke; stroke: var(--papier); stroke-width: 4px; stroke-linejoin: round; }
+.diagramm .saeule { fill: var(--sand); stroke: var(--tinte); }
+.diagramm .saeule.summe { fill: #E3D5B0; }
+.diagramm .saeule.sieg { fill: var(--gold); }
+.diagramm .basis { stroke: var(--tinte); stroke-dasharray: 5 4; }
+.diagramm .lp-linie { stroke: #8B1E1E; stroke-width: 2; }

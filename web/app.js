@@ -16,10 +16,12 @@ const MODI = [
   { key: 'max', titel: 'Max', wuerfel: '5–6', treffer: 'max' }
 ];
 
+const MAX_N = 60;            // höchstens so viele Angriffe im Verlauf
 let rpg, daten;
 const zu = new Set();      // eingeklappte Abschnitte
 const zustand = {
   waffe: null, ruestung: null, zauber: null, nachtraeglichAuf: '', gegner: null,
+  n: null,                     // Anzahl Angriffe im Verlauf (null = automatisch)
   stufe: 'alle',
   modus: matchMedia('(min-width: 760px)').matches ? 'alle' : 'mittel',
   rechenweg: 'bonus'
@@ -51,12 +53,13 @@ const build = () => {
 const sichtbar = item => zustand.stufe === 'alle' || item.stufe <= Number(zustand.stufe);
 
 /* ---------- Zustand in der Adresse (Link teilen, Neuladen) ---------- */
-const SCHLUESSEL = ['waffe', 'ruestung', 'zauber', 'nachtraeglichAuf', 'gegner', 'stufe', 'modus', 'rechenweg'];
+const SCHLUESSEL = ['waffe', 'ruestung', 'zauber', 'nachtraeglichAuf', 'gegner', 'n', 'stufe', 'modus', 'rechenweg'];
 function ausAdresse() {
   const p = new URLSearchParams(location.hash.slice(1));
   for (const k of SCHLUESSEL) if (p.has(k)) zustand[k] = p.get(k) || (k === 'nachtraeglichAuf' ? '' : null);
   SLOTS.forEach(s => { const id = zustand[s.key]; if (id && !daten.gegenstaende.some(i => i.id === id && i.slot === s.key)) zustand[s.key] = null; });
   if (zustand.gegner && !daten.gegner.some(g => g.id === zustand.gegner)) zustand.gegner = null;
+  zustand.n = zustand.n && Number(zustand.n) >= 1 ? Math.min(MAX_N, Math.round(Number(zustand.n))) : null;
 }
 function inAdresse() {
   const p = new URLSearchParams();
@@ -284,6 +287,106 @@ function kampfBlock(b, g, modi) {
     el('p', { class: 'erklaerung' }, `Jeder Treffer mit demselben Wurf. ${apr > 1 ? `${waffe.name}: ${apr} Angriffe pro Runde. ` : ''}${waffe.aufbau ? aufbauText(waffe.aufbau) : ''}`));
 }
 
+/* ---------- Verlauf (Zins-Waffen) ---------- */
+/** „Schöne“ Achsenschritte: 1, 2, 5 · 10^k */
+function achse(max, teile = 5) {
+  const roh = max / teile, p = Math.pow(10, Math.floor(Math.log10(roh || 1)));
+  const schritt = [1, 2, 5, 10].map(f => f * p).find(x => x >= roh) || p * 10;
+  const oben = Math.ceil(max / schritt) * schritt || schritt;
+  return { oben, ticks: Array.from({ length: Math.round(oben / schritt) + 1 }, (_, i) => i * schritt) };
+}
+
+const SVG = 'http://www.w3.org/2000/svg';
+const svg = (tag, attrs = {}, ...kinder) => {
+  const e = document.createElementNS(SVG, tag);
+  for (const [k, v] of Object.entries(attrs)) if (v !== null && v !== undefined) e.setAttribute(k, v);
+  kinder.flat().forEach(k => k !== null && k !== undefined && e.append(k));
+  return e;
+};
+
+/** Säulendiagramm über die Angriffe. werte = Zahlen je Angriff; opt.linie = waagerechte Linie { wert, text, klasse };
+ *  opt.markiere = Index der hervorgehobenen Säule (Sieg). */
+function diagramm(zeilen, werte, opt = {}) {
+  const B = 640, H = 250, L = 52, R = 14, O = 16, U = 38;
+  const w = B - L - R, h = H - O - U, n = zeilen.length;
+  const a = achse(Math.max(...werte, opt.linie ? opt.linie.wert : 0) * 1.05);
+  const y = v => O + h - v / a.oben * h;
+  const breite = w / n;
+  const teile = [];
+  a.ticks.forEach(t => teile.push(
+    svg('line', { x1: L, x2: L + w, y1: y(t), y2: y(t), class: 'gitter' }),
+    svg('text', { x: L - 6, y: y(t) + 4, 'text-anchor': 'end', class: 'achse' }, zahl(t))));
+  werte.forEach((v, i) => teile.push(svg('rect', {
+    x: L + i * breite + breite * 0.15, y: y(v), width: breite * 0.7, height: Math.max(0, O + h - y(v)),
+    class: 'saeule' + (i === opt.markiere ? ' sieg' : '') + (opt.klasse ? ' ' + opt.klasse : '')
+  }, svg('title', {}, `${zeilen[i].angriff}. Angriff: ${zahl(v)} SP`))));
+  const jede = Math.ceil(n / 15);
+  zeilen.forEach((z, i) => { if (i % jede === 0 || i === n - 1) teile.push(svg('text', { x: L + (i + 0.5) * breite, y: O + h + 16, 'text-anchor': 'middle', class: 'achse' }, String(z.angriff))); });
+  teile.push(svg('text', { x: L + w / 2, y: H - 3, 'text-anchor': 'middle', class: 'achse titel' }, 'Angriff'));
+  if (opt.linie) {
+    teile.push(svg('line', { x1: L, x2: L + w, y1: y(opt.linie.wert), y2: y(opt.linie.wert), class: opt.linie.klasse }));
+    teile.push(svg('text', { x: L + 6, y: y(opt.linie.wert) - 5, class: 'achse linien-text' }, opt.linie.text));
+  }
+  return svg('svg', { viewBox: `0 0 ${B} ${H}`, class: 'diagramm', role: 'img', 'aria-label': opt.beschreibung }, teile);
+}
+
+function zeichneVerlauf() {
+  const bereich = $('#verlauf-bereich');
+  const b = build();
+  const waffe = b.waffe ? rpg.item(b.waffe) : null;
+  if (!waffe || !waffe.aufbau) { bereich.hidden = true; return; }
+  bereich.hidden = false;
+  const g = zustand.gegner ? rpg.gegner(zustand.gegner) : null;
+  const modus = zustand.modus === 'alle' ? MODI[1] : MODI.find(m => m.key === zustand.modus);
+  const apr = waffe.angriffeProRunde || 1;
+  let n = zustand.n;
+  if (!n) {                     // automatisch: bis zum Sieg (mit Gegner), sonst 10 Angriffe
+    const k = g ? rpg.kampf(b, g, { modus: modus.treffer }) : null;
+    n = k && k.besiegt ? Math.min(MAX_N, k.angriffe) : 10;
+  }
+  const zeilen = rpg.verlauf(b, g, n, modus.treffer);
+  const sieg = g ? zeilen.find(z => z.restLP === 0) : null;
+
+  const eingabe = el('input', { type: 'number', min: 1, max: MAX_N, value: n, inputmode: 'numeric', id: 'anzahl', 'data-fokus': 'anzahl',
+    onchange: ev => { const v = Math.round(Number(ev.target.value)); zustand.n = v >= 1 ? Math.min(MAX_N, v) : null; aktualisieren(); } });
+  const tabelle = el('table', { class: 'werte verlauf-tabelle' },
+    el('thead', {}, el('tr', {},
+      el('th', { scope: 'col' }, 'Angriff'),
+      apr > 1 ? el('th', { scope: 'col' }, 'Runde') : null,
+      el('th', { scope: 'col' }, 'Schaden'),
+      el('th', { scope: 'col' }, 'Zuwachs'),
+      el('th', { scope: 'col' }, 'Summe'),
+      g ? el('th', { scope: 'col' }, `LP ${g.name}`) : null)),
+    el('tbody', {}, zeilen.map((z, i) => el('tr', { class: z === sieg ? 'sieg' : null },
+      el('th', { scope: 'row', class: 'num' }, String(z.angriff)),
+      apr > 1 ? el('td', { class: 'num' }, String(z.runde)) : null,
+      el('td', { class: 'num schaden' }, zahl(z.schaden)),
+      el('td', { class: 'num' }, i === 0 ? '–' : '+' + zahl(z.schaden - zeilen[i - 1].schaden)),
+      el('td', { class: 'num' }, zahl(z.summe)),
+      g ? el('td', { class: 'num' }, z.restLP === 0 ? '0 ✔' : zahl(z.restLP)) : null))));
+
+  $('#verlauf').replaceChildren(
+    el('p', {}, el('strong', {}, waffe.name), ': ', aufbauText(waffe.aufbau), apr > 1 ? ` ${apr} Angriffe pro Runde.` : '',
+      ` Wurf: ${modus.titel}${zustand.modus === 'alle' ? ' (oben Min oder Max wählen)' : ''}.`),
+    el('label', { class: 'anzahl' }, 'Angriffe: ', eingabe,
+      el('button', { type: 'button', class: 'klein', 'data-fokus': 'n-auto', onclick: () => { zustand.n = null; aktualisieren(); } }, g ? 'bis zum Sieg' : 'zurücksetzen')),
+    el('h3', {}, 'Schaden pro Angriff'),
+    diagramm(zeilen, zeilen.map(z => z.schaden), {
+      linie: { wert: zeilen[0].schaden, text: `1. Angriff: ${zahl(zeilen[0].schaden)} SP (ohne Zuwachs)`, klasse: 'basis' },
+      markiere: sieg ? sieg.angriff - 1 : null,
+      beschreibung: `Schaden pro Angriff von ${zahl(zeilen[0].schaden)} bis ${zahl(zeilen[n - 1].schaden)} SP` }),
+    g ? el('h3', {}, `Gesamtschaden gegen ${g.name}`) : null,
+    g ? diagramm(zeilen, zeilen.map(z => z.summe), {
+      linie: { wert: g.lp, text: `${g.name}: ${zahl(g.lp)} LP`, klasse: 'lp-linie' },
+      markiere: sieg ? sieg.angriff - 1 : null, klasse: 'summe',
+      beschreibung: `Gesamtschaden nach ${n} Angriffen: ${zahl(zeilen[n - 1].summe)} SP, Gegner hat ${zahl(g.lp)} LP` }) : null,
+    sieg ? el('p', { class: 'stark' }, `${g.name} ist nach ${sieg.angriff} Angriffen besiegt${apr > 1 ? ` (Runde ${sieg.runde})` : ''}.`) : null,
+    el('div', { class: 'tabelle-rahmen' }, tabelle),
+    el('p', { class: 'erklaerung' }, waffe.aufbau.art === 'zins'
+      ? `Schaden des n-ten Angriffs = Schaden des 1. Angriffs · ${zahl(1 + waffe.aufbau.prozent / 100)}^(n − 1). Der Zähler beginnt in jedem Kampf neu.`
+      : 'Der Zuwachs ist bei jedem Angriff gleich groß (linear). Der Zähler beginnt in jedem Kampf neu.'));
+}
+
 /* ---------- Ablauf ---------- */
 function aktualisieren() {
   const fokus = document.activeElement?.dataset?.fokus;      // Fokus nach dem Neuzeichnen wiederherstellen (Tastatur)
@@ -291,6 +394,7 @@ function aktualisieren() {
   zeichneEinstellungen();
   zeichneAuswahl();
   zeichneErgebnis();
+  zeichneVerlauf();
   if (fokus) document.querySelector(`[data-fokus="${fokus}"]`)?.focus({ preventScroll: true });
 }
 
