@@ -100,6 +100,8 @@ select { max-width: 100%; }
   line-height: 1.1;
 }
 .umschalter button:first-child { border-left: 0; }
+.stufenwahl { display: flex; align-items: center; gap: 8px; max-width: 100%; }
+.umschalter.stufen button { min-width: 40px; padding: 4px 8px; }
 /* Druck-Feedback: alles Antippbare gibt beim Drücken sichtbar nach */
 .umschalter button, button.klein, .ablegen { transition: transform 160ms var(--ease-out); touch-action: manipulation; }
 .umschalter button:active, button.klein:active, .ablegen:active { transform: scale(0.96); }
@@ -371,6 +373,10 @@ td.nicht { color: var(--rot); font-style: italic; }
   body { font-size: 16px; }
   .kopf h1 { padding: 14px 40px 16px; }
   .einstellungen { padding: 12px 10px; }
+  .stufenwahl { flex-direction: column; gap: 4px; width: 100%; }
+  .umschalter.stufen { display: flex; width: 100%; }
+  .umschalter.stufen button { flex: 1 1 0; min-width: 0; padding: 4px 0; }
+  .umschalter.stufen button:first-child { flex-grow: 1.6; }
   .ergebnis, .verlauf { padding: 12px 8px 14px; }
   .slot { padding: 0 8px 10px; }
   .raster { grid-template-columns: repeat(auto-fill, minmax(58px, 1fr)); gap: 6px; }

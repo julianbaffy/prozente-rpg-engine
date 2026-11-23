@@ -19,11 +19,12 @@ const MODI = [
 
 const MAX_N = 60;            // höchstens so viele Angriffe im Verlauf
 let rpg, daten;
+let einheiten = [];         // [{nr, titel, ids}] – welche Gegenstände/Gegner im Arbeitsblatt der Einheit vorkommen
 const zu = new Set();      // eingeklappte Abschnitte
 const zustand = {
   waffe: null, ruestung: null, zauber: null, nachtraeglichAuf: '', gegner: null,
   n: null,                     // Anzahl Angriffe im Verlauf (null = automatisch)
-  stufe: 'alle',
+  stufe: null,                 // gewählte Stufen, z. B. '3,8' (null = alle)
   modus: matchMedia('(min-width: 760px)').matches ? 'alle' : 'mittel',
   rechenweg: 'bonus'
 };
@@ -53,7 +54,12 @@ const build = () => {
   if (zustand.nachtraeglichAuf) b.nachtraeglichAuf = zustand.nachtraeglichAuf;
   return b;
 };
-const sichtbar = item => zustand.stufe === 'alle' || item.stufe <= Number(zustand.stufe);
+const gewaehlteStufen = () => (zustand.stufe ? zustand.stufe.split(',').map(Number) : []);
+/** Sichtbar ist, was in einem Arbeitsblatt der gewählten Stufen vorkommt (keine Stufe gewählt = alles). */
+const sichtbar = item => {
+  const st = gewaehlteStufen();
+  return !st.length || einheiten.some(e => st.includes(e.nr) && e.ids.has(item.id));
+};
 
 /* ---------- Zustand in der Adresse (Link teilen, Neuladen) ---------- */
 const SCHLUESSEL = ['waffe', 'ruestung', 'zauber', 'nachtraeglichAuf', 'gegner', 'n', 'stufe', 'modus', 'rechenweg'];
@@ -62,6 +68,8 @@ function ausAdresse() {
   for (const k of SCHLUESSEL) if (p.has(k)) zustand[k] = p.get(k) || (k === 'nachtraeglichAuf' ? '' : null);
   SLOTS.forEach(s => { const id = zustand[s.key]; if (id && !daten.gegenstaende.some(i => i.id === id && i.slot === s.key)) zustand[s.key] = null; });
   if (zustand.gegner && !daten.gegner.some(g => g.id === zustand.gegner)) zustand.gegner = null;
+  const gueltig = gewaehlteStufen().filter(n => einheiten.some(e => e.nr === n));
+  zustand.stufe = gueltig.length ? [...new Set(gueltig)].sort((a, b) => a - b).join(',') : null;
   zustand.n = zustand.n && Number(zustand.n) >= 1 ? Math.min(MAX_N, Math.round(Number(zustand.n))) : null;
 }
 function inAdresse() {
@@ -211,7 +219,7 @@ function zeichneAuswahl() {
           if (s.key === 'ruestung') zustand.nachtraeglichAuf = '';
           aktualisieren();
         })))
-        : el('p', { class: 'hinweis' }, 'Auf dieser Stufe gibt es hier noch keine Gegenstände.')));
+        : el('p', { class: 'hinweis' }, 'In den gewählten Stufen kommt hier nichts vor.')));
   });
   const gegner = daten.gegner.filter(sichtbar);
   ziel.append(abschnitt('gegner', 'Gegner',
@@ -220,7 +228,7 @@ function zeichneAuswahl() {
         zustand.gegner = zustand.gegner === x.id ? null : x.id;
         aktualisieren();
       })))
-      : el('p', { class: 'hinweis' }, 'Gegner gibt es ab Stufe 3.'), 'slot-gegner'));
+      : el('p', { class: 'hinweis' }, 'In den gewählten Stufen kommen keine Gegner vor.'), 'slot-gegner'));
 }
 
 /* ---------- Ausrüstung: die gewählten Karten untereinander ---------- */
@@ -256,7 +264,13 @@ function umschalter(ziel, optionen, key) {
   }, o.titel, o.klein ? el('small', {}, o.klein) : null)));
 }
 function zeichneEinstellungen() {
-  $('#stufe').value = zustand.stufe;
+  const st = gewaehlteStufen();
+  fuellen($('#stufe'),
+    el('button', { type: 'button', 'aria-pressed': String(!st.length), 'data-fokus': 'stufe-alle', onclick: () => stufeWaehlen(null) }, 'Alle'),
+    einheiten.map(e => el('button', {
+      type: 'button', 'aria-pressed': String(st.includes(e.nr)), 'data-fokus': 'stufe-' + e.nr,
+      title: `Stufe ${e.nr}: ${e.titel}`, 'aria-label': `Stufe ${e.nr}: ${e.titel}`, onclick: () => stufeWaehlen(e.nr)
+    }, String(e.nr))));
   umschalter($('#modus'), [...MODI.map(m => ({ key: m.key, titel: m.titel, klein: `🎲 ${m.wuerfel}` })), { key: 'alle', titel: 'Alle' }], 'modus');
   umschalter($('#rechenweg'), [{ key: 'bonus', titel: 'Bonus', klein: 'Einheit 1–3' }, { key: 'faktor', titel: 'Faktor', klein: 'ab Einheit 4' }], 'rechenweg');
 }
@@ -526,6 +540,32 @@ function aktualisieren() {
   }
 }
 
+/* Welche Gegenstände und Gegner braucht eine Stufe? Genau die, die im Arbeitsblatt (einheit-N.json, mit Lösungen)
+ * mit Namen vorkommen – das umfasst auch die Übersichten. Stufen ohne Gegenstände (z. B. 5) erscheinen nicht. */
+async function ladeEinheiten() {
+  const alle = [...daten.gegenstaende, ...daten.gegner];
+  const letzte = Math.max(...daten.stufen.map(s => s.nr), ...alle.map(x => x.stufe));   // höchste Einheit (derzeit 9)
+  const liste = await Promise.all(Array.from({ length: letzte }, (_, i) => i + 1).map(async nr => {
+    try {
+      const a = await fetch(`../einheit-${nr}.json`);
+      if (!a.ok) return null;
+      const text = await a.text();
+      const ids = new Set(alle.filter(x => text.includes(x.name)).map(x => x.id));
+      return ids.size ? { nr, titel: JSON.parse(text).titel, ids } : null;
+    } catch { return null; }
+  }));
+  return liste.filter(Boolean);
+}
+/** Stufe an- oder abwählen (Mehrfachauswahl); null = alle. Was danach nicht mehr sichtbar ist, wird abgelegt. */
+function stufeWaehlen(nr) {
+  let st = gewaehlteStufen();
+  st = nr === null ? [] : st.includes(nr) ? st.filter(x => x !== nr) : [...st, nr];
+  zustand.stufe = st.length ? st.sort((a, b) => a - b).join(',') : null;
+  SLOTS.forEach(s => { if (zustand[s.key] && !sichtbar(rpg.item(zustand[s.key]))) zustand[s.key] = null; });
+  if (zustand.gegner && !sichtbar(rpg.gegner(zustand.gegner))) zustand.gegner = null;
+  aktualisieren();
+}
+
 async function start() {
   try {
     const antwort = await fetch('../gegenstaende.json');
@@ -537,14 +577,7 @@ async function start() {
       'Die Daten konnten nicht geladen werden. Die Seite muss über einen Webserver geöffnet werden (nicht per Doppelklick). ', String(err.message || err)));
     return;
   }
-  const stufen = [...new Set(daten.gegenstaende.map(i => i.stufe))].sort((a, b) => a - b);
-  $('#stufe').append(...stufen.map(s => el('option', { value: String(s) }, `Stufe ${s}`)));
-  $('#stufe').addEventListener('change', ev => {
-    zustand.stufe = ev.target.value;
-    SLOTS.forEach(s => { if (zustand[s.key] && !sichtbar(rpg.item(zustand[s.key]))) zustand[s.key] = null; });
-    if (zustand.gegner && !sichtbar(rpg.gegner(zustand.gegner))) zustand.gegner = null;
-    aktualisieren();
-  });
+  einheiten = await ladeEinheiten();
   pop.el = $('#karte-pop');
   document.addEventListener('pointerdown', ev => { if (!ev.target.closest('.kachel, #karte-pop')) versteckeKarte(true); });
   document.addEventListener('keydown', ev => { if (ev.key === 'Escape') versteckeKarte(true); });

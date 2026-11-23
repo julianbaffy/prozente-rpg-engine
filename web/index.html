@@ -33,11 +33,10 @@
 
   <main>
     <section class="einstellungen" aria-label="Einstellungen">
-      <label>Gegenstände bis
-        <select id="stufe">
-          <option value="alle">alle Stufen</option>
-        </select>
-      </label>
+      <div class="stufenwahl">
+        <span id="stufe-titel">Stufe</span>
+        <div class="umschalter stufen" role="group" aria-labelledby="stufe-titel" id="stufe"></div>
+      </div>
       <div class="umschalter" role="group" aria-label="Würfelwurf" id="modus"></div>
       <div class="umschalter" role="group" aria-label="Rechenweg" id="rechenweg"></div>
     </section>
