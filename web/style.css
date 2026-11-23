@@ -129,7 +129,9 @@ summary:focus-visible { box-shadow: var(--gold-innen); }
 .werkbank { display: grid; grid-template-columns: minmax(0, 1fr); gap: 0 16px; align-items: start; }
 @media (min-width: 900px) {
   .werkbank { grid-template-columns: minmax(0, 1fr) minmax(360px, 420px); }
-  .ausruestung { position: sticky; top: 12px; max-height: calc(100vh - 88px); overflow-y: auto; }
+  /* Gescrollt wird nur innerhalb der Karten-Liste – so laufen die Karten nie über den inneren Rahmen */
+  .ausruestung { position: sticky; top: 12px; max-height: calc(100vh - 88px); display: flex; flex-direction: column; }
+  #ausruestung-karten { flex: 1 1 auto; min-height: 0; overflow-y: auto; overscroll-behavior: contain; padding: 4px 2px; margin: 0 -2px; }
 }
 .auswahl { display: grid; grid-template-columns: minmax(0, 1fr); }
 .auswahl > * { min-width: 0; }
@@ -257,7 +259,7 @@ summary:focus-visible { box-shadow: var(--gold-innen); }
   outline: 1px solid var(--tinte);
   outline-offset: -6px;
   margin: 8px 0 16px;
-  padding: 12px 14px 14px;
+  padding: 16px 14px 18px;
 }
 .ausruestung h2 { margin: 2px 0 10px; text-align: center; font-size: 1.25rem; }
 .ausruestung h2::after { content: ""; display: block; height: 12px; margin: 5px auto 0; max-width: 300px; background: url("../layout/assets/trenner.png") center / contain no-repeat; }
