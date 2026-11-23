@@ -259,6 +259,11 @@ summary:focus-visible { box-shadow: var(--gold-innen); }
 
 /* ---------- Tabellen ---------- */
 .tabelle-rahmen { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+/* Geht es nach rechts noch weiter, blendet der rechte Rand weich aus (lineare Maske) – app.js setzt .mehr-rechts */
+.tabelle-rahmen.mehr-rechts {
+  -webkit-mask-image: linear-gradient(to right, #000 calc(100% - 56px), rgba(0, 0, 0, 0.18));
+          mask-image: linear-gradient(to right, #000 calc(100% - 56px), rgba(0, 0, 0, 0.18));
+}
 /* Rahmen gehören zu den Zellen (separate statt collapse), damit sie mit der fixierten ersten Spalte mitwandern */
 table.werte { border-collapse: separate; border-spacing: 0; margin: 0 auto; background: var(--papier); font-size: 0.95rem; border-top: 1px solid var(--tinte); }
 table.werte th, table.werte td { border-right: 1px solid var(--tinte); border-bottom: 1px solid var(--tinte); padding: 6px 9px; vertical-align: top; background: var(--papier); }

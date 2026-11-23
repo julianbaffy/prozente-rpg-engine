@@ -460,6 +460,12 @@ function zeichneLeiste() {
   leiste.hidden = false;
 }
 
+/* ---------- Tabellen: Hinweis, dass es nach rechts weitergeht ---------- */
+function pruefeScroll(r) {
+  r.classList.toggle('mehr-rechts', r.scrollLeft + r.clientWidth < r.scrollWidth - 2);
+}
+const pruefeAlleTabellen = () => document.querySelectorAll('.tabelle-rahmen').forEach(pruefeScroll);
+
 /* ---------- Ablauf ---------- */
 function aktualisieren() {
   const fokus = document.activeElement?.dataset?.fokus;      // Fokus nach dem Neuzeichnen wiederherstellen (Tastatur)
@@ -471,6 +477,7 @@ function aktualisieren() {
   zeichneVerlauf();
   zeichneLeiste();
   if (fokus) document.querySelector(`[data-fokus="${fokus}"]`)?.focus({ preventScroll: true });
+  pruefeAlleTabellen();
   if (pop.id) {                 // offene Karte an das neu gezeichnete Icon hängen
     const anker = document.querySelector(`.kachel[data-id="${pop.id}"]`);
     if (anker) zeigeKarte(pop.id, anker, pop.fest); else versteckeKarte(true);
@@ -500,7 +507,8 @@ async function start() {
   document.addEventListener('pointerdown', ev => { if (!ev.target.closest('.kachel, #karte-pop')) versteckeKarte(true); });
   document.addEventListener('keydown', ev => { if (ev.key === 'Escape') versteckeKarte(true); });
   addEventListener('scroll', () => versteckeKarte(true), { passive: true });
-  addEventListener('resize', () => versteckeKarte(true));
+  addEventListener('resize', () => { versteckeKarte(true); pruefeAlleTabellen(); });
+  document.addEventListener('scroll', ev => { if (ev.target.classList?.contains('tabelle-rahmen')) pruefeScroll(ev.target); }, { capture: true, passive: true });
   matchMedia('(max-width: 599px)').addEventListener('change', zeichneVerlauf);   // Handy gedreht: Diagramm neu zeichnen
   ausAdresse();
   aktualisieren();
