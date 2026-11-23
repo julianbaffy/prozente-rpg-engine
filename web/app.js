@@ -306,7 +306,7 @@ function zeichneErgebnis() {
     tabelle.querySelectorAll('tbody tr, tfoot tr').forEach(tr => [...tr.children].forEach((z, i) => { if (i > 0 && titel[i]) z.dataset.label = titel[i]; }));
   }
   fuellen(ziel, 
-    el('div', { class: 'tabelle-rahmen' }, tabelle),
+    rahmen(tabelle),
     el('p', { class: 'erklaerung' }, bonusSpalte
       ? 'Bonus = Grundschaden · Modifikator; Schaden = Grundschaden + Bonus. Modifikatoren auf dieselbe Schadensart werden addiert.'
       : 'Schaden = Grundschaden · (1 + Summe der Modifikatoren). Modifikatoren auf dieselbe Schadensart werden addiert.'),
@@ -332,7 +332,7 @@ function kampfBlock(b, g, modi) {
         : el('td', { class: 'num nicht' }, 'nicht zu besiegen'));
   });
   return el('div', { class: 'kampf' }, titel,
-    el('div', { class: 'tabelle-rahmen' }, el('table', { class: 'werte' },
+    rahmen(el('table', { class: 'werte' },
       el('thead', {}, el('tr', {}, el('th', { scope: 'col' }, 'Wurf'), el('th', { scope: 'col' }, waffe.aufbau ? '1. Treffer' : 'pro Treffer'),
         el('th', { scope: 'col' }, 'nach 3 Runden'), el('th', { scope: 'col' }, 'bis zum Sieg'))),
       el('tbody', {}, zeilen))),
@@ -434,7 +434,7 @@ function zeichneVerlauf() {
       markiere: sieg ? sieg.angriff - 1 : null, klasse: 'summe',
       beschreibung: `Gesamtschaden nach ${n} Angriffen: ${zahl(zeilen[n - 1].summe)} SP, Gegner hat ${zahl(g.lp)} LP` }) : null,
     sieg ? el('p', { class: 'stark' }, `${g.name} ist nach ${sieg.angriff} Angriffen besiegt${apr > 1 ? ` (Runde ${sieg.runde})` : ''}.`) : null,
-    el('div', { class: 'tabelle-rahmen' }, tabelle),
+    rahmen(tabelle),
     el('p', { class: 'erklaerung' }, waffe.aufbau.art === 'zins'
       ? `Schaden des n-ten Angriffs = Schaden des 1. Angriffs · ${zahl(1 + waffe.aufbau.prozent / 100)}^(n − 1). Der Zähler beginnt in jedem Kampf neu.`
       : 'Der Zuwachs ist bei jedem Angriff gleich groß (linear). Der Zähler beginnt in jedem Kampf neu.'));
@@ -461,10 +461,19 @@ function zeichneLeiste() {
 }
 
 /* ---------- Tabellen: Hinweis, dass es nach rechts weitergeht ---------- */
-function pruefeScroll(r) {
-  r.classList.toggle('mehr-rechts', r.scrollLeft + r.clientWidth < r.scrollWidth - 2);
+/** Scrollbereich in einer Hülle; die Hülle trägt den Verlauf am rechten Rand (.mehr-rechts). */
+function rahmen(tabelle) {
+  return el('div', { class: 'tabelle-huelle' }, el('div', { class: 'tabelle-rahmen' }, tabelle));
 }
-const pruefeAlleTabellen = () => document.querySelectorAll('.tabelle-rahmen').forEach(pruefeScroll);
+function pruefeScroll(r) {
+  r.parentElement?.classList.toggle('mehr-rechts', r.scrollLeft + r.clientWidth < r.scrollWidth - 2);
+}
+/** Nach dem Neuzeichnen: Zustand sofort setzen (ohne Übergang), animiert wird nur beim Scrollen. */
+function pruefeAlleTabellen() {
+  const huellen = [...document.querySelectorAll('.tabelle-huelle')];
+  huellen.forEach(h => { h.classList.add('sofort'); pruefeScroll(h.firstElementChild); });
+  requestAnimationFrame(() => requestAnimationFrame(() => huellen.forEach(h => h.classList.remove('sofort'))));
+}
 
 /* ---------- Ablauf ---------- */
 function aktualisieren() {
