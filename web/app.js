@@ -121,59 +121,92 @@ function gegnerKarte(g) {
 }
 const karteVon = id => (daten.gegner.some(g => g.id === id) ? gegnerKarte(rpg.gegner(id)) : gegenstandKarte(rpg.item(id)));
 
-/* ---------- Karte beim Zeigen (Maus), Tippen (Touch) oder Tastatur-Fokus ---------- */
-const pop = { el: null, id: null, fest: false, zeiger: 'mouse' };
-function zeigeKarte(id, anker, fest = false) {
+/* ---------- Karte beim Zeigen (Maus), Tippen (Touch) oder Tastatur-Fokus ----------
+ * Maus: erst nach kurzer Verzögerung (Durchfahren des Rasters zeigt nichts), danach beim Weiterwandern sofort.
+ * Tastatur und Wechsel zwischen Icons: ohne Animation. Ein-/Ausblenden über CSS-Transitions (.offen, .sofort). */
+const VERZOEGERUNG = 250, WARM = 300;      // ms
+const pop = { el: null, id: null, fest: false, zeiger: 'mouse', offen: false, timer: 0, warmBis: 0 };
+function zeigeKarte(id, anker, fest = false, sofort = false) {
+  clearTimeout(pop.timer);
   if (!anker) return versteckeKarte(true);
+  const warOffen = pop.offen;
   if (pop.id !== id) fuellen(pop.el, karteVon(id));
   pop.id = id; pop.fest = fest;
-  pop.el.hidden = false;
   const r = anker.getBoundingClientRect(), b = pop.el.offsetWidth, h = pop.el.offsetHeight, rand = 8;
   const unten = r.bottom + 8 + h <= innerHeight - rand || r.top - 8 - h < rand;
   let y = unten ? r.bottom + 8 : r.top - 8 - h;
   y = Math.max(rand, Math.min(y, innerHeight - h - rand));
   const x = Math.max(rand, Math.min(r.left + r.width / 2 - b / 2, innerWidth - b - rand));
   pop.el.style.left = x + 'px'; pop.el.style.top = y + 'px';
+  // Herkunft: die Karte wächst aus dem Icon heraus (unter dem Icon von oben, über dem Icon von unten)
+  pop.el.dataset.seite = unten ? 'unten' : 'oben';
+  pop.el.style.transformOrigin = `${Math.round(r.left + r.width / 2 - x)}px ${unten ? '0' : '100%'}`;
+  pop.el.classList.toggle('sofort', warOffen || sofort);
+  void pop.el.offsetWidth;                 // Startzustand festhalten, dann einblenden
+  pop.el.classList.add('offen');
+  pop.el.setAttribute('aria-hidden', 'false');
+  pop.offen = true;
 }
 function versteckeKarte(auchFest = false) {
+  clearTimeout(pop.timer);
   if (pop.fest && !auchFest) return;
-  pop.el.hidden = true; pop.id = null; pop.fest = false;
+  if (pop.offen) pop.warmBis = performance.now() + WARM;
+  pop.el.classList.remove('sofort', 'offen');      // Ausblenden immer mit (kurzer) Transition
+  pop.el.setAttribute('aria-hidden', 'true');
+  pop.offen = false; pop.id = null; pop.fest = false;
 }
 
 /* ---------- Auswahl: nur Icons ---------- */
-function kachel(item, gewaehlt, onwahl) {
+function kachel(item, slot, onwahl) {
   const id = item.id;
   return el('button', {
-    type: 'button', class: 'kachel', 'aria-pressed': String(gewaehlt), 'aria-label': item.name, 'data-fokus': 'k-' + id, 'data-id': id,
+    type: 'button', class: 'kachel', 'aria-pressed': String(zustand[slot] === id), 'aria-label': item.name, 'data-fokus': 'k-' + id, 'data-id': id, 'data-slot': slot,
     onpointerdown: ev => { pop.zeiger = ev.pointerType; },
-    onpointerenter: ev => { if (ev.pointerType === 'mouse') zeigeKarte(id, ev.currentTarget); },
+    onpointerenter: ev => {
+      if (ev.pointerType !== 'mouse') return;
+      const anker = ev.currentTarget;
+      if (pop.offen || performance.now() < pop.warmBis) zeigeKarte(id, anker, false, true);
+      else { clearTimeout(pop.timer); pop.timer = setTimeout(() => zeigeKarte(id, anker), VERZOEGERUNG); }
+    },
     onpointerleave: ev => { if (ev.pointerType === 'mouse') versteckeKarte(); },
-    onfocus: ev => { if (ev.currentTarget.matches(':focus-visible')) zeigeKarte(id, ev.currentTarget); },
+    onfocus: ev => { if (ev.currentTarget.matches(':focus-visible')) zeigeKarte(id, ev.currentTarget, false, true); },   // Tastatur: ohne Animation
     onblur: () => { if (!pop.fest) versteckeKarte(); },
-    onclick: () => {
+    onclick: ev => {
       const touch = pop.zeiger === 'touch' || pop.zeiger === 'pen';
       onwahl();
-      // Nach dem Neuzeichnen: auf Touch-Geräten bleibt die Karte des getippten Icons stehen, bis woanders getippt wird
-      if (touch) zeigeKarte(id, document.querySelector(`[data-fokus="k-${id}"]`), true);
+      // Auf Touch-Geräten bleibt die Karte des getippten Icons stehen, bis woanders getippt wird
+      if (touch) zeigeKarte(id, ev.currentTarget, true);
     }
   }, el('img', { src: ICONS + id + '.jpg', alt: '', loading: 'lazy', width: 300, height: 300, draggable: 'false' }));
 }
 
-function abschnitt(key, titel, wahlText, inhalt, klasse = '') {
+function wahlText(key) {
+  if (key === 'gegner') return zustand.gegner ? rpg.gegner(zustand.gegner).name : '– ohne Gegner –';
+  return zustand[key] ? rpg.item(zustand[key]).name : '– nichts gewählt –';
+}
+function abschnitt(key, titel, inhalt, klasse = '') {
   return el('details', { class: 'slot ' + klasse, open: !zu.has(key), ontoggle: ev => { if (ev.target.open) zu.delete(key); else zu.add(key); } },
-    el('summary', {}, el('span', { class: 'slot-titel' }, titel), el('span', { class: 'slot-wahl' }, wahlText)),
+    el('summary', {}, el('span', { class: 'slot-titel' }, titel), el('span', { class: 'slot-wahl', 'data-slot': key }, wahlText(key))),
     inhalt);
 }
 
+/* Das Raster wird nur neu gebaut, wenn sich die Stufe ändert. Sonst werden nur Auswahl und Beschriftung angepasst –
+ * so bleiben die Icons dieselben Elemente, und Übergänge (goldener Rand) können laufen. */
+let rasterStufe = null;
 function zeichneAuswahl() {
   const ziel = $('#auswahl');
+  if (rasterStufe === zustand.stufe && ziel.childElementCount) {
+    ziel.querySelectorAll('.kachel').forEach(k => k.setAttribute('aria-pressed', String(zustand[k.dataset.slot] === k.dataset.id)));
+    ziel.querySelectorAll('.slot-wahl').forEach(sp => { sp.textContent = wahlText(sp.dataset.slot); });
+    return;
+  }
+  rasterStufe = zustand.stufe;
   ziel.replaceChildren();
   SLOTS.forEach(s => {
     const items = daten.gegenstaende.filter(i => i.slot === s.key && sichtbar(i));
-    const gewaehlt = zustand[s.key] ? rpg.item(zustand[s.key]) : null;
-    ziel.append(abschnitt(s.key, s.titel, gewaehlt ? gewaehlt.name : '– nichts gewählt –',
+    ziel.append(abschnitt(s.key, s.titel,
       items.length
-        ? el('div', { class: 'raster', role: 'group', 'aria-label': s.titel }, items.map(i => kachel(i, i.id === zustand[s.key], () => {
+        ? el('div', { class: 'raster', role: 'group', 'aria-label': s.titel }, items.map(i => kachel(i, s.key, () => {
           zustand[s.key] = zustand[s.key] === i.id ? null : i.id;      // nochmal tippen = abwählen
           if (s.key === 'ruestung') zustand.nachtraeglichAuf = '';
           aktualisieren();
@@ -181,10 +214,9 @@ function zeichneAuswahl() {
         : el('p', { class: 'hinweis' }, 'Auf dieser Stufe gibt es hier noch keine Gegenstände.')));
   });
   const gegner = daten.gegner.filter(sichtbar);
-  const g = zustand.gegner ? rpg.gegner(zustand.gegner) : null;
-  ziel.append(abschnitt('gegner', 'Gegner', g ? g.name : '– ohne Gegner –',
+  ziel.append(abschnitt('gegner', 'Gegner',
     gegner.length
-      ? el('div', { class: 'raster', role: 'group', 'aria-label': 'Gegner' }, gegner.map(x => kachel(x, x.id === zustand.gegner, () => {
+      ? el('div', { class: 'raster', role: 'group', 'aria-label': 'Gegner' }, gegner.map(x => kachel(x, 'gegner', () => {
         zustand.gegner = zustand.gegner === x.id ? null : x.id;
         aktualisieren();
       })))
@@ -444,7 +476,7 @@ function zeichneVerlauf() {
 function zeichneLeiste() {
   const leiste = $('#leiste');
   const b = build();
-  if (!SLOTS.some(s => b[s.key])) { leiste.hidden = true; return; }
+  if (!SLOTS.some(s => b[s.key])) { leiste.classList.remove('offen'); leiste.setAttribute('aria-hidden', 'true'); return; }
   const g = zustand.gegner ? rpg.gegner(zustand.gegner) : null;
   const t = rpg.treffer(b, g);
   const modi = aktiveModi();
@@ -457,7 +489,8 @@ function zeichneLeiste() {
   }
   teile.push(el('a', { href: '#ergebnis-titel', onclick: ev => { ev.preventDefault(); $('#ergebnis-titel').scrollIntoView({ behavior: 'smooth' }); } }, 'Tabelle ↓'));
   fuellen(leiste, ...teile);
-  leiste.hidden = false;
+  leiste.classList.add('offen');            // gleitet beim ersten Mal von unten herein
+  leiste.setAttribute('aria-hidden', 'false');
 }
 
 /* ---------- Tabellen: Hinweis, dass es nach rechts weitergeht ---------- */
@@ -489,7 +522,7 @@ function aktualisieren() {
   pruefeAlleTabellen();
   if (pop.id) {                 // offene Karte an das neu gezeichnete Icon hängen
     const anker = document.querySelector(`.kachel[data-id="${pop.id}"]`);
-    if (anker) zeigeKarte(pop.id, anker, pop.fest); else versteckeKarte(true);
+    if (anker) zeigeKarte(pop.id, anker, pop.fest, true); else versteckeKarte(true);
   }
 }
 

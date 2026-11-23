@@ -14,6 +14,8 @@
   --gruen: #2F6B2F;
   --schrift: Cambria, "Cambria Math", Georgia, "Times New Roman", serif;
   --radius: 6px;
+  /* Bewegung: kräftiges ease-out für alles, was auf den Nutzer reagiert */
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
   --gold-innen: inset 0 0 0 2px var(--gold), inset 0 0 10px 2px rgba(242, 211, 107, 0.95), inset 0 0 22px 4px rgba(201, 162, 39, 0.45);
 }
 
@@ -98,6 +100,9 @@ select { max-width: 100%; }
   line-height: 1.1;
 }
 .umschalter button:first-child { border-left: 0; }
+/* Druck-Feedback: alles Antippbare gibt beim Drücken sichtbar nach */
+.umschalter button, button.klein, .ablegen { transition: transform 160ms var(--ease-out); touch-action: manipulation; }
+.umschalter button:active, button.klein:active, .ablegen:active { transform: scale(0.96); }
 .umschalter small { display: block; font-size: 0.7em; color: var(--grau); margin-top: 2px; white-space: nowrap; }
 .umschalter button[aria-pressed="true"] { background: var(--tinte); color: var(--creme); font-weight: bold; }
 .umschalter button[aria-pressed="true"] small { color: var(--sand); }
@@ -137,7 +142,7 @@ summary:focus-visible { box-shadow: var(--gold-innen); }
   list-style: none;
 }
 .slot > summary::-webkit-details-marker { display: none; }
-.slot > summary::before { content: "▸"; font-size: 0.9em; transition: transform 0.15s ease-out; }
+.slot > summary::before { content: "▸"; font-size: 0.9em; transition: transform 150ms var(--ease-out); }
 .slot[open] > summary::before { transform: rotate(90deg); }
 .slot-titel { font-weight: bold; font-size: 1.15rem; margin-right: auto; }
 .slot-wahl { color: var(--grau); font-style: italic; text-align: right; min-width: 0; overflow-wrap: anywhere; }
@@ -151,7 +156,7 @@ summary:focus-visible { box-shadow: var(--gold-innen); }
   border-radius: var(--radius);
   background: var(--papier);
   cursor: pointer;
-  transition: border-color 0.15s ease-out;
+  transition: transform 160ms var(--ease-out), border-color 150ms ease;
   touch-action: manipulation;
   user-select: none;
   -webkit-user-select: none;
@@ -160,15 +165,17 @@ summary:focus-visible { box-shadow: var(--gold-innen); }
 .kachel img { width: 100%; height: 100%; object-fit: cover; display: block; border: 1px solid var(--tinte); border-radius: 3px; pointer-events: none; }
 .kachel[aria-pressed="true"] { border-color: var(--gold); background: var(--gold-hell); }
 /* Gold, das nach innen scheint – als Schicht ÜBER dem Bild, damit man es auch auf dunklen Icons sieht */
+.kachel:active { transform: scale(0.96); }
+/* Der Schatten liegt fest auf der Schicht, eingeblendet wird nur die Deckkraft (läuft auf dem Compositor) */
 .kachel::before {
   content: ""; position: absolute; inset: 4px; border-radius: 3px; pointer-events: none;
-  box-shadow: none; transition: box-shadow 0.15s ease-out; z-index: 1;
+  box-shadow: var(--gold-innen); opacity: 0; transition: opacity 150ms var(--ease-out); z-index: 1;
 }
-.kachel[aria-pressed="true"]::before, .kachel:focus-visible::before { box-shadow: var(--gold-innen); }
+.kachel[aria-pressed="true"]::before, .kachel:focus-visible::before { opacity: 1; }
 .kachel:focus-visible { border-color: var(--gold); box-shadow: none; }
-@media (hover: hover) {                            /* Zeigen mit der Maus sieht aus wie der Tastatur-Fokus */
+@media (hover: hover) and (pointer: fine) {        /* Zeigen mit der Maus sieht aus wie der Tastatur-Fokus (nicht bei Touch/Stift) */
   .kachel:hover { border-color: var(--gold); }
-  .kachel:hover::before { box-shadow: var(--gold-innen); }
+  .kachel:hover::before { opacity: 1; }
 }
 
 /* ---------- Karten wie im Material ---------- */
@@ -213,13 +220,22 @@ summary:focus-visible { box-shadow: var(--gold-innen); }
 
 /* Karte beim Zeigen/Tippen */
 .karte-pop {
-  position: fixed; z-index: 20;
+  position: fixed; z-index: 20; left: 0; top: 0;
   width: min(290px, calc(100vw - 16px));
   pointer-events: none;
   filter: drop-shadow(0 6px 14px rgba(46, 33, 20, 0.35));
-  animation: auftauchen 0.12s ease-out;
+  /* geschlossen: unsichtbar, leicht verkleinert und zum Icon hin versetzt */
+  opacity: 0; visibility: hidden;
+  transform: translateY(var(--weg, -4px)) scale(0.97);
+  /* Ausblenden schneller als Einblenden */
+  transition: opacity 100ms var(--ease-out), transform 100ms var(--ease-out), visibility 0s linear 100ms;
 }
-.karte-pop[hidden] { display: none; }
+.karte-pop[data-seite="oben"] { --weg: 4px; }
+.karte-pop.offen {
+  opacity: 1; visibility: visible; transform: none;
+  transition: opacity 150ms var(--ease-out), transform 150ms var(--ease-out), visibility 0s;
+}
+.karte-pop.sofort { transition: none; }            /* Wechsel zwischen Icons und Tastatur: ohne Animation */
 /* kompakte Karte im Popup, damit wenig verdeckt wird */
 .karte-pop .karte { padding: 7px; border-width: 2px; outline-offset: -5px; }
 .karte-pop .karte-name { font-size: 0.98rem; padding: 3px 6px; }
@@ -231,7 +247,6 @@ summary:focus-visible { box-shadow: var(--gold-innen); }
 .karte-pop .karte-mods { margin-top: 5px; }
 .karte-pop .karte-lp { font-size: 0.85rem; padding: 4px 6px; }
 .karte-pop .karte-wuerfel { font-size: 0.7rem; margin-top: 6px; padding: 3px 2px; }
-@keyframes auftauchen { from { opacity: 0; transform: translateY(3px); } }
 
 /* „Deine Ausrüstung“: Karten untereinander */
 .ausruestung {
@@ -255,7 +270,7 @@ summary:focus-visible { box-shadow: var(--gold-innen); }
   border: 1px solid var(--linie); border-radius: var(--radius);
   background: var(--papier); color: var(--grau); cursor: pointer; font-size: 0.85rem;
 }
-@media (hover: hover) { .ablegen:hover { border-color: var(--tinte); color: var(--tinte); } }
+@media (hover: hover) and (pointer: fine) { .ablegen:hover { border-color: var(--tinte); color: var(--tinte); } }
 
 /* ---------- Tabellen ---------- */
 .tabelle-rahmen { overflow-x: auto; -webkit-overflow-scrolling: touch; }
@@ -266,7 +281,7 @@ summary:focus-visible { box-shadow: var(--gold-innen); }
   pointer-events: none; z-index: 3;
   background: linear-gradient(to right, rgba(255, 253, 246, 0), rgba(255, 253, 246, 0.85));
   opacity: 0;
-  transition: opacity 0.25s ease-out;
+  transition: opacity 250ms var(--ease-out);
 }
 .tabelle-huelle.mehr-rechts::after { opacity: 1; }
 .tabelle-huelle.sofort::after { transition: none; }
@@ -331,6 +346,8 @@ td.nicht { color: var(--rot); font-style: italic; }
 /* ---------- Ergebnisleiste (unten, immer sichtbar) ---------- */
 .leiste {
   position: fixed; left: 0; right: 0; bottom: 0; z-index: 10;
+  transform: translateY(calc(100% + 12px)); visibility: hidden;
+  transition: transform 200ms var(--ease-out), visibility 0s linear 200ms;
   display: flex; align-items: center; justify-content: center; gap: 12px; flex-wrap: wrap;
   min-height: 56px;
   padding: 8px 16px calc(8px + env(safe-area-inset-bottom));
@@ -339,7 +356,7 @@ td.nicht { color: var(--rot); font-style: italic; }
   box-shadow: 0 -2px 10px rgba(46, 33, 20, 0.35);
   font-size: 0.95rem;
 }
-.leiste[hidden] { display: none; }
+.leiste.offen { transform: none; visibility: visible; transition: transform 250ms var(--ease-out), visibility 0s; }
 .leiste strong { color: var(--gold-hell); font-size: 1.1rem; white-space: nowrap; }
 .leiste span { text-align: center; }
 @media (max-width: 600px) {
@@ -385,8 +402,15 @@ td.nicht { color: var(--rot); font-style: italic; }
   table.stapel tbody td { background: transparent !important; }
 }
 
-@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+/* Weniger Bewegung: keine Verschiebung/Skalierung, sanftes Ein- und Ausblenden bleibt */
+@media (prefers-reduced-motion: reduce) {
+  .kachel:active, .umschalter button:active, button.klein:active, .ablegen:active { transform: none; }
+  .slot > summary::before { transition: none; }
+  .karte-pop, .karte-pop.offen { transform: none; }
+  .leiste { transform: none; opacity: 0; transition: opacity 150ms ease, visibility 0s linear 150ms; }
+  .leiste.offen { opacity: 1; transition: opacity 200ms ease, visibility 0s; }
+}
 @media print {
   body { background: none; padding: 0; }
-  .einstellungen, .auswahl, .leiste, .karte-pop, .ablegen { display: none; }
+  .einstellungen, .auswahl, .leiste, .karte-pop, .ablegen { display: none !important; }
 }
