@@ -1,10 +1,10 @@
 # Einheit 7: Duelle – Absolut oder prozentual?
 
-*Auf dem Turnierplatz von Zahlheim ruft Ritter Absalom den Besten der Stadt zum Duell. Er ist großzügig: Du darfst zwischen zwei Ausrüstungssets wählen – wenn du klug rechnest.*
+*Auf dem Turnierplatz von Zahlheim ruft Ritter Lohnamm den Besten der Stadt zum Duell. Er ist großzügig: Du darfst zwischen zwei Ausrüstungssets wählen – wenn du klug rechnest.*
 
 ## Beispiel
 
-Ritter Absalom schenkt dir einen Gegenstand – du darfst wählen: Handschuhe mit +10 % Schaden oder einen Helm mit +5 Schaden (fester Betrag). Dein Schwert hat Grundschaden 40. Was ist besser? Und was, wenn dein Schwert Grundschaden 80 hätte?
+Ritter Lohnamm schenkt dir einen Gegenstand – du darfst wählen: Handschuhe mit +10 % Schaden oder einen Helm mit +5 Schaden (fester Betrag). Dein Schwert hat Grundschaden 40. Was ist besser? Und was, wenn dein Schwert Grundschaden 80 hätte?
 
 | Grundschaden G | Handschuhe: G · 0,1 | Neuer Schaden | Helm: G + 5 | Neuer Schaden | Besser |
 |---|---|---|---|---|---|
@@ -74,13 +74,13 @@ Die Werte aller Waffen, des Armbands und des Rings findest du in der Übersicht 
 
 ### Aufgabe 4 – Das Duell
 
-Ritter Absalom der Unnachgiebige bietet dir zwei Sets an: Set A mit prozentualem Bonus, Set B mit festem Bonus. Berechne für beide Sets Minimum, Mittelwert und Maximum eines Treffers. Welches Set ist besser?
-Wähle dann ein Set und tritt im Würfelduell gegen Absalom an.
+Ritter Lohnamm der Unnachgiebige bietet dir zwei Sets an: Set A mit prozentualem Bonus, Set B mit festem Bonus. Berechne für beide Sets Minimum, Mittelwert und Maximum eines Treffers. Welches Set ist besser?
+Wähle dann ein Set und tritt im Würfelduell gegen Lohnamm an.
 A Kälteset (anteilig): ***Eislanze*** + ***Fjordgreifer***
 B Glutset (absolut): ***Flammenschwert*** + ***Handschuhe des Glutschmieds***
 
-1. Beide haben 200 LP. Du wählst zuerst ein Set, Absalom bekommt das andere.
-2. Jede Runde würfeln beide einmal: 1–2 → Min, 3–4 → Mittel, 5–6 → Max. Du würfelst auch für Absalom.
+1. Beide haben 200 LP. Du wählst zuerst ein Set, Lohnamm bekommt das andere.
+2. Jede Runde würfeln beide einmal: 1–2 → Min, 3–4 → Mittel, 5–6 → Max. Du würfelst auch für Lohnamm.
 3. Der Schaden wird gleichzeitig von den LP des anderen abgezogen.
 4. Sobald jemand 0 LP oder weniger hat, endet das Duell. Wer weniger tief im Minus liegt, gewinnt (genau gleich: Rückkampf).
 

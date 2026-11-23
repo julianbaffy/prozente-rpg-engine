@@ -373,7 +373,7 @@ function einheit7() {
   const zeileBsp = G => [String(f(G)), `${f(G)} · ${f(ref.p / 100)} = ${f(R.prozentwert(G, ref.p))}`, f(G + R.prozentwert(G, ref.p)), `${f(G)} + ${f(ref.b)}`, f(G + ref.b),
     R.prozentwert(G, ref.p) > ref.b ? 'Handschuhe' : (R.prozentwert(G, ref.p) < ref.b ? 'Helm' : 'gleich gut')];
   const beispiel = {
-    problem: `Ritter Absalom schenkt dir einen Gegenstand – du darfst wählen: Handschuhe mit +${ref.p} % Schaden oder einen Helm mit +${ref.b} Schaden (fester Betrag). Dein Schwert hat Grundschaden ${ref.G}. Was ist besser? Und was, wenn dein Schwert Grundschaden 80 hätte?`,
+    problem: `Ritter Lohnamm schenkt dir einen Gegenstand – du darfst wählen: Handschuhe mit +${ref.p} % Schaden oder einen Helm mit +${ref.b} Schaden (fester Betrag). Dein Schwert hat Grundschaden ${ref.G}. Was ist besser? Und was, wenn dein Schwert Grundschaden 80 hätte?`,
     tabelle: { kopf: ['Grundschaden G', `Handschuhe: G · ${f(ref.p / 100)}`, 'Neuer Schaden', 'Helm: G + 5', 'Neuer Schaden', 'Besser'],
                zeilen: [zeileBsp(40), [String(80), '', '', '', '', '']] },
     loesungTabelle: { kopf: ['Grundschaden G', `Handschuhe: G · ${f(ref.p / 100)}`, 'Neuer Schaden', 'Helm: G + 5', 'Neuer Schaden', 'Besser'],
@@ -454,7 +454,7 @@ function einheit7() {
   });
 
   return { einheit: 7, titel: 'Duelle', untertitel: 'Absolut oder prozentual?',
-           einstieg: 'Auf dem Turnierplatz von Zahlheim ruft Ritter Absalom den Besten der Stadt zum Duell. Er ist großzügig: Du darfst zwischen zwei Ausrüstungssets wählen – wenn du klug rechnest.',
+           einstieg: 'Auf dem Turnierplatz von Zahlheim ruft Ritter Lohnamm den Besten der Stadt zum Duell. Er ist großzügig: Du darfst zwischen zwei Ausrüstungssets wählen – wenn du klug rechnest.',
            beispiel, sicherung, aufgaben, abstaende: { nachBeispiel: 0.16 }, duell: { id: duellDaten.id, lp: duellDaten.lp, gewinnchance: w } };
 }
 

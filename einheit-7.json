@@ -2,9 +2,9 @@
   "einheit": 7,
   "titel": "Duelle",
   "untertitel": "Absolut oder prozentual?",
-  "einstieg": "Auf dem Turnierplatz von Zahlheim ruft Ritter Absalom den Besten der Stadt zum Duell. Er ist großzügig: Du darfst zwischen zwei Ausrüstungssets wählen – wenn du klug rechnest.",
+  "einstieg": "Auf dem Turnierplatz von Zahlheim ruft Ritter Lohnamm den Besten der Stadt zum Duell. Er ist großzügig: Du darfst zwischen zwei Ausrüstungssets wählen – wenn du klug rechnest.",
   "beispiel": {
-    "problem": "Ritter Absalom schenkt dir einen Gegenstand – du darfst wählen: Handschuhe mit +10 % Schaden oder einen Helm mit +5 Schaden (fester Betrag). Dein Schwert hat Grundschaden 40. Was ist besser? Und was, wenn dein Schwert Grundschaden 80 hätte?",
+    "problem": "Ritter Lohnamm schenkt dir einen Gegenstand – du darfst wählen: Handschuhe mit +10 % Schaden oder einen Helm mit +5 Schaden (fester Betrag). Dein Schwert hat Grundschaden 40. Was ist besser? Und was, wenn dein Schwert Grundschaden 80 hätte?",
     "tabelle": {
       "kopf": [
         "Grundschaden G",
@@ -334,7 +334,7 @@
         "italic": true,
         "gap": 0.05
       },
-      "text": "Ritter Absalom der Unnachgiebige bietet dir zwei Sets an: Set A mit prozentualem Bonus, Set B mit festem Bonus. Berechne für beide Sets Minimum, Mittelwert und Maximum eines Treffers. Welches Set ist besser?\nWähle dann ein Set und tritt im Würfelduell gegen Absalom an.\nA Kälteset (anteilig): {{Eislanze}} + {{Fjordgreifer}}\nB Glutset (absolut): {{Flammenschwert}} + {{Handschuhe des Glutschmieds}}",
+      "text": "Ritter Lohnamm der Unnachgiebige bietet dir zwei Sets an: Set A mit prozentualem Bonus, Set B mit festem Bonus. Berechne für beide Sets Minimum, Mittelwert und Maximum eines Treffers. Welches Set ist besser?\nWähle dann ein Set und tritt im Würfelduell gegen Lohnamm an.\nA Kälteset (anteilig): {{Eislanze}} + {{Fjordgreifer}}\nB Glutset (absolut): {{Flammenschwert}} + {{Handschuhe des Glutschmieds}}",
       "tabellen": [
         {
           "kopf": [
@@ -372,8 +372,8 @@
         }
       ],
       "regeln": [
-        "Beide haben 200 LP. Du wählst zuerst ein Set, Absalom bekommt das andere.",
-        "Jede Runde würfeln beide einmal: 1–2 → Min, 3–4 → Mittel, 5–6 → Max. Du würfelst auch für Absalom.",
+        "Beide haben 200 LP. Du wählst zuerst ein Set, Lohnamm bekommt das andere.",
+        "Jede Runde würfeln beide einmal: 1–2 → Min, 3–4 → Mittel, 5–6 → Max. Du würfelst auch für Lohnamm.",
         "Der Schaden wird gleichzeitig von den LP des anderen abgezogen.",
         "Sobald jemand 0 LP oder weniger hat, endet das Duell. Wer weniger tief im Minus liegt, gewinnt (genau gleich: Rückkampf)."
       ],

@@ -182,7 +182,7 @@
   ],
 
   "duelle": [
-    { "id": "d1", "stufe": 7, "herausforderer": "Ritter Absalom der Unnachgiebige", "lp": 200,
+    { "id": "d1", "stufe": 7, "herausforderer": "Ritter Lohnamm der Unnachgiebige", "lp": 200,
       "sets": [
         { "name": "Set A – Kälte (prozentual)", "waffe": "eislanze", "zauber": "fjordgreifer" },
         { "name": "Set B – Glut (absolut)", "waffe": "flammenschwert", "zauber": "handschuhe-des-glutschmieds" }
@@ -270,7 +270,7 @@
         { "ruestung": "fokussierte-gedanken", "quelle": "PHYSISCH", "gemessen": 45 }
       ] },
     { "id": "7a", "stufe": 7, "typ": "vergleich",
-      "text": "Ritter Absalom bietet dir zwei Sets an: ein Set mit prozentualem Bonus (Handschuhe) und eines mit festem Bonus (Ring). Welches macht mehr Schaden? Welches steigert den Schaden um mehr?",
+      "text": "Ritter Lohnamm bietet dir zwei Sets an: ein Set mit prozentualem Bonus (Handschuhe) und eines mit festem Bonus (Ring). Welches macht mehr Schaden? Welches steigert den Schaden um mehr?",
       "optionen": [
         { "name": "Set A", "waffe": "eislanze", "zauber": "fjordgreifer" },
         { "name": "Set B", "waffe": "flammenschwert", "zauber": "handschuhe-des-glutschmieds" }
