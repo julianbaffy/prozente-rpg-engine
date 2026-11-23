@@ -19,6 +19,7 @@ Ausführliches Konzept: `KONZEPT.md` (Stufen 1–9, Regeln, Gegenstände, offene
 - `node layout/build-karten.js [stufe | gegner | gegner-3 | uebersicht 3|4|7|8]` – Gegenstands-/Gegnerkarten, Übersichten
 - `node layout/build-regeln.js [--mit-ruestung]` – Regel-Präsentation
 - `node layout/make-icons.js` – Icons neu erzeugen
+- `python3 layout/make-og-bild.py` – Vorschaubild für Links (`web/og-bild.jpg`, 1200 × 630) neu erzeugen; OG-Tags in `index.html` und `web/index.html` nutzen absolute Adressen unter `https://julianbaffy.github.io/prozente-rpg-engine/`
 
 ## Wichtige Arbeitsregeln
 - **Julians pptx-Dateien werden nie überschrieben.** Er ändert pptx von Hand. Änderungen daraus entweder in den Generator übernehmen (Text vergleichen) oder direkt in die vorhandene Datei nachziehen. Nur die Pergament-Variante wird von Hand bearbeitet, „ohne Hintergrund“ wird daraus abgeleitet. Vor dem Überschreiben generierter Dateien immer prüfen, ob Julian sie geändert hat (mtime).
