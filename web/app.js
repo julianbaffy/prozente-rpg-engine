@@ -212,23 +212,20 @@ function zeichneAuswahl() {
   ziel.replaceChildren();
   SLOTS.forEach(s => {
     const items = daten.gegenstaende.filter(i => i.slot === s.key && sichtbar(i));
+    if (!items.length) return;              // in den gewählten Stufen keine Gegenstände dieser Art: Abschnitt weglassen
     ziel.append(abschnitt(s.key, s.titel,
-      items.length
-        ? el('div', { class: 'raster', role: 'group', 'aria-label': s.titel }, items.map(i => kachel(i, s.key, () => {
+      el('div', { class: 'raster', role: 'group', 'aria-label': s.titel }, items.map(i => kachel(i, s.key, () => {
           zustand[s.key] = zustand[s.key] === i.id ? null : i.id;      // nochmal tippen = abwählen
           if (s.key === 'ruestung') zustand.nachtraeglichAuf = '';
           aktualisieren();
-        })))
-        : el('p', { class: 'hinweis' }, 'In den gewählten Stufen kommt hier nichts vor.')));
+        })))));
   });
   const gegner = daten.gegner.filter(sichtbar);
-  ziel.append(abschnitt('gegner', 'Gegner',
-    gegner.length
-      ? el('div', { class: 'raster', role: 'group', 'aria-label': 'Gegner' }, gegner.map(x => kachel(x, 'gegner', () => {
+  if (gegner.length) ziel.append(abschnitt('gegner', 'Gegner',
+    el('div', { class: 'raster', role: 'group', 'aria-label': 'Gegner' }, gegner.map(x => kachel(x, 'gegner', () => {
         zustand.gegner = zustand.gegner === x.id ? null : x.id;
         aktualisieren();
-      })))
-      : el('p', { class: 'hinweis' }, 'In den gewählten Stufen kommen keine Gegner vor.'), 'slot-gegner'));
+      }))), 'slot-gegner'));
 }
 
 /* ---------- Ausrüstung: die gewählten Karten untereinander ---------- */
@@ -238,6 +235,7 @@ function ablegen(titel, onclick) {
 function zeichneAusruestung() {
   const teile = SLOTS.map(s => {
     const it = zustand[s.key] ? rpg.item(zustand[s.key]) : null;
+    if (!it && !daten.gegenstaende.some(i => i.slot === s.key && sichtbar(i))) return null;   // Art kommt nicht vor
     if (!it) return el('div', { class: 'platz leer' }, el('span', { class: 'platz-titel' }, s.titel), el('p', { class: 'karte-leer' }, `${s.key === 'zauber' ? 'Kein' : 'Keine'} ${s.titel} gewählt`));
     let extra = null;
     if ((it.effekte || []).some(e => e.typ === 'nachtraeglich')) {
