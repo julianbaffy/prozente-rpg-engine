@@ -60,7 +60,8 @@ Zweck: Julian und Schüler prüfen damit eigene Rechnungen (Gegenstände wählen
 
 ## Deployment
 - Das gesamte Repo ist öffentlich und wird mit GitHub Pages aus dem Branch `main`, Ordner `/ (root)` veröffentlicht. Es gibt keinen Build-Schritt und keine Action.
-- Die Seite liegt unter `https://<name>.github.io/<repo>/web/`. Eine `index.html` im Hauptordner leitet auf `web/` weiter.
+- Repo: `https://github.com/julianbaffy/prozente-rpg-engine`. Die Seite liegt unter `https://julianbaffy.github.io/prozente-rpg-engine/web/` (läuft seit 23.11.2026). Eine `index.html` im Hauptordner leitet auf `web/` weiter.
+- Vorgewählte Ausrüstung per Link, z. B. `…/web/#waffe=mjoelnir&zauber=glueckbringender-magnetstein&gegner=eisgolem`.
 - Veröffentlicht wird alles, was eingecheckt ist (Engine, JSON, Lösungen, Konzept). Das ist von Julian so gewollt. `pptx/` und `PDFs/` sind ignoriert und werden nicht veröffentlicht.
 - Pfade im Web-Tool immer relativ angeben (`../engine.js`, `../gegenstaende.json`), weil die Seite in einem Unterpfad liegt.
 
