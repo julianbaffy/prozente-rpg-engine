@@ -7,4 +7,5 @@ PDFs/
 # Node / macOS
 node_modules/
 .DS_Store
+.claude/
 ~$*
