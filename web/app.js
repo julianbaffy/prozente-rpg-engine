@@ -538,8 +538,13 @@ function aktualisieren() {
   }
 }
 
-/* Welche Gegenstände und Gegner braucht eine Stufe? Genau die, die im Arbeitsblatt (einheit-N.json, mit Lösungen)
- * mit Namen vorkommen – das umfasst auch die Übersichten. Stufen ohne Gegenstände (z. B. 5) erscheinen nicht. */
+/* Welche Gegenstände und Gegner braucht eine Stufe?
+ * - alles, was im Arbeitsblatt (einheit-N.json, mit Lösungen) mit Namen vorkommt, und
+ * - in Einheiten ohne laminierte Übersicht zusätzlich alle Gegenstandskarten dieser Stufe (Stufe 1: 9 Waffen,
+ *   6 Zaubergegenstände – auch die, die keine Aufgabe nennt).
+ * Einheiten mit Übersicht (3, 4, 7, 8) zeigen genau deren Inhalt; dort steht alles auch im Arbeitsblatt.
+ * Stufen ohne Gegenstände (z. B. 5) erscheinen nicht. */
+const MIT_UEBERSICHT = [3, 4, 7, 8];   // wie UEBERSICHTEN in layout/build-karten.js
 async function ladeEinheiten() {
   const alle = [...daten.gegenstaende, ...daten.gegner];
   const letzte = Math.max(...daten.stufen.map(s => s.nr), ...alle.map(x => x.stufe));   // höchste Einheit (derzeit 9)
@@ -548,7 +553,8 @@ async function ladeEinheiten() {
       const a = await fetch(`../einheit-${nr}.json`);
       if (!a.ok) return null;
       const text = await a.text();
-      const ids = new Set(alle.filter(x => text.includes(x.name)).map(x => x.id));
+      const karten = MIT_UEBERSICHT.includes(nr) ? [] : alle.filter(x => x.stufe === nr);
+      const ids = new Set([...alle.filter(x => text.includes(x.name)), ...karten].map(x => x.id));
       return ids.size ? { nr, titel: JSON.parse(text).titel, ids } : null;
     } catch { return null; }
   }));
