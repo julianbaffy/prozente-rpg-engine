@@ -211,7 +211,7 @@ function treppeSeite(pres, slide, t, PLAIN) {
 const byId = id => daten.gegenstaende.find(i => i.id === id);
 const UEBERSICHTEN = {
   3: { kopf: 'Einheit 3 · Die Monsterhöhlen  –  Gegnerübersicht  ·  Ein Gegner ist besiegt, wenn seine Lebenspunkte 0 oder weniger erreichen', gross: daten.gegner.filter(g => g.stufe === 3) },
-  4: { kopf: 'Einheit 4 · Der Schriftrollenhändler  –  Übersicht', abschnitte: [
+  4: { kopf: 'Einheit 4 · Die Schriftrollenhändlerin  –  Übersicht', abschnitte: [
     { titel: 'Neue Ausrüstung', items: ['gewitterstein', 'frostsiegel', 'rune-der-glut', 'rune-der-meisterschaft'].map(byId) },
     { titel: 'Neue Gegner', kind: 'gross', items: daten.gegner.filter(g => g.stufe === 4) }] },
   8: { kopf: 'Einheit 8 · Die Arena  –  Übersicht', cols: 4, abst: { iy: 0.72333, unt: 0.506, dx: 0.03, hExtra: 0.01, abschnitt: 0.1355 }, abschnitte: [   // abst = Julians gelockertes Spacing (Pergament-Version von Hand)

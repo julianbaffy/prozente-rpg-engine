@@ -57,7 +57,7 @@ function einheit4() {
   const q4a = daten.quests.find(q => q.id === '4a');
   const l4a = rpg.loeseQuest(q4a);
   const beispiel = {
-    problem: q4a.text + ' Er hat vier Rollen im Angebot. Welchen Schaden macht dein Schwert nach jeder Rolle?',
+    problem: q4a.text + ' Sie hat vier Rollen im Angebot. Welchen Schaden macht dein Schwert nach jeder Rolle?',
     zeilen: l4a.ergebnisse.map(e => ({
       rolle: e.text.replace(/ (um|auf) /, ' **$1** '),
       rechnung: e.art === 'um'
@@ -173,7 +173,7 @@ function einheit4() {
   ];
   aufgaben.push({
     nr: 6, titel: 'Echte Fallen', yExtra: 0.1,
-    text: 'Borwin hat noch Rollen im Angebot, bei denen man genau lesen muss. Ordne jede Rolle ein, ohne zu rechnen:\nMacht sie mehr Schaden, weniger Schaden, bleibt der Schaden gleich oder ist die Rolle Unsinn? Begründe kurz.\nZwei Rollen haben dieselbe Wirkung. Welche?',
+    text: 'Thelya hat noch Rollen im Angebot, bei denen man genau lesen muss. Ordne jede Rolle ein, ohne zu rechnen:\nMacht sie mehr Schaden, weniger Schaden, bleibt der Schaden gleich oder ist die Rolle Unsinn? Begründe kurz.\nZwei Rollen haben dieselbe Wirkung. Welche?',
     zeilenAnz: { 0: 1, 1: 2, 2: 1 },
     teile: fallen.map(x => x.t), teileSpalten: 3,
     loesung: fallen.map((x, i) => `${String.fromCharCode(97 + i)}) ${x.t}: ${x.art === 'Unsinn' ? 'Unsinn' : x.art === 'gleich' ? 'bleibt gleich' : x.art === 'mehr' ? 'mehr Schaden' : 'weniger Schaden'} (bei Grundschaden 100: ${f(x.w)} SP) – ${x.warum}`)
@@ -185,7 +185,7 @@ function einheit4() {
   const zeile7 = p => `„Verringere um ${p} %“: ${f(G7)} · ${f(1 - p / 100)} = ${f(R.verringernUm(G7, p))}; Gegenrolle: Faktor 1 : ${f(1 - p / 100)} = ${f3(1 / (1 - p / 100))}, also „Steigere um ${f3(gegen(p))} %“ (${f(R.verringernUm(G7, p))} · ${f3(1 / (1 - p / 100))} = ${f(G7)}).`;
   aufgaben.push({
     nr: 7, titel: '★ Die Gegenrolle', differenzierung: true,
-    text: `Borwin sagt: „Zu jeder Rolle gibt es eine Gegenrolle, die sie rückgängig macht.“ Dein Schwert hat Grundschaden ${G7}.\na) Wende „Verringere um 20 %“ an. Mit welcher „Steigere um …“-Rolle bekommst du wieder ${G7} SP?\nb) Finde ebenso die Gegenrolle zu „Verringere um 50 %“ und zu „Verringere um 75 %“.\nc) Was fällt dir auf? Warum ist die Gegenrolle nicht einfach „Steigere um 20 %“?\nd) Gibt es eine Gegenrolle zu „Verringere um 100 %“? Begründe.`,
+    text: `Thelya sagt: „Zu jeder Rolle gibt es eine Gegenrolle, die sie rückgängig macht.“ Dein Schwert hat Grundschaden ${G7}.\na) Wende „Verringere um 20 %“ an. Mit welcher „Steigere um …“-Rolle bekommst du wieder ${G7} SP?\nb) Finde ebenso die Gegenrolle zu „Verringere um 50 %“ und zu „Verringere um 75 %“.\nc) Was fällt dir auf? Warum ist die Gegenrolle nicht einfach „Steigere um 20 %“?\nd) Gibt es eine Gegenrolle zu „Verringere um 100 %“? Begründe.`,
     teilGap: 0.1,
     loesung: [`a) ${zeile7(20)}`, `b) ${zeile7(50)} ${zeile7(75)}`,
       'c) Die Gegenrolle hat immer einen größeren Prozentsatz: Nach „Verringere um 20 %“ bleiben nur 80 % des Schadens übrig. 20 % von 80 sind weniger als 20 % von 100 – man muss also mehr als 20 % steigern. Der Faktor der Gegenrolle ist der Kehrwert des Faktors (1 : 0,8 = 1,25).',
@@ -193,8 +193,8 @@ function einheit4() {
   });
 
   return {
-    einheit: 4, titel: 'Der Schriftrollenhändler', untertitel: 'Steigern um … oder auf …?',
-    einstieg: 'Auf dem Marktplatz von Zahlheim baut Schriftrollenhändler Borwin seinen Stand auf. Seine Rollen verändern den Schaden deiner Waffe – aber die Beschreibungen klingen verdächtig ähnlich …',
+    einheit: 4, titel: 'Die Schriftrollenhändlerin', untertitel: 'Steigern um … oder auf …?',
+    einstieg: 'Auf dem Marktplatz von Zahlheim baut Schriftrollenhändlerin Thelya ihren Stand auf. Ihre Rollen verändern den Schaden deiner Waffe – aber die Beschreibungen klingen verdächtig ähnlich …',
     beispiel, sicherung, sicherungNach: 2, aufgaben, dy: { einstieg: 0.09 }
   };
 }

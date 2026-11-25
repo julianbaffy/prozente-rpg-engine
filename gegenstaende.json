@@ -28,7 +28,7 @@
     { "nr": 3, "titel": "Die Monsterhöhlen", "pool": "zwei komplette Sets",
       "lernziel": "Prozentuale Verringerung/Erhöhung des erlittenen Schadens (Widerstand, Immunität, Anfälligkeit)",
       "auftrag": "Baue zwei Sets, mit denen du jedes Monster in höchstens 3 Kampfrunden besiegst (Pech / Durchschnitt / Glück)." },
-    { "nr": 4, "titel": "Der Schriftrollenhändler", "pool": "Aussagen vergleichen",
+    { "nr": 4, "titel": "Die Schriftrollenhändlerin", "pool": "Aussagen vergleichen",
       "lernziel": "Steigern/Verringern UM p % (1 ± p) versus AUF p % (Faktor p)",
       "auftrag": "Welche Schriftrollen bewirken dasselbe? Welche sind Fallen?" },
     { "nr": 5, "titel": "Der Verzauberer", "pool": "Prozentsatz bestimmen",
@@ -52,7 +52,7 @@
     { "id": "beruehrung-des-wahnsinns", "name": "Berührung des Wahnsinns", "slot": "waffe", "typ": "Zweihandschwert", "stufe": 1,
       "schaden": [ { "quelle": "PHYSISCH", "min": 10, "mittel": 15, "max": 20 }, { "quelle": "CHAOS", "min": 6, "mittel": 36, "max": 66 } ] },
     { "id": "funkenstab", "name": "Funkenstab", "slot": "waffe", "typ": "Zauberstab", "stufe": 1,
-      "schaden": [ { "quelle": "PHYSISCH", "min": 5, "mittel": 7.5, "max": 10 } ],
+      "schaden": [ { "quelle": "BLITZ", "min": 10, "mittel": 15, "max": 20 } ],
       "modifikatoren": [ { "quelle": "ELEMENTAR", "prozent": 150 } ] },
     { "id": "zerreisser-des-seelenfadens", "name": "Zerreißer des Seelenfadens", "slot": "waffe", "typ": "Richtschwert", "stufe": 1,
       "schaden": [ { "quelle": "PHYSISCH", "min": 17, "mittel": 26, "max": 35 } ],
@@ -190,8 +190,8 @@
   ],
 
   "quests": [
-    { "id": "4a", "stufe": 4, "typ": "umAuf", "npc": "Schriftrollenhändler Borwin",
-      "text": "Borwin verkauft Schriftrollen für ein Schwert mit Grundschaden 80 FEUER (Beispiel auf dem Arbeitsblatt).",
+    { "id": "4a", "stufe": 4, "typ": "umAuf", "npc": "Schriftrollenhändlerin Thelya",
+      "text": "Thelya verkauft Schriftrollen für ein Schwert mit Grundschaden 80 FEUER (Beispiel auf dem Arbeitsblatt).",
       "grundwert": 80,
       "varianten": [
         { "text": "Steigere den Schaden um 25 %", "art": "um", "richtung": "steigern", "p": 25 },
@@ -199,8 +199,8 @@
         { "text": "Verringere den Schaden um 25 %", "art": "um", "richtung": "verringern", "p": 25 },
         { "text": "Verringere den Schaden auf 25 %", "art": "auf", "richtung": "verringern", "p": 25 }
       ] },
-    { "id": "4b", "stufe": 4, "typ": "umAuf", "npc": "Schriftrollenhändler Borwin",
-      "text": "Borwins Lehrling bietet sechs weitere Rollen an. Dein Schwert hat Grundschaden 60. Welche Rollen bewirken dasselbe?",
+    { "id": "4b", "stufe": 4, "typ": "umAuf", "npc": "Schriftrollenhändlerin Thelya",
+      "text": "Thelyas Lehrling bietet sechs weitere Rollen an. Dein Schwert hat Grundschaden 60. Welche Rollen bewirken dasselbe?",
       "grundwert": 60,
       "varianten": [
         { "text": "Steigere den Schaden um 40 %", "art": "um", "richtung": "steigern", "p": 40 },

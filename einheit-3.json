@@ -570,7 +570,7 @@
         }
       ],
       "loesung": [
-        "Es gibt viele richtige Lösungen. Von 324 vollständigen Sets (Waffe + Rüstung + Zaubergegenstand) gibt es Paare, die alle Monster in 3 Runden schaffen: im Durchschnitt 21 Paare, mit Pech 12 Paare, mit Glück 443 Paare.",
+        "Es gibt viele richtige Lösungen. Von 324 vollständigen Sets (Waffe + Rüstung + Zaubergegenstand) gibt es Paare, die alle Monster in 3 Runden schaffen: im Durchschnitt 63 Paare, mit Pech 12 Paare, mit Glück 554 Paare.",
         "Gezeigt wird das Set „Gewitter“ aus Aufgabe 1 zusammen mit einem PHYSISCH-Set (Set A) – damit wird jedes Monster zumindest im Durchschnitt in 3 Runden besiegt. Die Rechnung gegen ein Monster: jede Schadensart mit dem Faktor des Monsters multiplizieren (Widerstand 1 − p, Anfälligkeit 1 + p, Immunität 0), dann addieren."
       ]
     },

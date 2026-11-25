@@ -1,10 +1,10 @@
-# Einheit 4: Der Schriftrollenhändler – Steigern um … oder auf …?
+# Einheit 4: Die Schriftrollenhändlerin – Steigern um … oder auf …?
 
-*Auf dem Marktplatz von Zahlheim baut Schriftrollenhändler Borwin seinen Stand auf. Seine Rollen verändern den Schaden deiner Waffe – aber die Beschreibungen klingen verdächtig ähnlich …*
+*Auf dem Marktplatz von Zahlheim baut Schriftrollenhändlerin Thelya ihren Stand auf. Ihre Rollen verändern den Schaden deiner Waffe – aber die Beschreibungen klingen verdächtig ähnlich …*
 
 ## Beispiel
 
-Borwin verkauft Schriftrollen für ein Schwert mit Grundschaden 80 FEUER (Beispiel auf dem Arbeitsblatt). Er hat vier Rollen im Angebot. Welchen Schaden macht dein Schwert nach jeder Rolle?
+Thelya verkauft Schriftrollen für ein Schwert mit Grundschaden 80 FEUER (Beispiel auf dem Arbeitsblatt). Sie hat vier Rollen im Angebot. Welchen Schaden macht dein Schwert nach jeder Rolle?
 
 | Rolle | Rechnung | Neuer Schaden |
 |---|---|---|
@@ -31,7 +31,7 @@ Borwin verkauft Schriftrollen für ein Schwert mit Grundschaden 80 FEUER (Beispi
 
 ### Aufgabe 1 – Zwillinge und Fallen
 
-Borwins Lehrling bietet sechs weitere Rollen an. Dein Schwert verursacht einen physischen Grundschaden von ***60***. Welche Rollen bewirken dasselbe? Berechne den neuen Schaden und markiere Rollen mit gleichem Ergebnis.
+Thelyas Lehrling bietet sechs weitere Rollen an. Dein Schwert verursacht einen physischen Grundschaden von ***60***. Welche Rollen bewirken dasselbe? Berechne den neuen Schaden und markiere Rollen mit gleichem Ergebnis.
 
 - Steigere den Schaden um 40 %  → ______ SP
 - Steigere den Schaden auf 140 %  → ______ SP
@@ -73,7 +73,7 @@ Verwende die neue Formel zur Berechnung von Modifikatoren.
 
 ### Aufgabe 6 – Echte Fallen
 
-Borwin hat noch Rollen im Angebot, bei denen man genau lesen muss. Ordne jede Rolle ein, ohne zu rechnen:
+Thelya hat noch Rollen im Angebot, bei denen man genau lesen muss. Ordne jede Rolle ein, ohne zu rechnen:
 Macht sie mehr Schaden, weniger Schaden, bleibt der Schaden gleich oder ist die Rolle Unsinn? Begründe kurz.
 Zwei Rollen haben dieselbe Wirkung. Welche?
 
@@ -86,7 +86,7 @@ Zwei Rollen haben dieselbe Wirkung. Welche?
 
 ### Aufgabe 7 – ★ Die Gegenrolle
 
-Borwin sagt: „Zu jeder Rolle gibt es eine Gegenrolle, die sie rückgängig macht.“ Dein Schwert hat Grundschaden 80.
+Thelya sagt: „Zu jeder Rolle gibt es eine Gegenrolle, die sie rückgängig macht.“ Dein Schwert hat Grundschaden 80.
 a) Wende „Verringere um 20 %“ an. Mit welcher „Steigere um …“-Rolle bekommst du wieder 80 SP?
 b) Finde ebenso die Gegenrolle zu „Verringere um 50 %“ und zu „Verringere um 75 %“.
 c) Was fällt dir auf? Warum ist die Gegenrolle nicht einfach „Steigere um 20 %“?

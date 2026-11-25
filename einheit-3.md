@@ -86,7 +86,7 @@ Jetzt wird es Ernst. Du wagst dich in die Monsterhöhle und trittst ihnen leibha
 | Finsterer Archivar der Algebra | 350 | 66,5 | 25 | 91,5 | 4 |
 
 **Aufgabe 2**
-- Es gibt viele richtige Lösungen. Von 324 vollständigen Sets (Waffe + Rüstung + Zaubergegenstand) gibt es Paare, die alle Monster in 3 Runden schaffen: im Durchschnitt 21 Paare, mit Pech 12 Paare, mit Glück 443 Paare.
+- Es gibt viele richtige Lösungen. Von 324 vollständigen Sets (Waffe + Rüstung + Zaubergegenstand) gibt es Paare, die alle Monster in 3 Runden schaffen: im Durchschnitt 63 Paare, mit Pech 12 Paare, mit Glück 554 Paare.
 - Gezeigt wird das Set „Gewitter“ aus Aufgabe 1 zusammen mit einem PHYSISCH-Set (Set A) – damit wird jedes Monster zumindest im Durchschnitt in 3 Runden besiegt. Die Rechnung gegen ein Monster: jede Schadensart mit dem Faktor des Monsters multiplizieren (Widerstand 1 − p, Anfälligkeit 1 + p, Immunität 0), dann addieren.
 
 | Monster | LP | Set | Min | Mittel | Max | 3 · Min | 3 · Mittel | 3 · Max | Besiegt mit |

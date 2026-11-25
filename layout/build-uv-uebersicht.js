@@ -32,7 +32,7 @@ const EINHEITEN = [
     mathe: 'Widerstand, Immunität und Anfälligkeit als Faktor 1 ± p (immun = Faktor 0), für jede Schadensart einzeln auf den fertigen Schaden. Treffer bis zum Sieg: Lebenspunkte : Schaden (aufrunden).',
     material: ['30× Arbeitsblatt (5 Seiten)', '10× Übersicht Einheit 3 (Gegner, laminiert)', '10× Gegenstandskarten Stufe 1 und 2 (laminiert)', 'W6-Würfel für die Duelle'] },
   { nr: 4,
-    kontext: 'Auf dem Marktplatz verkauft Schriftrollenhändler Borwin Rollen, die den Schaden verändern. Die Beschreibungen klingen verdächtig ähnlich …',
+    kontext: 'Auf dem Marktplatz verkauft Schriftrollenhändlerin Thelya Rollen, die den Schaden verändern. Die Beschreibungen klingen verdächtig ähnlich …',
     aufgaben: 'Beispiel: vier Rollen für ein Schwert mit Grundschaden 80 · A1 Zwillinge und Fallen · A2 Übersetzungsrolle (um ⇄ auf) · A3 Wer hat recht? · A4 zwei Golems · A5 Ausrüstung kombinieren',
     mathe: 'Steigern / Verringern UM p % (G · (1 ± p)) und AUF a % (G · a) unterscheiden und ineinander umrechnen. Steigern um p % = Steigern auf (100 % + p).',
     material: ['30× Arbeitsblatt (3 Seiten)', '10× Übersicht Einheit 4 (neue Ausrüstung und Gegner, laminiert)'] },

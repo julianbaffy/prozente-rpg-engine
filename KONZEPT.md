@@ -12,7 +12,7 @@ Reihenfolge der Einheiten bleibt 1–8 (Arbeit erfolgt in dieser Reihenfolge).
 | 1 | Die Schmiede | Waffe + Zaubergegenstand; W = p·G; gleiche Quellen addieren (original) | Daten ok |
 | 2 | Die Rüstkammer | + Rüstung: Umwandlung, Grundschaden-Bonus, negative Modifikatoren (original) | Daten ok |
 | 3 | Die Monsterhöhlen | Widerstände/Immunität/Anfälligkeit; 2 Sets; 3 Runden; Pech/Ø/Glück (original) | Daten ok |
-| 4 | Schriftrollenhändler | Steigern/Verringern UM p % vs. AUF p % | Entwurf |
+| 4 | Schriftrollenhändlerin | Steigern/Verringern UM p % vs. AUF p % | Entwurf |
 | 5 | Verzauberer (Magister Quillon) | Prozentsatz bestimmen: p = W : G; Änderung | Entwurf |
 | 6 | Trainingshalle | Grundwert bestimmen: G = W : (1 ± p); Fehler W − p·W | Daten, Blatt offen |
 | 7 | Duelle | absolut (fester Bonus) vs. prozentual; Schwellenwert b : p; Würfelduell mit gleichen LP | Entwurf |

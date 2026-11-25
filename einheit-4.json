@@ -1,10 +1,10 @@
 {
   "einheit": 4,
-  "titel": "Der Schriftrollenhändler",
+  "titel": "Die Schriftrollenhändlerin",
   "untertitel": "Steigern um … oder auf …?",
-  "einstieg": "Auf dem Marktplatz von Zahlheim baut Schriftrollenhändler Borwin seinen Stand auf. Seine Rollen verändern den Schaden deiner Waffe – aber die Beschreibungen klingen verdächtig ähnlich …",
+  "einstieg": "Auf dem Marktplatz von Zahlheim baut Schriftrollenhändlerin Thelya ihren Stand auf. Ihre Rollen verändern den Schaden deiner Waffe – aber die Beschreibungen klingen verdächtig ähnlich …",
   "beispiel": {
-    "problem": "Borwin verkauft Schriftrollen für ein Schwert mit Grundschaden 80 FEUER (Beispiel auf dem Arbeitsblatt). Er hat vier Rollen im Angebot. Welchen Schaden macht dein Schwert nach jeder Rolle?",
+    "problem": "Thelya verkauft Schriftrollen für ein Schwert mit Grundschaden 80 FEUER (Beispiel auf dem Arbeitsblatt). Sie hat vier Rollen im Angebot. Welchen Schaden macht dein Schwert nach jeder Rolle?",
     "zeilen": [
       {
         "rolle": "Steigere den Schaden **um** 25 %",
@@ -42,7 +42,6 @@
   },
   "sicherung": {
     "titel": "Merke: Steigern / Verringern UM oder AUF",
-    "padUnten": 0.07,
     "vorspann": {
       "intro": "Wenn man die normalen Modifikatoren, wie “+25% FEUER” (also erhöhe **um** …) umschreibt, kann man den neuen Schaden in einem Schritt berechnen:",
       "beispielText": "Schwert: 80 FEUERschaden + Umhang des Bescheidenen (+25% SCHADEN jeder Schadensart)",
@@ -89,7 +88,7 @@
       "schritte": {
         "0": 0.51
       },
-      "text": "Borwins Lehrling bietet sechs weitere Rollen an. Dein Schwert verursacht einen physischen Grundschaden von {{60}}. Welche Rollen bewirken dasselbe? Berechne den neuen Schaden und markiere Rollen mit gleichem Ergebnis.",
+      "text": "Thelyas Lehrling bietet sechs weitere Rollen an. Dein Schwert verursacht einen physischen Grundschaden von {{60}}. Welche Rollen bewirken dasselbe? Berechne den neuen Schaden und markiere Rollen mit gleichem Ergebnis.",
       "tabelle": [
         "Steigere den Schaden um 40 %",
         "Steigere den Schaden auf 140 %",
@@ -125,8 +124,6 @@
       "nr": 2,
       "titel": "Die Übersetzungsrolle",
       "neueSeite": true,
-      "yExtra": 0.09,
-      "teileNach": -0.05,
       "text": "Schreibe dieselbe Wirkung mit dem anderen Wort („um“ statt „auf“ und umgekehrt).",
       "teile": [
         "Steigern um 35 %  →  auf ___________",
@@ -164,13 +161,6 @@
       "nr": 4,
       "titel": "Zwei Golems",
       "neueSeite": true,
-      "yExtra": 0.17,
-      "einBlock": true,
-      "blockSpPt": 4,
-      "zeilenAnz": {
-        "0": 3
-      },
-      "blockExtra": 0.06,
       "text": "Du kämpfst mit {{Feuersturm}} (rechne mit dem Mittelwert) gegen den {{Moosgolem}} und den {{Aschegolem}}. Die Eigenschaften kannst du der Übersicht für Einheit 4 entnehmen.\nWie viel Schaden macht ein Treffer jeweils? Wie viele Treffer brauchst du?",
       "loesung": [
         "Ohne Golem: FEUER: Grundschaden 20–40, Modifikatoren +50 % → Faktor 1,5 → 30–60 SP | PHYSISCH: Grundschaden 6–15, Modifikatoren +0 % → Faktor 1 → 6–15 SP",
@@ -181,17 +171,6 @@
     {
       "nr": 5,
       "titel": "Ausrüstung kombinieren",
-      "yExtra": 0.16,
-      "schritte": {
-        "0": 0.54
-      },
-      "kombiNach": 0.08,
-      "einBlock": true,
-      "zeilenAnz": {
-        "0": 2
-      },
-      "kombiPt": 11,
-      "kombiGap": 0.14,
       "text": "Berechne für jede den durchschnittlichen Schaden (Mittelwert). Welche ist die beste?\nVerwende die neue Formel zur Berechnung von Modifikatoren.",
       "kombinationen": [
         "Mjölnir + Gewitterstein",
@@ -252,10 +231,10 @@
       "nr": 6,
       "titel": "Echte Fallen",
       "yExtra": 0.1,
-      "text": "Borwin hat noch Rollen im Angebot, bei denen man genau lesen muss. Ordne jede Rolle ein, ohne zu rechnen:\nMacht sie mehr Schaden, weniger Schaden, bleibt der Schaden gleich oder ist die Rolle Unsinn? Begründe kurz.\nZwei Rollen haben dieselbe Wirkung. Welche?",
+      "text": "Thelya hat noch Rollen im Angebot, bei denen man genau lesen muss. Ordne jede Rolle ein, ohne zu rechnen:\nMacht sie mehr Schaden, weniger Schaden, bleibt der Schaden gleich oder ist die Rolle Unsinn? Begründe kurz.\nZwei Rollen haben dieselbe Wirkung. Welche?",
       "zeilenAnz": {
         "0": 1,
-        "1": 1,
+        "1": 2,
         "2": 1
       },
       "teile": [
@@ -281,7 +260,7 @@
       "nr": 7,
       "titel": "★ Die Gegenrolle",
       "differenzierung": true,
-      "text": "Borwin sagt: „Zu jeder Rolle gibt es eine Gegenrolle, die sie rückgängig macht.“ Dein Schwert hat Grundschaden 80.\na) Wende „Verringere um 20 %“ an. Mit welcher „Steigere um …“-Rolle bekommst du wieder 80 SP?\nb) Finde ebenso die Gegenrolle zu „Verringere um 50 %“ und zu „Verringere um 75 %“.\nc) Was fällt dir auf? Warum ist die Gegenrolle nicht einfach „Steigere um 20 %“?\nd) Gibt es eine Gegenrolle zu „Verringere um 100 %“? Begründe.",
+      "text": "Thelya sagt: „Zu jeder Rolle gibt es eine Gegenrolle, die sie rückgängig macht.“ Dein Schwert hat Grundschaden 80.\na) Wende „Verringere um 20 %“ an. Mit welcher „Steigere um …“-Rolle bekommst du wieder 80 SP?\nb) Finde ebenso die Gegenrolle zu „Verringere um 50 %“ und zu „Verringere um 75 %“.\nc) Was fällt dir auf? Warum ist die Gegenrolle nicht einfach „Steigere um 20 %“?\nd) Gibt es eine Gegenrolle zu „Verringere um 100 %“? Begründe.",
       "teilGap": 0.1,
       "loesung": [
         "a) „Verringere um 20 %“: 80 · 0,8 = 64; Gegenrolle: Faktor 1 : 0,8 = 1,25, also „Steigere um 25 %“ (64 · 1,25 = 80).",
