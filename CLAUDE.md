@@ -10,7 +10,8 @@ Ausführliches Konzept: `KONZEPT.md` (Stufen 1–9, Regeln, Gegenstände, offene
 - `arbeitsblaetter.js` – erzeugt Inhalt der Arbeitsblätter (`einheit-N.md/.json` inkl. Lösungen)
 - `layout/` – Generatoren für pptx (`build-arbeitsblatt.js`, `build-karten.js`, `build-regeln.js`, `icons.js`, `make-assets.js`, `make-icons.js`, `kartentext.js`, `pergament-zu-ohne.py`, `loesungen-tauschen.py`), Bilder in `layout/assets/`
 - `pptx/`, `PDFs/` – generierte Dateien (nicht in Git, siehe `.gitignore`)
-- `web/` – browserbasiertes Tool (`index.html`, `app.js`, `style.css`): Gegenstände wählen, Werte berechnen lassen
+- `web/` – browserbasiertes Tool (`index.html`, `app.js`, `style.css`, `impressum.html`): Gegenstände wählen, Werte berechnen lassen
+- `LICENSE` – MIT-Lizenz (© 2026 Julian Baldauf); Fußzeile im Web-Tool verweist darauf und aufs Impressum
 
 ## Befehle
 - `node test.js` – Engine-Tests (muss nach jeder Änderung an Engine/JSON grün sein)
@@ -54,7 +55,7 @@ Zweck: Julian und Schüler prüfen damit eigene Rechnungen (Gegenstände wählen
 - `engine.js` ist ein ES-Modul (`export`/`import`, `"type": "module"` in `package.json`) und wird von Node und Browser gemeinsam genutzt. Alle Generatoren in `layout/`, `arbeitsblaetter.js` und `test.js` nutzen `import`; JSON wird per `fs.readFileSync` gelesen.
 - Gegenstände und Gegner erscheinen nur als Icon; beim Zeigen (Maus), Tippen (Touch) oder Tastatur-Fokus erscheint die Karte wie im Material. „Deine Ausrüstung“ zeigt die Karten von Waffe, Rüstung, Zaubergegenstand (und Gegner) untereinander. Die Kartentexte (`modZeilen`, `gegnerZeilen`) stehen in `layout/kartentext.js` und werden von `build-karten.js` und `web/app.js` gemeinsam genutzt.
 - `app.js` stellt nur dar; Zahlen kommen aus `profil()`, `treffer()`, `kampf()`, `schadenNachRunden()` und `verlauf()` der Engine. Der Zustand (Auswahl, Würfel, Rechenweg) steht in der Adresse (`#waffe=…&gegner=…`), Links lassen sich teilen.
-- Stufenwahl (Mehrfachauswahl, `#stufe=3,8`): Einheiten 4, 7, 8 zeigen genau den Inhalt ihrer Übersicht (`NUR_UEBERSICHT` in `web/app.js`, bei Änderungen an `UEBERSICHTEN` in `build-karten.js` mitziehen). Die übrigen zeigen, was im Arbeitsblatt mit Namen vorkommt (`einheit-N.json` wird geladen), dazu alle Karten der Stufe (`stufe` im JSON); Einheit 3 zusätzlich alle Rüstungen aus Stufe 2. Einheiten ohne Gegenstände (5) erscheinen nicht. Nach Änderungen an den Arbeitsblättern also `node arbeitsblaetter.js N` laufen lassen.
+- Stufenwahl (Mehrfachauswahl, `#stufe=3,8`): Stufe 1–3 zeigen alles bis zu dieser Stufe (Stufe 3 allein = 1 + 2 + 3). Ab Stufe 4: Inhalt der Übersicht plus alles, was im Arbeitsblatt mit Namen vorkommt (`einheit-N.json` wird geladen). Die Übersichts-Inhalte stehen in `layout/uebersichten.js` und werden von `build-karten.js` und `web/app.js` gemeinsam genutzt. Einheiten ohne Gegenstände (5) erscheinen nicht. Nach Änderungen an den Arbeitsblättern also `node arbeitsblaetter.js N` laufen lassen.
 - Funktionen: Waffe/Rüstung/Zaubergegenstand wählen, Gegner wählen, Min/Mittel/Max, Aufbau/Zins-Verlauf, Gesamtschaden gegen einen Gegner.
 - Optik: Fantasy / Pen-and-Paper, passend zu den Arbeitsblättern; für Handy und Tablet im Klassenraum geeignet.
 - Lokal testen mit einem Server im Repo-Hauptordner (z. B. `npx serve .` oder `python3 -m http.server`), da Module und `fetch` nicht über `file://` laufen.

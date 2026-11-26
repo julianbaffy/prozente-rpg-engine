@@ -2,7 +2,8 @@
  * Alle Zahlen kommen aus der Rechenmaschine (../engine.js) und den Daten (../gegenstaende.json).
  * Hier wird nur dargestellt, nicht gerechnet (außer Bonus = Schaden − Grundschaden und Summen). */
 import { erzeuge } from '../engine.js';
-import * as kt from '../layout/kartentext.js';   // dieselben Kartentexte wie die gedruckten Gegenstandskarten
+import * as kt from '../layout/kartentext.js';
+import { uebersichtIds } from '../layout/uebersichten.js';   // Inhalt der laminierten Übersichten, wie build-karten.js   // dieselben Kartentexte wie die gedruckten Gegenstandskarten
 
 const ICONS = '../layout/assets/icons-klein/';
 const SLOTS = [
@@ -539,21 +540,11 @@ function aktualisieren() {
 }
 
 /* Welche Gegenstände und Gegner braucht eine Stufe?
- * - Einheiten mit Übersicht von Gegenständen (4, 7, 8) zeigen genau deren Inhalt (wie UEBERSICHTEN in
- *   layout/build-karten.js), auch wenn das Arbeitsblatt ältere Gegenstände nennt.
- * - Alle anderen zeigen, was im Arbeitsblatt (einheit-N.json, mit Lösungen) mit Namen vorkommt, dazu alle Karten
- *   dieser Stufe (Stufe 1: 9 Waffen, 6 Zaubergegenstände) und ggf. Zusätzliches (Stufe 3: alle Rüstungen aus Stufe 2).
+ * - Stufe 1–3: alles bis zu dieser Stufe (Stufe 3 allein = Stufe 1 + 2 + 3).
+ * - ab Stufe 4: der Inhalt der Übersicht (layout/uebersichten.js) und alles, was im Arbeitsblatt
+ *   (einheit-N.json, mit Lösungen) mit Namen vorkommt.
  * Stufen ohne Gegenstände (z. B. 5) erscheinen nicht. */
-const istGegner = x => !x.slot;
-const NUR_UEBERSICHT = {
-  4: x => ['gewitterstein', 'frostsiegel', 'rune-der-glut', 'rune-der-meisterschaft'].includes(x.id) || (istGegner(x) && x.stufe === 4),
-  7: x => x.stufe === 7 || x.id === 'armband-des-feuers',
-  8: x => x.stufe === 8,
-};
-const ZUSAETZLICH = {
-  3: x => x.slot === 'ruestung' && x.stufe === 2,   // Monsterhöhlen: die ganze Rüstkammer
-};
-async function ladeEinheiten() {
+const BIS_STUFE = 3;async function ladeEinheiten() {
   const alle = [...daten.gegenstaende, ...daten.gegner];
   const letzte = Math.max(...daten.stufen.map(s => s.nr), ...alle.map(x => x.stufe));   // höchste Einheit (derzeit 9)
   const liste = await Promise.all(Array.from({ length: letzte }, (_, i) => i + 1).map(async nr => {
@@ -561,8 +552,10 @@ async function ladeEinheiten() {
       const a = await fetch(`../einheit-${nr}.json`);
       if (!a.ok) return null;
       const text = await a.text();
-      const passt = NUR_UEBERSICHT[nr]
-        ?? (x => text.includes(x.name) || x.stufe === nr || !!ZUSAETZLICH[nr]?.(x));
+      const uebersicht = uebersichtIds(daten, nr);
+      const passt = nr <= BIS_STUFE
+        ? x => x.stufe <= nr || text.includes(x.name)
+        : x => uebersicht.includes(x.id) || text.includes(x.name);
       const ids = new Set(alle.filter(passt).map(x => x.id));
       return ids.size ? { nr, titel: JSON.parse(text).titel, ids } : null;
     } catch { return null; }

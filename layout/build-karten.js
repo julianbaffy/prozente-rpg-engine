@@ -11,6 +11,7 @@ const ROOT = path.join(import.meta.dirname, '..');
 const A = n => path.join(import.meta.dirname, 'assets', n);
 import { iconPfad } from './icons.js';
 import * as kt from './kartentext.js';
+import { NEUE_GEGENSTAENDE as NEU } from './uebersichten.js';
 const daten = JSON.parse(fs.readFileSync(path.join(ROOT, 'gegenstaende.json'), 'utf8'));
 const fmt = x => (Math.round(x * 100) / 100).toString().replace('.', ',');
 
@@ -212,14 +213,14 @@ const byId = id => daten.gegenstaende.find(i => i.id === id);
 const UEBERSICHTEN = {
   3: { kopf: 'Einheit 3 · Die Monsterhöhlen  –  Gegnerübersicht  ·  Ein Gegner ist besiegt, wenn seine Lebenspunkte 0 oder weniger erreichen', gross: daten.gegner.filter(g => g.stufe === 3) },
   4: { kopf: 'Einheit 4 · Die Schriftrollenhändlerin  –  Übersicht', abschnitte: [
-    { titel: 'Neue Ausrüstung', items: ['gewitterstein', 'frostsiegel', 'rune-der-glut', 'rune-der-meisterschaft'].map(byId) },
+    { titel: 'Neue Ausrüstung', items: NEU[4].map(byId) },
     { titel: 'Neue Gegner', kind: 'gross', items: daten.gegner.filter(g => g.stufe === 4) }] },
   8: { kopf: 'Einheit 8 · Die Arena  –  Übersicht', cols: 4, abst: { iy: 0.72333, unt: 0.506, dx: 0.03, hExtra: 0.01, abschnitt: 0.1355 }, abschnitte: [   // abst = Julians gelockertes Spacing (Pergament-Version von Hand)
-    { titel: 'Die Klingen', items: ['wutklinge', 'klinge-der-rachsucht', 'wirbelklinge', 'gleichmaessige-klinge'].map(byId) },
+    { titel: 'Die Klingen', items: NEU[8].map(byId) },
     { titel: 'Die Gegner der Arena', kind: 'gross', cols: 4, items: daten.gegner.filter(g => g.stufe === 8) }] },
   7: { kopf: 'Einheit 7 · Duelle  –  Übersicht der neuen Gegenstände', treppe: {   // Julians Layout: Ausrüstung als „Treppe“ neben/unter den Waffen
-      waffen: ['eislanze', 'flammenschwert', 'glutdolch', 'lavaklinge'].map(byId),
-      ring: byId('fjordgreifer'), ausruestung: ['armband-des-feuers', 'ring-der-glut', 'handschuhe-des-glutschmieds'].map(byId) },   // Julian 09.11.: Fjordgreifer (Kälte) oben rechts, unten Armband · Ring · Handschuhe
+      waffen: NEU[7].waffen.map(byId),
+      ring: byId(NEU[7].ring), ausruestung: NEU[7].ausruestung.map(byId) },   // Julian 09.11.: Fjordgreifer (Kälte) oben rechts, unten Armband · Ring · Handschuhe
  abschnitte: [
     { titel: 'Waffen', items: daten.gegenstaende.filter(i => i.stufe === 7 && i.slot === 'waffe') },
     { titel: 'Ausrüstung', neueSeite: true, items: [byId('armband-des-feuers'), ...daten.gegenstaende.filter(i => i.stufe === 7 && i.slot !== 'waffe')] }] },
