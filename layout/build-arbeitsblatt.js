@@ -629,7 +629,7 @@ function bauen(e, outFile, modus = 'pergament') {
     let zl = [];
     if (Array.isArray(l)) zl = l;
     else if (l.ergebnisse) { zl = [...l.ergebnisse, ...l.gleichwertig.map(g => 'Gleichwertig: ' + g.join(' = '))]; }
-    else { zl = l.kombinationen.map(k => `${k.name}: ${k.rechnung.join(' | ')} → Ø ${fmt(k.mittel)} SP`); zl.push(`Beste: ${l.beste}; Würfelwerte: Min ${fmt(l.wuerfel.min)} / Mittel ${fmt(l.wuerfel.mittel)} / Max ${fmt(l.wuerfel.max)}`); }
+    else { zl = l.kombinationen.map(k => `${k.name}: ${k.rechnung.join(' | ')} → Ø ${fmt(k.mittel)} SP`); zl.push(`Beste Kombination: ${l.beste}; Würfelwerte: Min ${fmt(l.wuerfel.min)} / Mittel ${fmt(l.wuerfel.mittel)} / Max ${fmt(l.wuerfel.max)}`); }
     zl.forEach(t => absatz('•  ' + t, { pt: 11, gap: 0.03 }));
     y += 0.02;
     (a.loesungTabellen || []).forEach(tb => tabelleBauen(tb));

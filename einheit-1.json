@@ -31,7 +31,7 @@
       "text": "Der Schmied legt dir drei Kombinationen aus Waffe und Zaubergegenstand vor. Berechne für jede den durchschnittlichen neuen Schaden pro Treffer (Mittelwert).",
       "nummern": [
         "Kombination: {{Verdammnissäher}} & {{Rote Bullentrinkflasche}}",
-        "Kombination: {{Baldars Weißheit}} & {{Feenstaub}}",
+        "Kombination: {{Baldars Weisheit}} & {{Feenstaub}}",
         "Kombination: {{Feuersturm}} & {{Armband des Feuers}}"
       ],
       "nachText": "Es kann dir helfen, im Heft jeweils eine solche Tabelle für die Kombinationen anzulegen.",
@@ -56,7 +56,7 @@
           "schadenKopf": "Neuer Schaden (Ø)",
           "vorgabe": [
             [
-              "Physisch",
+              "PHYSISCH",
               "35",
               "50 % + 50 % = 100 %",
               "",
@@ -75,7 +75,7 @@
       "yExtra": 0.11,
       "loesung": [
         "a) Verdammnissäher + Rote Bullentrinkflasche: PHYSISCH 35 + 35 · 1 = 35 + 35 = 70 → Ø 70 SP (Min 40, Max 100)",
-        "b) Baldars Weißheit + Feenstaub: FEUER 15 + 15 · 0,4 = 15 + 6 = 21; EIS 15 + 15 · 0,4 = 15 + 6 = 21; BLITZ 15 + 15 · 0,4 = 15 + 6 = 21; PHYSISCH 15 → Ø 78 SP (Min 52, Max 104)",
+        "b) Baldars Weisheit + Feenstaub: FEUER 15 + 15 · 0,4 = 15 + 6 = 21; EIS 15 + 15 · 0,4 = 15 + 6 = 21; BLITZ 15 + 15 · 0,4 = 15 + 6 = 21; PHYSISCH 15 → Ø 78 SP (Min 52, Max 104)",
         "c) Feuersturm + Armband des Feuers: FEUER 42,5 + 42,5 · 0,5 = 42,5 + 21,25 = 63,75; PHYSISCH 10,5 → Ø 74,25 SP (Min 43,5, Max 105)"
       ]
     },

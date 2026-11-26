@@ -228,8 +228,8 @@ function miniKarte(s, id, x, y, w, h) {
     s.addTable([
       [hd('Schadensart', { rowspan: 2 }), hd('Grundschaden', { colspan: 3 }), hd('Modifikatoren (Summe)', { rowspan: 2 }), hd('Bonus', { colspan: 3 }), hd('Neuer Schaden', { colspan: 3 })],
       ['Min', 'Mittel', 'Max', 'Min', 'Mittel', 'Max', 'Min', 'Mittel', 'Max'].map(hs),
-      [bq('Physisch'), bc(f(ph.min)), bc(f(ph.mittel)), bc(f(ph.max)), ...leer(7)],
-      [bq('Feuer'), bc(f(fe.min)), bc(f(fe.mittel)), bc(f(fe.max)), ...leer(7)],
+      [bq('PHYSISCH'), bc(f(ph.min)), bc(f(ph.mittel)), bc(f(ph.max)), ...leer(7)],
+      [bq('FEUER'), bc(f(fe.min)), bc(f(fe.mittel)), bc(f(fe.max)), ...leer(7)],
       [bc('Gesamtschaden', { colspan: 8, align: 'right', bold: true, fill: { color: SAND } }), bc('', { fill: { color: SAND } }), bc('', { fill: { color: SAND } }), bc('', { fill: { color: SAND } })]
     ], { x: 0.434, y: 3.355, w: 8.866, colW: [1.3872, 0.6365, 0.6365, 0.6365, 1.06, 0.7428, 0.7428, 0.7428, 0.7602, 0.7602, 0.7602], rowH: [0.2988, 0.2988, 0.3466, 0.3466, 0.3466], border: { type: 'solid', pt: 0.9, color: INK }, fontFace: BODY, color: INK, valign: 'middle', margin: [0, 0.03, 0, 0.03] });
   }
@@ -246,7 +246,7 @@ function miniKarte(s, id, x, y, w, h) {
     const l = t => ({ text: t, options: { align: 'left', fontSize: 16, bold: true } });
     s.addTable([
       [r('Modifikator:'), l(`+50 % + ${pF} % = +${summe} %`)],
-      [r('Bonus:'), l(`30 · ${summe}% = 30 · ${f(summe / 100)} = ${f(bonus)}`)],
+      [r('Bonus:'), l(`30 · ${summe} % = 30 · ${f(summe / 100)} = ${f(bonus)}`)],
       [r('Neuer Schaden Mittel:'), l(`30 + ${f(bonus)} = ${f(30 + bonus)}`)]
     ], { x: 1.912, y: 3.136, w: 5.5555, colW: [2.7777, 2.7778], rowH: 0.4056, border: { type: 'none' }, fontFace: BODY, color: INK, valign: 'middle' });
     T(s, [{ text: 'Verschiedene Schadensarten bekommen jeweils ihren eigenen Faktor: ', options: {} }, { text: 'PHYSISCH bleibt ' + f(ph.mittel) + '. Gesamtschaden (Mittelwert): ' + f(tOroFeen.proQuelle.FEUER.avg) + ' + ' + f(ph.mittel) + ' = ' + f(tOroFeen.avg) + ' SP.', options: { bold: true } }],

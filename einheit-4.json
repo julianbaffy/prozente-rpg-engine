@@ -43,8 +43,8 @@
   "sicherung": {
     "titel": "Merke: Steigern / Verringern UM oder AUF",
     "vorspann": {
-      "intro": "Wenn man die normalen Modifikatoren, wie “+25% FEUER” (also erhöhe **um** …) umschreibt, kann man den neuen Schaden in einem Schritt berechnen:",
-      "beispielText": "Schwert: 80 FEUERschaden + Umhang des Bescheidenen (+25% SCHADEN jeder Schadensart)",
+      "intro": "Wenn man die normalen Modifikatoren wie „+25 % FEUER“ (also „erhöhe **um** …“) umschreibt, kann man den neuen Schaden in einem Schritt berechnen:",
+      "beispielText": "Schwert: 80 FEUERschaden + Umhang des Bescheidenen (+25 % SCHADEN jeder Schadensart)",
       "zeilen": [
         {
           "links": "Steigern um 25 %",
@@ -52,7 +52,7 @@
         },
         {
           "links": "80 + 80 · 0,25 = 80 + 20 = 100",
-          "rechts": "80 · (1+0,25) = 80 · 1,25 = 100",
+          "rechts": "80 · (1 + 0,25) = 80 · 1,25 = 100",
           "fett": true
         }
       ]
@@ -171,12 +171,12 @@
     {
       "nr": 5,
       "titel": "Ausrüstung kombinieren",
-      "text": "Berechne für jede den durchschnittlichen Schaden (Mittelwert). Welche ist die beste?\nVerwende die neue Formel zur Berechnung von Modifikatoren.",
+      "text": "Berechne für jede Kombination den durchschnittlichen Schaden (Mittelwert). Welche ist die beste?\nVerwende die neue Formel zur Berechnung von Modifikatoren.",
       "kombinationen": [
         "Mjölnir + Gewitterstein",
         "Valdorils Vermächtnis + Frostsiegel",
         "Weltenschaffer + Rune der Glut",
-        "Baldars Weißheit + Rune der Meisterschaft"
+        "Baldars Weisheit + Rune der Meisterschaft"
       ],
       "nachTeile": {
         "text": "e) Berechne für die beste Kombination Minimum, Mittelwert und Maximum.",
@@ -209,7 +209,7 @@
             "mittel": 67.5
           },
           {
-            "name": "Baldars Weißheit + Rune der Meisterschaft",
+            "name": "Baldars Weisheit + Rune der Meisterschaft",
             "rechnung": [
               "FEUER: Grundschaden 10–20, Modifikatoren +0 % → Faktor 1 → 10–20 SP",
               "EIS: Grundschaden 10–20, Modifikatoren +0 % → Faktor 1 → 10–20 SP",
@@ -250,7 +250,7 @@
         "a) Steigere den Schaden auf 90 %: weniger Schaden (bei Grundschaden 100: 90 SP) – Faktor 0,9: trotz „Steigere“ sinkt der Schaden auf 90 %.",
         "b) Steigere den Schaden um 100 %: mehr Schaden (bei Grundschaden 100: 200 SP) – Faktor 2: der Schaden wird verdoppelt (= Steigere auf 200 %).",
         "c) Verringere den Schaden auf 0 %: weniger Schaden (bei Grundschaden 100: 0 SP) – Faktor 0: der Schaden ist 0 (gleiche Wirkung wie „Verringere um 100 %“).",
-        "d) Verringere den Schaden um 120 %: Unsinn (bei Grundschaden 100: -20 SP) – Faktor 1 − 1,2 = −0,2: der Schaden wäre negativ – mehr als 100 % kann man nicht wegnehmen.",
+        "d) Verringere den Schaden um 120 %: Unsinn (bei Grundschaden 100: −20 SP) – Faktor 1 − 1,2 = −0,2: der Schaden wäre negativ – mehr als 100 % kann man nicht wegnehmen.",
         "e) Steigere den Schaden auf 100 %: bleibt gleich (bei Grundschaden 100: 100 SP) – Faktor 1: nichts ändert sich.",
         "f) Verringere den Schaden um 100 %: weniger Schaden (bei Grundschaden 100: 0 SP) – Faktor 0: der Schaden ist 0 (gleiche Wirkung wie „Verringere auf 0 %“).",
         "Dieselbe Wirkung haben „Verringere den Schaden auf 0 %“ und „Verringere den Schaden um 100 %“ (beide: Schaden 0)."
@@ -266,7 +266,7 @@
         "a) „Verringere um 20 %“: 80 · 0,8 = 64; Gegenrolle: Faktor 1 : 0,8 = 1,25, also „Steigere um 25 %“ (64 · 1,25 = 80).",
         "b) „Verringere um 50 %“: 80 · 0,5 = 40; Gegenrolle: Faktor 1 : 0,5 = 2, also „Steigere um 100 %“ (40 · 2 = 80). „Verringere um 75 %“: 80 · 0,25 = 20; Gegenrolle: Faktor 1 : 0,25 = 4, also „Steigere um 300 %“ (20 · 4 = 80).",
         "c) Die Gegenrolle hat immer einen größeren Prozentsatz: Nach „Verringere um 20 %“ bleiben nur 80 % des Schadens übrig. 20 % von 80 sind weniger als 20 % von 100 – man muss also mehr als 20 % steigern. Der Faktor der Gegenrolle ist der Kehrwert des Faktors (1 : 0,8 = 1,25).",
-        "d) Nein: Nach „Verringere um 100 %“ ist der Schaden 0, und 0 mal jeder Faktor ist wieder 0."
+        "d) Nein: Nach „Verringere um 100 %“ ist der Schaden 0, und 0 mal irgendein Faktor ergibt immer 0."
       ]
     }
   ],

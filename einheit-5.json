@@ -192,7 +192,7 @@
       "text": "Quillon wirbt: „Mein Zauber steigert den Schaden um 40 %!“ Dein Schwert hat Grundschaden 45. Nach dem Zauber misst du 60 SP. Hält Quillon sein Versprechen? Runde auf eine Stelle nach dem Komma.",
       "loesung": [
         "Versprochen: 45 · 1,4 = 63 SP; gemessen: 60 SP.",
-        "Tatsächlich: 60 : 45 = 1,33 → 33,3 % Steigerung (statt 40 %). Quillon hat sein Versprechen nicht gehalten."
+        "Tatsächlich: 60 : 45 = 1,333… → 33,3 % Steigerung (statt 40 %). Quillon hat sein Versprechen nicht gehalten."
       ]
     },
     {
@@ -245,7 +245,7 @@
       "loesung": [
         "Stab: Min 1,2 (20 %), Max 1,2 → derselbe Prozentsatz",
         "Speer: Min 1,1 (10 %), Max 1,1 → derselbe Prozentsatz",
-        "Beil: Min 0,85 (-15 %), Max 0,85 → derselbe Prozentsatz",
+        "Beil: Min 0,85 (−15 %), Max 0,85 → derselbe Prozentsatz",
         "Beobachtung: Der Zauber wirkt auf Minimum und Maximum mit demselben Prozentsatz. Das ist die Probe: Kommt Verschiedenes heraus, wurde falsch gerechnet."
       ]
     }

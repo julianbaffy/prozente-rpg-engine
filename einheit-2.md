@@ -54,7 +54,7 @@ Vergleiche mit deinem Build aus Aufgabe 3.
 
 **Aufgabe 1**
 - Beste Rüstung: Königin des Waldes (Ø 85,5): Der zusätzliche BLITZ-Grundschaden (Ø 30) kommt voll dazu, FEUER und PHYSISCH bleiben unverändert.
-- Umhang des Bescheidenen: SCHADEN +25 % wird bei FEUER (+50 +25 = +75 %) und PHYSISCH (+25 %) addiert → Ø 65,625 (10,125 SP besser als ohne Rüstung).
+- Umhang des Bescheidenen: SCHADEN +25 % wird bei FEUER (+50 % + 25 % = +75 %) und PHYSISCH (+25 %) addiert → Ø 65,625 (10,125 SP besser als ohne Rüstung).
 - Wams des Wahnsinns: Die Hälfte des FEUER- und PHYSISCH-Grundschadens wird zu CHAOS (20,25); CHAOS +25 % → 25,313. FEUER 22,5 und PHYSISCH 5,25 bleiben übrig → Ø 53,063 (2,438 SP schlechter als ohne Rüstung).
 - Fokussierte Gedanken: −50 % ELEMENTAR hebt die +50 % auf FEUER auf (FEUER bleibt 30); PHYSISCH +50 % → 15,75 → Ø 45,75 (9,75 SP schlechter als ohne Rüstung).
 - Letzte Bastion: kein FEUER mehr (Feuersturms Hauptschaden) → nur PHYSISCH 60,5 → Ø 60,5 (5 SP besser als ohne Rüstung).
@@ -76,13 +76,13 @@ Vergleiche mit deinem Build aus Aufgabe 3.
 - c) Letzte Bastion lohnt sich für Waffen, die (fast) nur PHYSISCHEN Schaden machen und PHYSISCH-Modifikatoren haben: Der zusätzliche Grundschaden wird mitverstärkt. Bei Waffen mit viel ELEMENTARschaden verliert man diesen Schaden.
 
 **Aufgabe 3**
-- Bestes Build nach Mittelwert: Zerreißer des Seelenfadens + Letzte Bastion + Rote Bullentrinkflasche (Ø 228).
+- Bester Build nach Mittelwert: Zerreißer des Seelenfadens + Letzte Bastion + Rote Bullentrinkflasche (Ø 228).
 - Warum? Der Zerreißer des Seelenfadens hat +150 % PHYSISCH, die Rote Bullentrinkflasche +50 % PHYSISCH, dazu +50 PHYSISCH Grundschaden von Letzte Bastion: Grundschaden 26 + 50 = 76; Modifikatoren +150 % + 50 % = +200 %; Bonus 76 · 2 = 152; Schaden 76 + 152 = 228.
 
 *Musterlösung:* PHYSISCH 76 + 152 = 228 → Gesamt Min 201 / Mittel 228 / Max 255
 
 **Aufgabe 4**
-- CHAOS: Grundschaden 36 (Ø); Modifikatoren des Feenstaubs +40 +40 +40 = +120 %, verdoppelt +240 % → Bonus 36 · 2,4 = 86,4. CHAOS 36 + 36 · 2,4 = 36 + 86,4 = 122,4 → Ø 122,4 SP (Min 20,4, Max 224,4).
+- CHAOS: Grundschaden 36 (Ø); Modifikatoren des Feenstaubs +40 % + 40 % + 40 % = +120 %, verdoppelt +240 % → Bonus 36 · 2,4 = 86,4. CHAOS 36 + 36 · 2,4 = 36 + 86,4 = 122,4 → Ø 122,4 SP (Min 20,4, Max 224,4).
 - Vergleich: Der Build aus Aufgabe 3 hat Ø 228, Max 255; dieser Build Ø 122,4, Max 224,4 (Min 20,4). Er ist in jedem Fall schlechter.
 
 *Musterlösung:* CHAOS 36 + 86,4 = 122,4 → Gesamt Min 20,4 / Mittel 122,4 / Max 224,4

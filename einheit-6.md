@@ -66,9 +66,9 @@ In der Trainingshalle liegen zwei Nachbildungen echter Waffen aus der Übersicht
 |---|---|---|---|---|---|
 | Weltenschaffer | Feenstaub | FEUER (+40 %) | 35 |  |  |
 | Weltenschaffer | Feenstaub | EIS (+40 %) | 21 |  |  |
-| Baldars Weißheit | Fokussierte Gedanken | PHYSISCH (+50 %) | 30 |  |  |
-| Baldars Weißheit | Fokussierte Gedanken | FEUER (−50 %) | 7,5 |  |  |
-| Baldars Weißheit | Fokussierte Gedanken | EIS (−50 %) | 10 |  |  |
+| Baldars Weisheit | Fokussierte Gedanken | PHYSISCH (+50 %) | 30 |  |  |
+| Baldars Weisheit | Fokussierte Gedanken | FEUER (−50 %) | 7,5 |  |  |
+| Baldars Weisheit | Fokussierte Gedanken | EIS (−50 %) | 10 |  |  |
 
 ---
 
@@ -84,9 +84,9 @@ In der Trainingshalle liegen zwei Nachbildungen echter Waffen aus der Übersicht
 - Umhang des Bescheidenen + Ring der Eiskönigin: Bonus 125 % → Faktor 2,25 → G = 90 : 2,25 = 40 SP
 
 **Aufgabe 3**
-- EIS: Faktor 0,5 (-50 %) → G = 15 : 0,5 = 30 SP
+- EIS: Faktor 0,5 (−50 %) → G = 15 : 0,5 = 30 SP
 - PHYSISCH: Faktor 1,5 (+50 %) → G = 45 : 1,5 = 30 SP
 
 **Aufgabe 4**
 - Weltenschaffer-Nachbildung (Feenstaub): FEUER: G = 35 : 1,4 = 25 SP (Original 30 SP → schwächer); EIS: G = 21 : 1,4 = 15 SP (Original 15 SP → gleich).
-- Baldars Weißheit-Nachbildung (Fokussierte Gedanken): PHYSISCH: G = 30 : 1,5 = 20 SP (Original 15 SP → stärker); FEUER: G = 7,5 : 0,5 = 15 SP (Original 15 SP → gleich); EIS: G = 10 : 0,5 = 20 SP (Original 15 SP → stärker).
+- Baldars Weisheit-Nachbildung (Fokussierte Gedanken): PHYSISCH: G = 30 : 1,5 = 20 SP (Original 15 SP → stärker); FEUER: G = 7,5 : 0,5 = 15 SP (Original 15 SP → gleich); EIS: G = 10 : 0,5 = 20 SP (Original 15 SP → stärker).

@@ -31,7 +31,7 @@ b) Welche Monster sind für dieses Set gefährlich? Warum?
 
 ### Aufgabe 2 – Zwei Sets für alle Monster
 
-Vorbereitung ist alles: baue zwei Sets (A und B), jeweils aus Waffe, Rüstung und Zaubergegenstand (Gegenstandskarten Stufe 1 und 2). Du darfst zwischen den Kämpfen das Set wechseln – aber nur komplett.
+Vorbereitung ist alles: Baue zwei Sets (A und B), jeweils aus Waffe, Rüstung und Zaubergegenstand (Gegenstandskarten Stufe 1 und 2). Du darfst zwischen den Kämpfen das Set wechseln – aber nur komplett.
 a) Berechne für beide Sets Min, Mittel und Max Schaden ohne Monster.
 b) Entscheide für jedes Monster, welches Set du einsetzt, und berechne den Schaden pro Treffer gegen dieses Monster. Fülle dafür die Tabelle auf Seite 3 aus.
 c) Prüfe, ob du es in 3 Runden besiegst: mit Pech (3 · Min), im Durchschnitt (3 · Mittel) oder nur mit Glück (3 · Max)?
@@ -58,7 +58,7 @@ c) Prüfe, ob du es in 3 Runden besiegst: mit Pech (3 · Min), im Durchschnitt (
 2. Jede Runde würfelt der Held einmal: 1–2 = Min, 3–4 = Mittel, 5–6 = Max. Den Schaden berechnet ihr mit dem Wert für dieses Monster aus Aufgabe 2.
 3. Dieser Schaden wird von den LP des Monsters abgezogen. Ist das Monster nach höchstens 3 Runden bei 0 LP oder darunter, gewinnt der Held.
 
-Jetzt wird es Ernst. Du wagst dich in die Monsterhöhle und trittst ihnen leibhaftig gegenüber. Dabei entscheidet der Würfel über Glück und Pech. Die Tabellen auf der Rückseite können dir helfen, deine Kämpfe zu dokumentieren.
+Jetzt wird es ernst. Du wagst dich in die Monsterhöhle und trittst ihnen leibhaftig gegenüber. Dabei entscheidet der Würfel über Glück und Pech. Die Tabellen auf der Rückseite können dir helfen, deine Kämpfe zu dokumentieren.
 
 
 > Kampfprotokoll × 6 (Monster, Set, 3 Runden: Wurf (W6) – Schaden – LP danach)
@@ -74,7 +74,7 @@ Jetzt wird es Ernst. Du wagst dich in die Monsterhöhle und trittst ihnen leibha
 - Tiefebenenriese: BLITZ 70 + 70 · 0,9 = 70 + 63 = 133; PHYSISCH 25 → Ø 158 SP (Min 134, Max 182) → 500 : 158 = 3,165 → 4 Treffer.
 - Eiserner Fürst des Stahles: BLITZ 70 + 70 · 0,9 = 70 + 63 = 133 · 1,25 = 166,25; PHYSISCH 25 · 0 = 0 → Ø 166,25 SP (Min 142,5, Max 190) → 400 : 166,25 = 2,406 → 3 Treffer.
 - Finsterer Archivar der Algebra: BLITZ 70 + 70 · 0,9 = 70 + 63 = 133 · 0,5 = 66,5; PHYSISCH 25 → Ø 91,5 SP (Min 77, Max 106) → 350 : 91,5 = 3,825 → 4 Treffer.
-- b) Mit 3 Runden schafft das Set (im Durchschnitt) nur: Eisgolem, Fluchritter, Eiserner Fürst des Stahles. Kritisch sind: Flederbestie, Tiefebenenriese, Finsterer Archivar der Algebra – bei ihnen sind BLITZ oder PHYSISCH gedämpft bzw. der Riese hat zu viele LP.
+- b) Mit 3 Runden schafft das Set (im Durchschnitt) nur Eisgolem, Fluchritter und Eiserner Fürst des Stahles. Kritisch sind Flederbestie, Tiefebenenriese und Finsterer Archivar der Algebra – bei ihnen sind BLITZ oder PHYSISCH gedämpft bzw. der Riese hat zu viele LP.
 
 | Monster | LP | BLITZ (Ø) | PHYSISCH (Ø) | Schaden pro Treffer | Treffer nötig |
 |---|---|---|---|---|---|
@@ -104,10 +104,10 @@ Jetzt wird es Ernst. Du wagst dich in die Monsterhöhle und trittst ihnen leibha
 
 **Aufgabe 3**
 - Das Ergebnis hängt von den Würfen ab. Kontrolle: Der Schaden pro Runde muss genau einem der drei Werte (Min, Mittel, Max) aus der Tabelle von Aufgabe 2 entsprechen, die LP sinken Runde für Runde um diesen Wert.
-- Zur Orientierung die Siegchancen der Musterlösung (jede Stufe hat beim W6 die Wahrscheinlichkeit 1/3):
-- Flederbestie (Set A): Pech 420, Ø 510, Glück 600 gegen 300 LP → besiegt in 3 Runden mit Wahrscheinlichkeit 100 % (27 von 27 Wurffolgen).
-- Eisgolem (Set B): Pech 372, Ø 436,5, Glück 501 gegen 300 LP → besiegt in 3 Runden mit Wahrscheinlichkeit 100 % (27 von 27 Wurffolgen).
-- Fluchritter (Set B): Pech 387, Ø 455,25, Glück 523,5 gegen 325 LP → besiegt in 3 Runden mit Wahrscheinlichkeit 100 % (27 von 27 Wurffolgen).
-- Tiefebenenriese (Set A): Pech 420, Ø 510, Glück 600 gegen 500 LP → besiegt in 3 Runden mit Wahrscheinlichkeit 63 % (17 von 27 Wurffolgen).
-- Eiserner Fürst des Stahles (Set B): Pech 427,5, Ø 498,75, Glück 570 gegen 400 LP → besiegt in 3 Runden mit Wahrscheinlichkeit 100 % (27 von 27 Wurffolgen).
-- Finsterer Archivar der Algebra (Set A): Pech 420, Ø 510, Glück 600 gegen 350 LP → besiegt in 3 Runden mit Wahrscheinlichkeit 100 % (27 von 27 Wurffolgen).
+- Zur Orientierung die Siegchancen der Musterlösung (beim W6 hat jeder der drei Werte Min, Mittel und Max die Wahrscheinlichkeit 1/3):
+- Flederbestie (Set A): Pech 420, Ø 510, Glück 600 gegen 300 LP → besiegt in 3 Runden mit einer Wahrscheinlichkeit von 100 % (27 von 27 Wurffolgen).
+- Eisgolem (Set B): Pech 372, Ø 436,5, Glück 501 gegen 300 LP → besiegt in 3 Runden mit einer Wahrscheinlichkeit von 100 % (27 von 27 Wurffolgen).
+- Fluchritter (Set B): Pech 387, Ø 455,25, Glück 523,5 gegen 325 LP → besiegt in 3 Runden mit einer Wahrscheinlichkeit von 100 % (27 von 27 Wurffolgen).
+- Tiefebenenriese (Set A): Pech 420, Ø 510, Glück 600 gegen 500 LP → besiegt in 3 Runden mit einer Wahrscheinlichkeit von 63 % (17 von 27 Wurffolgen).
+- Eiserner Fürst des Stahles (Set B): Pech 427,5, Ø 498,75, Glück 570 gegen 400 LP → besiegt in 3 Runden mit einer Wahrscheinlichkeit von 100 % (27 von 27 Wurffolgen).
+- Finsterer Archivar der Algebra (Set A): Pech 420, Ø 510, Glück 600 gegen 350 LP → besiegt in 3 Runden mit einer Wahrscheinlichkeit von 100 % (27 von 27 Wurffolgen).

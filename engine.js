@@ -287,7 +287,7 @@
     }
 
     /* ---------- 6. Lesbare Rechnung (Basis für Lösungsblatt / Druckvorlage) ---------- */
-    const fmt = x => (Math.round(x * 100) / 100).toString().replace('.', ',');
+    const fmt = x => (Math.round(x * 100) / 100).toString().replace('.', ',').replace('-', '−');
     function erklaere(build) {
       const p = profil(build);
       const zeilen = [];

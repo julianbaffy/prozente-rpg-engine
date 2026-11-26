@@ -8,7 +8,7 @@ import * as kt from './layout/kartentext.js';
 const daten = JSON.parse(fs.readFileSync(new URL('./gegenstaende.json', import.meta.url), 'utf8'));
 const rpg = erzeuge(daten);
 const f = rpg.fmt;
-const f3 = x => (Math.round(x * 1000) / 1000).toString().replace('.', ',');
+const f3 = x => (Math.round(x * 1000) / 1000).toString().replace('.', ',').replace('-', '−');
 const pct = x => f(x) + ' %';
 const name = id => rpg.item(id).name;
 const bi = id => '{{' + name(id) + '}}';   // {{…}} = Gegenstandsname fett und kursiv (Layout-Auszeichnung, im Markdown ***…***)
@@ -74,10 +74,10 @@ function einheit4() {
   const sicherung = {
     titel: 'Merke: Steigern / Verringern UM oder AUF',
     vorspann: {   // Julian 09.11.: Merkkasten steht auf Seite 2 nach Aufgabe 2 und beginnt mit der Ein-Schritt-Umschreibung
-      intro: 'Wenn man die normalen Modifikatoren, wie “+25% FEUER” (also erhöhe **um** …) umschreibt, kann man den neuen Schaden in einem Schritt berechnen:',
-      beispielText: 'Schwert: 80 FEUERschaden + Umhang des Bescheidenen (+25% SCHADEN jeder Schadensart)',
+      intro: 'Wenn man die normalen Modifikatoren wie „+25 % FEUER“ (also „erhöhe **um** …“) umschreibt, kann man den neuen Schaden in einem Schritt berechnen:',
+      beispielText: 'Schwert: 80 FEUERschaden + Umhang des Bescheidenen (+25 % SCHADEN jeder Schadensart)',
       zeilen: [{ links: 'Steigern um 25 %', rechts: 'Steigern auf 100 % + 25 % = 125 %' },
-        { links: '80 + 80 · 0,25 = 80 + 20 = 100', rechts: '80 · (1+0,25) = 80 · 1,25 = 100', fett: true }] },
+        { links: '80 + 80 · 0,25 = 80 + 20 = 100', rechts: '80 · (1 + 0,25) = 80 · 1,25 = 100', fett: true }] },
     formeln: [
       { wenn: 'Steigern um p %', formel: 'neuer Wert = G · (1 + p)', beispiel: 'um 25 %: G · (1 + 0,25) = G · 1,25' },
       { wenn: 'Verringern um p %', formel: 'neuer Wert = G · (1 − p)', beispiel: 'um 25 %: G · (1 − 0,25) = G · 0,75' },
@@ -151,7 +151,7 @@ function einheit4() {
   const beste = [...erg].sort((a, b) => b.t.avg - a.t.avg)[0];
   aufgaben.push({
     nr: 5, titel: 'Ausrüstung kombinieren',
-    text: 'Berechne für jede den durchschnittlichen Schaden (Mittelwert). Welche ist die beste?\nVerwende die neue Formel zur Berechnung von Modifikatoren.',
+    text: 'Berechne für jede Kombination den durchschnittlichen Schaden (Mittelwert). Welche ist die beste?\nVerwende die neue Formel zur Berechnung von Modifikatoren.',
     kombinationen: combos.map(c => `${name(c.waffe)} + ${name(c.zauber)}`),
     nachTeile: { text: 'e) Berechne für die beste Kombination Minimum, Mittelwert und Maximum.', zeilen: 2 },
     loesung: {
@@ -189,7 +189,7 @@ function einheit4() {
     teilGap: 0.1,
     loesung: [`a) ${zeile7(20)}`, `b) ${zeile7(50)} ${zeile7(75)}`,
       'c) Die Gegenrolle hat immer einen größeren Prozentsatz: Nach „Verringere um 20 %“ bleiben nur 80 % des Schadens übrig. 20 % von 80 sind weniger als 20 % von 100 – man muss also mehr als 20 % steigern. Der Faktor der Gegenrolle ist der Kehrwert des Faktors (1 : 0,8 = 1,25).',
-      'd) Nein: Nach „Verringere um 100 %“ ist der Schaden 0, und 0 mal jeder Faktor ist wieder 0.']
+      'd) Nein: Nach „Verringere um 100 %“ ist der Schaden 0, und 0 mal irgendein Faktor ergibt immer 0.']
   });
 
   return {
@@ -253,7 +253,7 @@ function einheit5() {
   aufgaben.push({
     nr: 3, titel: 'Quillons Versprechen', yExtra: 0.09, text: q5d.text + ' Runde auf eine Stelle nach dem Komma.',
     loesung: [`Versprochen: ${f(q5d.grundschaden[0])} · 1,4 = ${f(versprochenSP)} SP; gemessen: ${f(q5d.gemessen[0])} SP.`,
-      `Tatsächlich: ${f(q5d.gemessen[0])} : ${f(q5d.grundschaden[0])} = ${f(l5d.faktor)} → ${f1(l5d.aenderung)} % Steigerung (statt 40 %). Quillon hat sein Versprechen nicht gehalten.`]
+      `Tatsächlich: ${f(q5d.gemessen[0])} : ${f(q5d.grundschaden[0])} = ${f3(l5d.faktor)}… → ${f1(l5d.aenderung)} % Steigerung (statt 40 %). Quillon hat sein Versprechen nicht gehalten.`]
   });
 
   const q5e = daten.quests.find(q => q.id === '5e'), l5e = rpg.loeseQuest(q5e);
@@ -407,7 +407,7 @@ function einheit7() {
     nachTabelle: ['b) Zeichne in deinem Heft ein Diagramm: x-Achse: Grundschaden, y-Achse: neuer Schaden. Trage die Werte aus der Tabelle ein.',
       'c) Beschreibe den Verlauf der Graphen. Ab welchem Grundschaden lohnen sich die Handschuhe?'],   // Julian, 09.11.: b) und c) ergänzt
     loesung: [...ws.map(([n, G]) => { const h = R.steigernUm(G, ref.p), r = G + ref.b; return `${G === ws[0][1] ? 'a) ' : ''}${n} (G = ${G}): Handschuhe ${G} · 1,1 = ${f(h)}; Helm ${G} + 5 = ${f(r)} → ${h > r + 1e-9 ? 'Handschuhe' : (h < r - 1e-9 ? 'Helm' : 'gleich gut')}`; }),
-      `b) Diagramm (x-Achse: Grundschaden, y-Achse: neuer Schaden). Handschuhe: Gerade durch den Nullpunkt: y=1,1 · x, Punkte ${ws.map(([, G]) => `(${G} | ${f(R.steigernUm(G, ref.p))})`).join(', ')}. Helm: Gerade y = x + 5 (parallel zur Winkelhalbierenden), Punkte ${ws.map(([, G]) => `(${G} | ${f(G + ref.b)})`).join(', ')}. Die beiden Geraden schneiden sich bei G = ${f(sw)}.`,
+      `b) Diagramm (x-Achse: Grundschaden, y-Achse: neuer Schaden). Handschuhe: Gerade durch den Nullpunkt: y = 1,1 · x, Punkte ${ws.map(([, G]) => `(${G} | ${f(R.steigernUm(G, ref.p))})`).join(', ')}. Helm: Gerade y = x + 5 (parallel zur Winkelhalbierenden), Punkte ${ws.map(([, G]) => `(${G} | ${f(G + ref.b)})`).join(', ')}. Die beiden Geraden schneiden sich bei G = ${f(sw)}.`,
       `c) Beide Graphen steigen. Die Gerade der Handschuhe ist steiler (Steigung 1,1 gegenüber 1): Bis G = ${f(sw)} liegt der Helm vorn, bei G = ${f(sw)} sind beide gleich gut (${f(R.steigernUm(sw, ref.p))} SP), danach liegen die Handschuhe vorn und der Abstand wird immer größer (G = 120: ${f(R.steigernUm(120, ref.p))} gegen ${f(120 + ref.b)}). Schwellenwert: 5 : 0,1 = ${f(sw)}. Ab G > ${f(sw)} lohnen sich die Handschuhe.`]
   });
 
@@ -446,7 +446,7 @@ function einheit7() {
     loesung: [
       `${sA.name}: ${rpg.erklaere(sA).join(' | ')} → Min ${f(tA.min)} / Mittel ${f(tA.avg)} / Max ${f(tA.max)}`,
       `${sB.name}: Flammenschwert 32,5–42,5 + Handschuhe 10 → Min ${f(tB.min)} / Mittel ${f(tB.avg)} / Max ${f(tB.max)}`,
-      `Begründung: Der Grundwert ist klein (40 bzw. 37,5), 10 % davon sind nur 4 SP – der feste Bonus von 10 SP ist mehr als doppelt so viel. Set B ist besser (Mittelwert 47,5 gegen 44). Schwellenwert für +10 %: 10 : 0,1 = 100 – erst über Grundschaden 100 wären Prozente besser.`,
+      `Begründung: Der Grundwert ist klein (40 bzw. 37,5), 10 % davon sind nur etwa 4 SP – der feste Bonus von 10 SP ist mehr als doppelt so viel. Set B ist besser (Mittelwert 47,5 gegen 44). Schwellenwert für +10 %: 10 : 0,1 = 100 – erst über Grundschaden 100 wären Prozente besser.`,
       `Exakte Gewinnchancen bei ${duellDaten.lp} LP: ${sA.name} ${f(w.A * 100)} %, ${sB.name} ${f(w.B * 100)} % (unentschieden ${f(w.unentschieden * 100)} %).`,
       `Das Duell dauert im Durchschnitt etwa ${f(w.erwarteteRunden)} Runden. Das bessere Set gewinnt deutlich öfter, aber nicht immer.`
     ]
@@ -617,7 +617,7 @@ function buildLeer(titel, b, o = {}) {
 /* Build-Tabelle mit Zahlen (Musterlösung) */
 function buildVoll(titel, b, o = {}) {
   const w = werteVon(b);
-  const bes = itemsVon(b).flatMap(effektZeilen).join('; ');
+  const bes = itemsVon(b).flatMap(effektZeilen).map((s, i) => i ? s.charAt(0).toLowerCase() + s.slice(1) : s).join('; ');
   return { titel, slots: slotNamen(b), modus: o.modus || 'voll', quellen: Object.keys(w.zeilen), ruestung: o.ruestung !== false, besonderheiten: !!o.besonderheiten, werte: w, besonderheitenText: bes, bonus: o.bonus !== false, ohneIcon: !!o.ohneIcon };
 }
 /* Rechnung als Text (Mittelwerte) */
@@ -653,7 +653,7 @@ function einheit1() {
     nummern: c.map(b => `Kombination: ${bi(b.waffe)} & ${bi(b.zauber)}`),
     nachText: 'Es kann dir helfen, im Heft jeweils eine solche Tabelle für die Kombinationen anzulegen.',
     /* Beispiel: erste Zeile der Kombination a) vorausgefüllt (Waffen-/Zauber-Namen eingetragen, Bilder stehen in der Übersicht) */
-    builds: [{ ...buildLeer('Beispiel', gleiche, { ruestung: false, bonus: true }), ohneTitel: true, dicht: false, schadenKopf: 'Neuer Schaden (Ø)', vorgabe: [['Physisch', '35', '50 % + 50 % = 100 %', '', ''], ['…', '', '', '', '']] }],
+    builds: [{ ...buildLeer('Beispiel', gleiche, { ruestung: false, bonus: true }), ohneTitel: true, dicht: false, schadenKopf: 'Neuer Schaden (Ø)', vorgabe: [['PHYSISCH', '35', '50 % + 50 % = 100 %', '', ''], ['…', '', '', '', '']] }],
     yExtra: 0.11,   // Abstand zum Beispiel-Kasten (Julian, 10.11.)
     loesung: c.map((b, i) => `${LETTER[i]}) ${sBuild(b)}: ${rechnung(b, undefined, true)}`)
   });
@@ -711,7 +711,7 @@ function einheit2() {
     nachdenken: ['Welche Rüstung passt gar nicht zu dieser Waffe? Erkläre im Heft, warum.'],
     loesungTabellen: [{ titel: 'Musterlösung (Mittelwerte, Basis: Feuersturm)', kopf: ['Rüstung', 'FEUER', 'BLITZ', 'PHYSISCH', 'CHAOS', 'Gesamt Ø', 'Besser?'], zeilen: [zeileFuer(null), ...ruestungen.map(zeileFuer)] }],
     loesung: [`Beste Rüstung: ${name(bestR)} (Ø ${f3(avgVon(bestR))}): Der zusätzliche BLITZ-Grundschaden (Ø ${f3(pK.BLITZ.mittel)}) kommt voll dazu, FEUER und PHYSISCH bleiben unverändert.`,
-      `Umhang des Bescheidenen: SCHADEN +25 % wird bei FEUER (+50 +25 = +${f(pU.FEUER.modifikatorSumme)} %) und PHYSISCH (+${f(pU.PHYSISCH.modifikatorSumme)} %) addiert → Ø ${f3(avgVon('umhang-des-bescheidenen'))} (${vgl('umhang-des-bescheidenen')}).`,
+      `Umhang des Bescheidenen: SCHADEN +25 % wird bei FEUER (+50 % + 25 % = +${f(pU.FEUER.modifikatorSumme)} %) und PHYSISCH (+${f(pU.PHYSISCH.modifikatorSumme)} %) addiert → Ø ${f3(avgVon('umhang-des-bescheidenen'))} (${vgl('umhang-des-bescheidenen')}).`,
       `Wams des Wahnsinns: Die Hälfte des FEUER- und PHYSISCH-Grundschadens wird zu CHAOS (${f3(pD.CHAOS.basis.mittel)}); CHAOS +25 % → ${f3(pD.CHAOS.mittel)}. FEUER ${f3(pD.FEUER.mittel)} und PHYSISCH ${f3(pD.PHYSISCH.mittel)} bleiben übrig → Ø ${f3(avgVon('wams-des-wahnsinns'))} (${vgl('wams-des-wahnsinns')}).`,
       `Fokussierte Gedanken: −50 % ELEMENTAR hebt die +50 % auf FEUER auf (FEUER bleibt ${f3(pF.FEUER.mittel)}); PHYSISCH +50 % → ${f3(pF.PHYSISCH.mittel)} → Ø ${f3(avgVon('fokussierte-gedanken'))} (${vgl('fokussierte-gedanken')}).`,
       `Letzte Bastion: kein FEUER mehr (Feuersturms Hauptschaden) → nur PHYSISCH ${f3(profilVon('letzte-bastion').PHYSISCH.mittel)} → Ø ${f3(avgVon('letzte-bastion'))} (${vgl('letzte-bastion')}).`,
@@ -732,7 +732,7 @@ function einheit2() {
     text: 'Stelle nun den Helden mit dem größten Schaden zusammen:\n- eine Waffe,\n- eine Rüstung und\n- einen Zaubergegenstand\n(Gegenstandskarten Stufe 1 und 2). Trage deinen Build in die Vorlage ein und schreibe deine Überlegungen so auf, dass du sie anderen Spielern erklären kannst.',
     builds: [buildLeer('Mein stärkster Build', {}, { alle: true, modus: 'voll', slotsLeer: true, besonderheiten: true })],
     notizen: { titel: 'Meine Überlegungen', zeilen: 6 },
-    loesung: [`Bestes Build nach Mittelwert: ${sBuild(top[0].build)} (Ø ${f3(top[0].schaden)}).`,
+    loesung: [`Bester Build nach Mittelwert: ${sBuild(top[0].build)} (Ø ${f3(top[0].schaden)}).`,
       'Warum? Der Zerreißer des Seelenfadens hat +150 % PHYSISCH, die Rote Bullentrinkflasche +50 % PHYSISCH, dazu +50 PHYSISCH Grundschaden von Letzte Bastion: Grundschaden 26 + 50 = 76; Modifikatoren +150 % + 50 % = +200 %; Bonus 76 · 2 = 152; Schaden 76 + 152 = 228.'],
     loesungBuilds: [buildVoll('Musterlösung', top[0].build, { besonderheiten: true })]
   });
@@ -741,7 +741,7 @@ function einheit2() {
   aufgaben.push({
     nr: 4, titel: '★ Die Rüstung der Dunkelheit', differenzierung: true, yExtra: 0.05, einBlock: true, zeilenAnz: { 0: 4 }, blockExtra: 0.2,   // Julian 10.11.: ein Textblock, Build-Zeile zentriert, Schreibfläche entfällt (Aufgabe passt auf Seite 2)
     text: `Die ${bi('ruestung-der-dunkelheit')} wendet alle Modifikatoren verdoppelt auf CHAOSschaden an, verursacht aber keinen ELEMENTAR- und keinen PHYSISCHschaden. Berechne im Heft den Build aus:\n~ ${bi('beruehrung-des-wahnsinns')} + ${bi('ruestung-der-dunkelheit')} + ${bi('feenstaub')}.\nVergleiche mit deinem Build aus Aufgabe 3.`,
-    loesung: [`CHAOS: Grundschaden ${f3(rpg.profil(dk).CHAOS.basis.mittel)} (Ø); Modifikatoren des Feenstaubs +${fp} +${fp} +${fp} = +${3 * fp} %, verdoppelt +${6 * fp} % → Bonus ${f3(rpg.profil(dk).CHAOS.basis.mittel)} · ${f3(6 * fp / 100)} = ${f3(rpg.profil(dk).CHAOS.mittel - rpg.profil(dk).CHAOS.basis.mittel)}. ${rechnung(dk)}.`,
+    loesung: [`CHAOS: Grundschaden ${f3(rpg.profil(dk).CHAOS.basis.mittel)} (Ø); Modifikatoren des Feenstaubs +${fp} % + ${fp} % + ${fp} % = +${3 * fp} %, verdoppelt +${6 * fp} % → Bonus ${f3(rpg.profil(dk).CHAOS.basis.mittel)} · ${f3(6 * fp / 100)} = ${f3(rpg.profil(dk).CHAOS.mittel - rpg.profil(dk).CHAOS.basis.mittel)}. ${rechnung(dk)}.`,
       `Vergleich: Der Build aus Aufgabe 3 hat Ø ${f3(bT.avg)}, Max ${f3(bT.max)}; dieser Build Ø ${f3(dkT.avg)}, Max ${f3(dkT.max)} (Min ${f3(dkT.min)}). ` + (dkT.max > bT.max + 1e-9 ? 'Im Durchschnitt schlechter, mit Glück aber der stärkste Build des Spiels.' : 'Er ist in jedem Fall schlechter.')],
     loesungBuilds: [buildVoll('Musterlösung', dk, { besonderheiten: true })]
   });
@@ -770,7 +770,7 @@ function einheit3() {
     notizen: { titel: 'Gefährliche Monster für dieses Set', zeilen: 2 }, notizenVorTabelle: true, tabellenNeueSeite: true, schritte: { 0: 0.30, 1: 0.52, 2: 0.41 }, nachBuild: 0.09,
     loesungTabellen: [{ titel: 'Musterlösung', kopf: ['Monster', 'LP', 'BLITZ (Ø)', 'PHYSISCH (Ø)', 'Schaden pro Treffer', 'Treffer nötig'], zeilen: zeilenA1.map(z => [z.m.name, String(z.m.lp), f3(z.b), f3(z.ph), f3(z.t.avg), `${z.n}`]) }],
     loesung: zeilenA1.map(z => `${z.m.name}: ${rechnung(gew, z.m.id)} → ${f3(z.m.lp)} : ${f3(z.t.avg)} = ${f3(z.m.lp / z.t.avg)} → ${z.n} Treffer.`)
-      .concat([`b) Mit 3 Runden schafft das Set (im Durchschnitt) nur: ${zeilenA1.filter(z => z.n <= 3).map(z => z.m.name).join(', ')}. Kritisch sind: ${zeilenA1.filter(z => z.n > 3).map(z => z.m.name).join(', ')} – bei ihnen sind BLITZ oder PHYSISCH gedämpft bzw. der Riese hat zu viele LP.`])
+      .concat([`b) Mit 3 Runden schafft das Set (im Durchschnitt) nur ${zeilenA1.filter(z => z.n <= 3).map(z => z.m.name).join(', ').replace(/, ([^,]*)$/, ' und $1')}. Kritisch sind ${zeilenA1.filter(z => z.n > 3).map(z => z.m.name).join(', ').replace(/, ([^,]*)$/, ' und $1')} – bei ihnen sind BLITZ oder PHYSISCH gedämpft bzw. der Riese hat zu viele LP.`])
   });
 
   /* A2: zwei Sets */
@@ -795,7 +795,7 @@ function einheit3() {
   const wie = (t, lp) => (3 * t.min + EPS >= lp ? 'Pech' : 3 * t.avg + EPS >= lp ? 'Ø' : 3 * t.max + EPS >= lp ? 'Glück' : 'nie');
   aufgaben.push({
     nr: 2, titel: 'Zwei Sets für alle Monster',
-    text: 'Vorbereitung ist alles: baue zwei Sets (A und B), jeweils aus Waffe, Rüstung und Zaubergegenstand (Gegenstandskarten Stufe 1 und 2). Du darfst zwischen den Kämpfen das Set wechseln – aber nur komplett.\na) Berechne für beide Sets Min, Mittel und Max Schaden ohne Monster.\nb) Entscheide für jedes Monster, welches Set du einsetzt, und berechne den Schaden pro Treffer gegen dieses Monster. Fülle dafür die Tabelle auf Seite 3 aus.\nc) Prüfe, ob du es in 3 Runden besiegst: mit Pech (3 · Min), im Durchschnitt (3 · Mittel) oder nur mit Glück (3 · Max)?',   // Julian 09.11.: Sets auf Seite 2 festhalten, Monstertabelle auf Seite 3
+    text: 'Vorbereitung ist alles: Baue zwei Sets (A und B), jeweils aus Waffe, Rüstung und Zaubergegenstand (Gegenstandskarten Stufe 1 und 2). Du darfst zwischen den Kämpfen das Set wechseln – aber nur komplett.\na) Berechne für beide Sets Min, Mittel und Max Schaden ohne Monster.\nb) Entscheide für jedes Monster, welches Set du einsetzt, und berechne den Schaden pro Treffer gegen dieses Monster. Fülle dafür die Tabelle auf Seite 3 aus.\nc) Prüfe, ob du es in 3 Runden besiegst: mit Pech (3 · Min), im Durchschnitt (3 · Mittel) oder nur mit Glück (3 · Max)?',   // Julian 09.11.: Sets auf Seite 2 festhalten, Monstertabelle auf Seite 3
     zeilenAnz: { 0: 2, 1: 1, 2: 2, 3: 2 }, schritte: [0.5, 0.23, 0.43, 0.33], botDy: 0.12,
     setBoxen: ['Set A', 'Set B'],
     tabellenNeueSeite: true, tabellenYExtra: 0.25, abstaende: { nachTabelle: 0.16 },   // Julian 10.11.
@@ -813,14 +813,14 @@ function einheit3() {
     'Der Held wählt vor dem Kampf Set A oder Set B.',
     'Jede Runde würfelt der Held einmal: 1–2 = Min, 3–4 = Mittel, 5–6 = Max. Den Schaden berechnet ihr mit dem Wert für dieses Monster aus Aufgabe 2.',
     'Dieser Schaden wird von den LP des Monsters abgezogen. Ist das Monster nach höchstens 3 Runden bei 0 LP oder darunter, gewinnt der Held.'] };
-  const probs = gSol.map(g => `${g.m.name} (Set ${g.set}): Pech ${f3(3 * g.t.min)}, Ø ${f3(3 * g.t.avg)}, Glück ${f3(3 * g.t.max)} gegen ${g.m.lp} LP → besiegt in 3 Runden mit Wahrscheinlichkeit ${Math.round(g.p * 100)} % (${Math.round(g.p * 27)} von 27 Wurffolgen).`);
+  const probs = gSol.map(g => `${g.m.name} (Set ${g.set}): Pech ${f3(3 * g.t.min)}, Ø ${f3(3 * g.t.avg)}, Glück ${f3(3 * g.t.max)} gegen ${g.m.lp} LP → besiegt in 3 Runden mit einer Wahrscheinlichkeit von ${Math.round(g.p * 100)} % (${Math.round(g.p * 27)} von 27 Wurffolgen).`);
   aufgaben.push({
     nr: 3, titel: '★ Der Kampf: Held gegen Monster', differenzierung: true, yExtra: 0.16, titelGap: 0.06, schritte: { 0: 0.54 },
-    text: 'Jetzt wird es Ernst. Du wagst dich in die Monsterhöhle und trittst ihnen leibhaftig gegenüber. Dabei entscheidet der Würfel über Glück und Pech. Die Tabellen auf der Rückseite können dir helfen, deine Kämpfe zu dokumentieren.',
+    text: 'Jetzt wird es ernst. Du wagst dich in die Monsterhöhle und trittst ihnen leibhaftig gegenüber. Dabei entscheidet der Würfel über Glück und Pech. Die Tabellen auf der Rückseite können dir helfen, deine Kämpfe zu dokumentieren.',
     zeilenAnz: { 0: 2 }, regelKasten, regelNachText: true,
     protokolle: { anzahl: 6, gitter: true, neueSeite: true },
     loesung: ['Das Ergebnis hängt von den Würfen ab. Kontrolle: Der Schaden pro Runde muss genau einem der drei Werte (Min, Mittel, Max) aus der Tabelle von Aufgabe 2 entsprechen, die LP sinken Runde für Runde um diesen Wert.',
-      'Zur Orientierung die Siegchancen der Musterlösung (jede Stufe hat beim W6 die Wahrscheinlichkeit 1/3):', ...probs]
+      'Zur Orientierung die Siegchancen der Musterlösung (beim W6 hat jeder der drei Werte Min, Mittel und Max die Wahrscheinlichkeit 1/3):', ...probs]
   });
   return { einheit: 3, titel: 'Die Monsterhöhlen', untertitel: 'Widerstand, Immunität und Anfälligkeit',
     einstieg: 'Hinter dem Stadttor von Prozenturis beginnen die Monsterhöhlen. Dort lauern Gegner, die manche Schadensarten kaum spüren – und gegen andere besonders empfindlich sind. Dein Gesamtschaden hängt jetzt nicht nur von deiner Ausrüstung ab, sondern auch davon, wen du bekämpfst.',
@@ -875,7 +875,7 @@ function einheit9() {
   helKarte.zeilen = [...effektZeilen(hel), hel.beschreibung];   // Satz zur Rüstungs-Regel von Julian gestrichen
   helKarte.eigenschaften = []; helKarte.zeilenGrau = 1;   // Beschreibung grau, nicht fett (Julian)
   return { einheit: 9, titel: 'Der Helm des Nachhalls', untertitel: '★ Zusatzseite – wenn ein Bonus nachträglich wirkt',
-    einstieg: ['Ein zwielichter Typ behauptet, in einem alten Grab einen legendären Helm gefunden zu haben, welcher Schaden effektiver verstärkt als “moderne” Helme.', 'Bearbeite die Aufgaben im Heft. Alle anderen Gegenstände findest du in den Übersichten der Einheiten 1 und 2.'],   // Text von Julian
+    einstieg: ['Ein zwielichter Typ behauptet, in einem alten Grab einen legendären Helm gefunden zu haben, der Schaden effektiver verstärkt als „moderne“ Helme.', 'Bearbeite die Aufgaben im Heft. Alle anderen Gegenstände findest du in den Übersichten der Einheiten 1 und 2.'],   // Text von Julian
     karten: [helKarte], kartenBreit: true, kartenH: 1.3993,
     abstaende: { nachKarte: 0.0215, nachKurz: 0.2292 },
     seite1: { rahmenDx: 0.0402, rahmenDy: 0.1745, fussDy: 0.2072, botDy: 0.5 },   // Rahmen und Seitenzahl von Hand verschoben
@@ -951,7 +951,7 @@ function markdown(e) {
     if (Array.isArray(l)) l.forEach(x => L.push(`- ${x}`));
     else if (l.ergebnisse) { l.ergebnisse.forEach(x => L.push(`- ${x}`)); l.gleichwertig.forEach(g => L.push(`- Gleichwertig: ${g.join(' = ')}`)); }
     else { l.kombinationen.forEach(k => L.push(`- ${k.name}: ${k.rechnung.join(' | ')} → **Ø ${f(k.mittel)} SP**`));
-      L.push(`- Beste: **${l.beste}**; Würfelwerte: Min ${f(l.wuerfel.min)} / Mittel ${f(l.wuerfel.mittel)} / Max ${f(l.wuerfel.max)}`); }
+      L.push(`- Beste Kombination: **${l.beste}**; Würfelwerte: Min ${f(l.wuerfel.min)} / Mittel ${f(l.wuerfel.mittel)} / Max ${f(l.wuerfel.max)}`); }
     (a.loesungTabellen || []).forEach(tb => { L.push(''); tabelle(L, tb); });
     (a.loesungBuilds || []).forEach(b => { const w = b.werte; L.push('', `*${b.titel}:* ${Object.entries(w.zeilen).map(([q, z]) => (b.bonus ? `${q} ${z.basis[1]} + ${z.bonus[1]} = ${z.schaden[1]}` : `${q} ${z.basis[1]} · ${z.faktor} = ${z.schaden[1]}`)).join('; ')} → Gesamt Min ${w.gesamt[0]} / Mittel ${w.gesamt[1]} / Max ${w.gesamt[2]}`); });
     L.push('');

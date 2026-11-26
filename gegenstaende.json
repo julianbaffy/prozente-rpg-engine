@@ -63,7 +63,7 @@
     { "id": "mjoelnir", "name": "Mjölnir", "slot": "waffe", "typ": "Streitkolben", "stufe": 1,
       "schaden": [ { "quelle": "PHYSISCH", "min": 20, "mittel": 25, "max": 30 }, { "quelle": "BLITZ", "wert": 40 } ],
       "modifikatoren": [ { "quelle": "BLITZ", "prozent": 50 } ] },
-    { "id": "baldars-weisheit", "name": "Baldars Weißheit", "slot": "waffe", "typ": "Streitkolben", "stufe": 1,
+    { "id": "baldars-weisheit", "name": "Baldars Weisheit", "slot": "waffe", "typ": "Streitkolben", "stufe": 1,
       "schaden": [ { "quelle": "PHYSISCH", "min": 10, "mittel": 15, "max": 20 }, { "quelle": "FEUER", "min": 10, "mittel": 15, "max": 20 },
                    { "quelle": "EIS", "min": 10, "mittel": 15, "max": 20 }, { "quelle": "BLITZ", "min": 10, "mittel": 15, "max": 20 } ] },
     { "id": "weltenschaffer", "name": "Weltenschaffer", "slot": "waffe", "typ": "Speer", "stufe": 1,

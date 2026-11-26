@@ -181,7 +181,7 @@
         "Schwert (G = 50): Handschuhe 50 · 1,1 = 55; Helm 50 + 5 = 55 → gleich gut",
         "Streitaxt (G = 70): Handschuhe 70 · 1,1 = 77; Helm 70 + 5 = 75 → Handschuhe",
         "Zweihänder (G = 120): Handschuhe 120 · 1,1 = 132; Helm 120 + 5 = 125 → Handschuhe",
-        "b) Diagramm (x-Achse: Grundschaden, y-Achse: neuer Schaden). Handschuhe: Gerade durch den Nullpunkt: y=1,1 · x, Punkte (20 | 22), (30 | 33), (50 | 55), (70 | 77), (120 | 132). Helm: Gerade y = x + 5 (parallel zur Winkelhalbierenden), Punkte (20 | 25), (30 | 35), (50 | 55), (70 | 75), (120 | 125). Die beiden Geraden schneiden sich bei G = 50.",
+        "b) Diagramm (x-Achse: Grundschaden, y-Achse: neuer Schaden). Handschuhe: Gerade durch den Nullpunkt: y = 1,1 · x, Punkte (20 | 22), (30 | 33), (50 | 55), (70 | 77), (120 | 132). Helm: Gerade y = x + 5 (parallel zur Winkelhalbierenden), Punkte (20 | 25), (30 | 35), (50 | 55), (70 | 75), (120 | 125). Die beiden Geraden schneiden sich bei G = 50.",
         "c) Beide Graphen steigen. Die Gerade der Handschuhe ist steiler (Steigung 1,1 gegenüber 1): Bis G = 50 liegt der Helm vorn, bei G = 50 sind beide gleich gut (55 SP), danach liegen die Handschuhe vorn und der Abstand wird immer größer (G = 120: 132 gegen 125). Schwellenwert: 5 : 0,1 = 50. Ab G > 50 lohnen sich die Handschuhe."
       ]
     },
@@ -455,7 +455,7 @@
       "loesung": [
         "Set A – Kälte (prozentual): EIS: Grundschaden 35–45, Modifikatoren +10 % → Faktor 1,1 → 38,5–49,5 SP → Min 38,5 / Mittel 44 / Max 49,5",
         "Set B – Glut (absolut): Flammenschwert 32,5–42,5 + Handschuhe 10 → Min 42,5 / Mittel 47,5 / Max 52,5",
-        "Begründung: Der Grundwert ist klein (40 bzw. 37,5), 10 % davon sind nur 4 SP – der feste Bonus von 10 SP ist mehr als doppelt so viel. Set B ist besser (Mittelwert 47,5 gegen 44). Schwellenwert für +10 %: 10 : 0,1 = 100 – erst über Grundschaden 100 wären Prozente besser.",
+        "Begründung: Der Grundwert ist klein (40 bzw. 37,5), 10 % davon sind nur etwa 4 SP – der feste Bonus von 10 SP ist mehr als doppelt so viel. Set B ist besser (Mittelwert 47,5 gegen 44). Schwellenwert für +10 %: 10 : 0,1 = 100 – erst über Grundschaden 100 wären Prozente besser.",
         "Exakte Gewinnchancen bei 200 LP: Set A – Kälte (prozentual) 8,78 %, Set B – Glut (absolut) 91,2 % (unentschieden 0,03 %).",
         "Das Duell dauert im Durchschnitt etwa 4,81 Runden. Das bessere Set gewinnt deutlich öfter, aber nicht immer."
       ]

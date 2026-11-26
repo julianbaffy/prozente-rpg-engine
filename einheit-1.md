@@ -38,7 +38,7 @@ Im Würfelduell zählt manchmal der Glückstreffer. a) Suche den Build, der im b
 
 **Aufgabe 1**
 - a) Verdammnissäher + Rote Bullentrinkflasche: PHYSISCH 35 + 35 · 1 = 35 + 35 = 70 → Ø 70 SP (Min 40, Max 100)
-- b) Baldars Weißheit + Feenstaub: FEUER 15 + 15 · 0,4 = 15 + 6 = 21; EIS 15 + 15 · 0,4 = 15 + 6 = 21; BLITZ 15 + 15 · 0,4 = 15 + 6 = 21; PHYSISCH 15 → Ø 78 SP (Min 52, Max 104)
+- b) Baldars Weisheit + Feenstaub: FEUER 15 + 15 · 0,4 = 15 + 6 = 21; EIS 15 + 15 · 0,4 = 15 + 6 = 21; BLITZ 15 + 15 · 0,4 = 15 + 6 = 21; PHYSISCH 15 → Ø 78 SP (Min 52, Max 104)
 - c) Feuersturm + Armband des Feuers: FEUER 42,5 + 42,5 · 0,5 = 42,5 + 21,25 = 63,75; PHYSISCH 10,5 → Ø 74,25 SP (Min 43,5, Max 105)
 
 **Aufgabe 2**

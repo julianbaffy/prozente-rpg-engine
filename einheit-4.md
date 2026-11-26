@@ -63,13 +63,13 @@ Wie viel Schaden macht ein Treffer jeweils? Wie viele Treffer brauchst du?
 
 ### Aufgabe 5 – Ausrüstung kombinieren
 
-Berechne für jede den durchschnittlichen Schaden (Mittelwert). Welche ist die beste?
+Berechne für jede Kombination den durchschnittlichen Schaden (Mittelwert). Welche ist die beste?
 Verwende die neue Formel zur Berechnung von Modifikatoren.
 
 - a) Mjölnir + Gewitterstein  → Ø ______ SP
 - b) Valdorils Vermächtnis + Frostsiegel  → Ø ______ SP
 - c) Weltenschaffer + Rune der Glut  → Ø ______ SP
-- d) Baldars Weißheit + Rune der Meisterschaft  → Ø ______ SP
+- d) Baldars Weisheit + Rune der Meisterschaft  → Ø ______ SP
 
 ### Aufgabe 6 – Echte Fallen
 
@@ -128,14 +128,14 @@ d) Gibt es eine Gegenrolle zu „Verringere um 100 %“? Begründe.
 - Mjölnir + Gewitterstein: BLITZ: Grundschaden 40–40, Modifikatoren +110 % → Faktor 2,1 → 84–84 SP | PHYSISCH: Grundschaden 20–30, Modifikatoren +0 % → Faktor 1 → 20–30 SP → **Ø 109 SP**
 - Valdorils Vermächtnis + Frostsiegel: EIS: Grundschaden 20–50, Modifikatoren +125 % → Faktor 2,25 → 45–112,5 SP → **Ø 78,75 SP**
 - Weltenschaffer + Rune der Glut: FEUER: Grundschaden 20–40, Modifikatoren +50 % → Faktor 1,5 → 30–60 SP | EIS: Grundschaden 10–20, Modifikatoren +0 % → Faktor 1 → 10–20 SP | PHYSISCH: Grundschaden 5–10, Modifikatoren +0 % → Faktor 1 → 5–10 SP → **Ø 67,5 SP**
-- Baldars Weißheit + Rune der Meisterschaft: FEUER: Grundschaden 10–20, Modifikatoren +0 % → Faktor 1 → 10–20 SP | EIS: Grundschaden 10–20, Modifikatoren +0 % → Faktor 1 → 10–20 SP | BLITZ: Grundschaden 10–20, Modifikatoren +0 % → Faktor 1 → 10–20 SP | PHYSISCH: Grundschaden 10–20, Modifikatoren +30 % → Faktor 1,3 → 13–26 SP → **Ø 64,5 SP**
-- Beste: **Mjölnir + Gewitterstein**; Würfelwerte: Min 104 / Mittel 109 / Max 114
+- Baldars Weisheit + Rune der Meisterschaft: FEUER: Grundschaden 10–20, Modifikatoren +0 % → Faktor 1 → 10–20 SP | EIS: Grundschaden 10–20, Modifikatoren +0 % → Faktor 1 → 10–20 SP | BLITZ: Grundschaden 10–20, Modifikatoren +0 % → Faktor 1 → 10–20 SP | PHYSISCH: Grundschaden 10–20, Modifikatoren +30 % → Faktor 1,3 → 13–26 SP → **Ø 64,5 SP**
+- Beste Kombination: **Mjölnir + Gewitterstein**; Würfelwerte: Min 104 / Mittel 109 / Max 114
 
 **Aufgabe 6**
 - a) Steigere den Schaden auf 90 %: weniger Schaden (bei Grundschaden 100: 90 SP) – Faktor 0,9: trotz „Steigere“ sinkt der Schaden auf 90 %.
 - b) Steigere den Schaden um 100 %: mehr Schaden (bei Grundschaden 100: 200 SP) – Faktor 2: der Schaden wird verdoppelt (= Steigere auf 200 %).
 - c) Verringere den Schaden auf 0 %: weniger Schaden (bei Grundschaden 100: 0 SP) – Faktor 0: der Schaden ist 0 (gleiche Wirkung wie „Verringere um 100 %“).
-- d) Verringere den Schaden um 120 %: Unsinn (bei Grundschaden 100: -20 SP) – Faktor 1 − 1,2 = −0,2: der Schaden wäre negativ – mehr als 100 % kann man nicht wegnehmen.
+- d) Verringere den Schaden um 120 %: Unsinn (bei Grundschaden 100: −20 SP) – Faktor 1 − 1,2 = −0,2: der Schaden wäre negativ – mehr als 100 % kann man nicht wegnehmen.
 - e) Steigere den Schaden auf 100 %: bleibt gleich (bei Grundschaden 100: 100 SP) – Faktor 1: nichts ändert sich.
 - f) Verringere den Schaden um 100 %: weniger Schaden (bei Grundschaden 100: 0 SP) – Faktor 0: der Schaden ist 0 (gleiche Wirkung wie „Verringere auf 0 %“).
 - Dieselbe Wirkung haben „Verringere den Schaden auf 0 %“ und „Verringere den Schaden um 100 %“ (beide: Schaden 0).
@@ -144,4 +144,4 @@ d) Gibt es eine Gegenrolle zu „Verringere um 100 %“? Begründe.
 - a) „Verringere um 20 %“: 80 · 0,8 = 64; Gegenrolle: Faktor 1 : 0,8 = 1,25, also „Steigere um 25 %“ (64 · 1,25 = 80).
 - b) „Verringere um 50 %“: 80 · 0,5 = 40; Gegenrolle: Faktor 1 : 0,5 = 2, also „Steigere um 100 %“ (40 · 2 = 80). „Verringere um 75 %“: 80 · 0,25 = 20; Gegenrolle: Faktor 1 : 0,25 = 4, also „Steigere um 300 %“ (20 · 4 = 80).
 - c) Die Gegenrolle hat immer einen größeren Prozentsatz: Nach „Verringere um 20 %“ bleiben nur 80 % des Schadens übrig. 20 % von 80 sind weniger als 20 % von 100 – man muss also mehr als 20 % steigern. Der Faktor der Gegenrolle ist der Kehrwert des Faktors (1 : 0,8 = 1,25).
-- d) Nein: Nach „Verringere um 100 %“ ist der Schaden 0, und 0 mal jeder Faktor ist wieder 0.
+- d) Nein: Nach „Verringere um 100 %“ ist der Schaden 0, und 0 mal irgendein Faktor ergibt immer 0.

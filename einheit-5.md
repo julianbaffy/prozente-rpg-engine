@@ -87,10 +87,10 @@ Bei diesen Waffen gibt es eine Spanne (Minimum–Maximum). Quillon misst beide W
 
 **Aufgabe 3**
 - Versprochen: 45 · 1,4 = 63 SP; gemessen: 60 SP.
-- Tatsächlich: 60 : 45 = 1,33 → 33,3 % Steigerung (statt 40 %). Quillon hat sein Versprechen nicht gehalten.
+- Tatsächlich: 60 : 45 = 1,333… → 33,3 % Steigerung (statt 40 %). Quillon hat sein Versprechen nicht gehalten.
 
 **Aufgabe 4**
 - Stab: Min 1,2 (20 %), Max 1,2 → derselbe Prozentsatz
 - Speer: Min 1,1 (10 %), Max 1,1 → derselbe Prozentsatz
-- Beil: Min 0,85 (-15 %), Max 0,85 → derselbe Prozentsatz
+- Beil: Min 0,85 (−15 %), Max 0,85 → derselbe Prozentsatz
 - Beobachtung: Der Zauber wirkt auf Minimum und Maximum mit demselben Prozentsatz. Das ist die Probe: Kommt Verschiedenes heraus, wurde falsch gerechnet.
