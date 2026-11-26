@@ -282,9 +282,9 @@ function bauen(e, outFile, modus = 'pergament') {
       { h: hT + (sp.dicht ? 0 : 0.08), zeichne: (x, yy, wd) => {
         const rows = [];
         if (voll) {
-          rows.push([hd('Schadensart', { rowspan: 2 }), hd('Grundschaden', { colspan: 3 }), hd('Modifikatoren (Summe)', { rowspan: 2 }), ...(bo ? [hd('Bonus', { colspan: 3 })] : [hd('Faktor', { rowspan: 2 })]), hd(sp.schadenKopfVoll || 'Schaden', { colspan: 3 })]);
+          rows.push([hd('Schadensart', { rowspan: 2 }), hd('Grundschaden', { colspan: 3 }), hd('Modifikatoren (Summe)', { rowspan: 2 }), ...(bo ? [hd('Bonus', { colspan: 3 })] : [hd('Faktor', { rowspan: 2 })]), hd(sp.schadenKopfVoll || 'Neuer Schaden', { colspan: 3 })]);
           rows.push((bo ? ['Min', 'Mittel', 'Max', 'Min', 'Mittel', 'Max', 'Min', 'Mittel', 'Max'] : ['Min', 'Mittel', 'Max', 'Min', 'Mittel', 'Max']).map(t => hd(t, { fontFace: BODY })));
-        } else rows.push(['Schadensart', 'Grundschaden (Ø)', 'Modifikatoren (Summe)', bo ? 'Bonus' : 'Faktor', sp.schadenKopf || 'Schaden (Ø)'].map(t => hd(t)));
+        } else rows.push(['Schadensart', 'Grundschaden (Ø)', 'Modifikatoren (Summe)', bo ? 'Bonus' : 'Faktor', sp.schadenKopf || 'Neuer Schaden (Ø)'].map(t => hd(t)));
         if (sp.vorgabe) sp.vorgabe.forEach(r => rows.push([c(r[0], { align: 'left', bold: true }), c(r[1]), c(r[2]), c(r[3]), c(r[4] || '')]));   // vorausgefülltes Beispiel
         else sp.quellen.forEach(q => {
           const z = w && w.zeilen[q];
@@ -322,7 +322,7 @@ function bauen(e, outFile, modus = 'pergament') {
         slide.addText(lab, { x: x + 0.14, y: sy, w: 2.37, h: 0.18, fontFace: BODY, fontSize: 8.5, italic: true, color: GREY, margin: 0, valign: 'middle', isTextBox: true });
         slide.addShape(pres.ShapeType.rect, { x: x + 0.14, y: sy + 0.2, w: 2.79, h: 0.3, fill: { color: 'FFFFFF' }, line: { color: INK, width: 0.9 } });
       });
-      const rows = [[hd('Schadensart', { rowspan: 2 }), hd('Schaden', { colspan: 3 })], ['Min', 'Mittel', 'Max'].map(t => hd(t, { fontFace: BODY })),
+      const rows = [[hd('Schadensart', { rowspan: 2 }), hd('Neuer Schaden', { colspan: 3 })], ['Min', 'Mittel', 'Max'].map(t => hd(t, { fontFace: BODY })),
         ...quellen.map(q => [c(q, { align: 'left', bold: true }), c(''), c(''), c('')])];
       slide.addTable(rows, { x: x + 3.24, y: yy + 0.06, w: 3.6, colW: [1.18, 0.807, 0.807, 0.806], rowH: [0.25, 0.25, ...quellen.map(() => 0.289)], border: { type: 'solid', pt: 0.9, color: INK }, fontFace: BODY, fontSize: 9, color: INK, valign: 'middle', margin: [0, 0.04, 0, 0.04] });
       slide.addText('Besonderheiten:', { x: x + 0.14, y: yy + 2.15, w: 1.15, h: 0.26, fontFace: BODY, fontSize: 9.5, bold: true, italic: true, color: INK, margin: 0, valign: 'bottom', isTextBox: true });

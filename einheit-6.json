@@ -76,7 +76,7 @@
   "aufgaben": [
     {
       "nr": 1,
-      "titel": "Welche Übungswaffe nehme ich mit?",
+      "titel": "Wie stark sind diese Übungswaffen?",
       "text": "Berechne für jede Übungswaffe den Grundschaden.",
       "tabellen": [
         {

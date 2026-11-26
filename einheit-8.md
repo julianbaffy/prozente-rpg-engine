@@ -1,6 +1,6 @@
 # Einheit 8: Die Arena – Zinsen: Jeder Angriff macht prozentual mehr Schaden
 
-*In der großen Arena von Prozenturis kämpfen die Besten gegen immer stärkere Gegner. Manche Waffen werden im Kampf stärker: Mit jedem Treffer wächst ihr Schaden. Aber welche Waffe lohnt sich gegen welchen Gegner?*
+*In der großen Arena von Prozenturis kämpfen die Besten gegen immer stärkere Gegner. Manche Waffen werden im Kampf stärker: Mit jedem Angriff wächst ihr Schaden. Aber welche Waffe lohnt sich gegen welchen Gegner?*
 
 ## Beispiel
 
@@ -50,7 +50,7 @@ Alle Klingen und Gegner dieser Einheit findest du in der Übersicht zu Einheit 8
 
 ### Aufgabe 2 – Die Wirbelklinge: Schaden des n-ten Angriffs
 
-Die Wirbelklinge (Kurzschwert) macht nur 12 SP, greift aber 2-mal pro Runde an – und auch bei ihr wird jeder Angriff um 5 % stärker. a) Berechne mit der Potenz-Formel, wie viel Schaden der jeweilige Angriff macht (runde auf zwei Stellen). b) Die Wutklinge macht mit ihrem 1. Angriff 30 SP. Beim wievielten Angriff macht die Wirbelklinge zum ersten Mal mindestens so viel Schaden? (Probiere mit dem Taschenrechner.)
+Die Wirbelklinge (Kurzschwert) macht nur 12 SP, greift aber zweimal pro Runde an – und auch bei ihr wird jeder Angriff um 5 % stärker. a) Berechne mit der Potenz-Formel, wie viel Schaden der jeweilige Angriff macht (runde auf zwei Stellen). b) Die Wutklinge macht mit ihrem 1. Angriff 30 SP. Beim wievielten Angriff macht die Wirbelklinge zum ersten Mal mindestens so viel Schaden? (Probiere mit dem Taschenrechner.)
 
 
 | Waffe | Grundschaden | Angriff Nr. | Rechnung | Schaden (SP) |
@@ -61,7 +61,7 @@ Die Wirbelklinge (Kurzschwert) macht nur 12 SP, greift aber 2-mal pro Runde an �
 
 ### Aufgabe 3 – Gesamtschaden: Wer besiegt wen schneller?
 
-> 💡 Für den Gesamtschaden musst du alle bisherigen Angriffe addieren. Die Wirbelklinge greift zwei Mal pro Runde an.
+> 💡 Für den Gesamtschaden musst du alle bisherigen Angriffe addieren. Die Wirbelklinge greift zweimal pro Runde an.
 
 a) Fülle die Tabellen (nächste Seite) aus: Berechne den Schaden jedes Angriffs (wie in Aufgabe 1 und 2) und addiere ihn zum bisherigen Gesamtschaden. Wer hat nach 2 Runden mehr Gesamtschaden gemacht? (Wutklinge: 1 Angriff pro Runde, Wirbelklinge: 2 Angriffe pro Runde.) b) In der Arena warten vier Gegner mit verschieden viel Leben (siehe Übersicht). Lies in der Hilfstabelle (Gesamtschaden nach n Runden) ab, nach wie vielen Runden jede Waffe den Gegner besiegt hat (Gesamtschaden ≥ LP). Welche Waffe ist jeweils schneller? Trage deine Ergebnisse in der Tabelle auf der nächsten Seite ein.
 
@@ -119,22 +119,22 @@ Die Gleichmäßige Klinge (Langschwert, 30 SP, 1 Angriff pro Runde) macht bei je
 ## Lösungen (Lehrkraft)
 
 **Aufgabe 1**
-- Wutklinge, 6. Angriff: 30 · 1,05^5 = 38,29 SP
-- Wutklinge, 10. Angriff: 30 · 1,05^9 = 46,54 SP
-- Wutklinge, 20. Angriff: 30 · 1,05^19 = 75,81 SP
-- Klinge der Rachsucht, 6. Angriff: 25 · 1,08^5 = 36,73 SP
-- Klinge der Rachsucht, 10. Angriff: 25 · 1,08^9 = 49,98 SP
-- Klinge der Rachsucht, 20. Angriff: 25 · 1,08^19 = 107,89 SP
+- Wutklinge, 6. Angriff: 30 · 1,05⁵ = 38,29 SP
+- Wutklinge, 10. Angriff: 30 · 1,05⁹ = 46,54 SP
+- Wutklinge, 20. Angriff: 30 · 1,05¹⁹ = 75,81 SP
+- Klinge der Rachsucht, 6. Angriff: 25 · 1,08⁵ = 36,73 SP
+- Klinge der Rachsucht, 10. Angriff: 25 · 1,08⁹ = 49,98 SP
+- Klinge der Rachsucht, 20. Angriff: 25 · 1,08¹⁹ = 107,89 SP
 - b) Wutklinge: beim 7. Angriff (40,2 SP; der 6. macht erst 38,29 SP). Klinge der Rachsucht: beim 8. Angriff (42,85 SP; der 7. macht erst 39,67 SP).
 - c) Ab dem 8. Angriff: Rachsucht 42,85 SP gegen Wutklinge 42,21 SP (beim 7. Angriff noch 39,67 gegen 40,2 SP).
 - d) Koordinatensystem: x-Achse Angriffe, y-Achse Schaden (Werte aus den Rechnungen). Beide Kurven steigen; die der Klinge der Rachsucht beginnt tiefer, wird aber steiler und schneidet die der Wutklinge beim 8. Angriff.
 - Beobachtung: Der kleinere Startwert wird durch den höheren Prozentsatz ausgeglichen – bei langen Kämpfen ist die Klinge der Rachsucht deutlich stärker (20. Angriff: 107,89 gegen 75,81 SP).
 
 **Aufgabe 2**
-- Wirbelklinge, 4. Angriff: 12 · 1,05^3 = 13,89 SP
-- Wirbelklinge, 10. Angriff: 12 · 1,05^9 = 18,62 SP
-- Wirbelklinge, 20. Angriff: 12 · 1,05^19 = 30,32 SP
-- b) Beim 20. Angriff: 12 · 1,05^19 = 30,32 SP (der 19. Angriff macht erst 28,88 SP).
+- Wirbelklinge, 4. Angriff: 12 · 1,05³ = 13,89 SP
+- Wirbelklinge, 10. Angriff: 12 · 1,05⁹ = 18,62 SP
+- Wirbelklinge, 20. Angriff: 12 · 1,05¹⁹ = 30,32 SP
+- b) Beim 20. Angriff: 12 · 1,05¹⁹ = 30,32 SP (der 19. Angriff macht erst 28,88 SP).
 - Beobachtung: Erst der 20. Angriff der Wirbelklinge macht so viel wie der 1. der Wutklinge – dafür greift sie aber doppelt so oft an.
 
 **Aufgabe 3**
@@ -153,7 +153,7 @@ Die Gleichmäßige Klinge (Langschwert, 30 SP, 1 Angriff pro Runde) macht bei je
 - d) Die Wirbelklinge greift doppelt so oft an. Ihre „Zinsen“ wirken nach n Runden 2n-mal statt n-mal – der Aufbau holt den kleineren Startwert irgendwann ein. Wer lange kämpft, profitiert vom häufigeren Aufbau.
 
 **Aufgabe 5**
-- a) Gleichmäßige Klinge: 10. Angriff: 30 + 9 · 2 = 48 SP; 14. Angriff: 30 + 13 · 2 = 56 SP. Wutklinge: 10. Angriff: 30 · 1,05^9 = 46,54 SP; 14. Angriff: 30 · 1,05^13 = 56,57 SP.
+- a) Gleichmäßige Klinge: 10. Angriff: 30 + 9 · 2 = 48 SP; 14. Angriff: 30 + 13 · 2 = 56 SP. Wutklinge: 10. Angriff: 30 · 1,05⁹ = 46,54 SP; 14. Angriff: 30 · 1,05¹³ = 56,57 SP.
 - b) Nach 10 Angriffen: Gleichmäßige Klinge 390 SP, Wutklinge 377,34 SP. Nach 14 Angriffen: 602 gegen 587,96.
 - c) In diesem Bereich (bis 14 Angriffe) ist die Gleichmäßige Klinge besser: Ihr Schaden wächst zu Beginn schneller (+2 SP statt anfangs +1,5 SP). Der Gesamtschaden ist bei ihr bis dahin größer.
 - d) Die Gleichmäßige Klinge ergibt eine Gerade (Anstieg 2 SP je Angriff beim Einzelschaden), die Wutklinge eine immer steilere Kurve.

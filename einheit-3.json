@@ -91,8 +91,8 @@
             "LP",
             "BLITZ (Ø)",
             "PHYSISCH (Ø)",
-            "Schaden pro Treffer",
-            "Treffer nötig"
+            "Schaden pro Angriff",
+            "Angriffe nötig"
           ],
           "zeilen": [
             [
@@ -167,8 +167,8 @@
             "LP",
             "BLITZ (Ø)",
             "PHYSISCH (Ø)",
-            "Schaden pro Treffer",
-            "Treffer nötig"
+            "Schaden pro Angriff",
+            "Angriffe nötig"
           ],
           "zeilen": [
             [
@@ -223,19 +223,19 @@
         }
       ],
       "loesung": [
-        "Flederbestie: BLITZ 70 + 70 · 0,9 = 70 + 63 = 133 · 0,5 = 66,5; PHYSISCH 25 → Ø 91,5 SP (Min 77, Max 106) → 300 : 91,5 = 3,279 → 4 Treffer.",
-        "Eisgolem: BLITZ 70 + 70 · 0,9 = 70 + 63 = 133; PHYSISCH 25 · 0,5 = 12,5 → Ø 145,5 SP (Min 124, Max 167) → 300 : 145,5 = 2,062 → 3 Treffer.",
-        "Fluchritter: BLITZ 70 + 70 · 0,9 = 70 + 63 = 133; PHYSISCH 25 · 0,75 = 18,75 → Ø 151,75 SP (Min 129, Max 174,5) → 325 : 151,75 = 2,142 → 3 Treffer.",
-        "Tiefebenenriese: BLITZ 70 + 70 · 0,9 = 70 + 63 = 133; PHYSISCH 25 → Ø 158 SP (Min 134, Max 182) → 500 : 158 = 3,165 → 4 Treffer.",
-        "Eiserner Fürst des Stahles: BLITZ 70 + 70 · 0,9 = 70 + 63 = 133 · 1,25 = 166,25; PHYSISCH 25 · 0 = 0 → Ø 166,25 SP (Min 142,5, Max 190) → 400 : 166,25 = 2,406 → 3 Treffer.",
-        "Finsterer Archivar der Algebra: BLITZ 70 + 70 · 0,9 = 70 + 63 = 133 · 0,5 = 66,5; PHYSISCH 25 → Ø 91,5 SP (Min 77, Max 106) → 350 : 91,5 = 3,825 → 4 Treffer.",
+        "Flederbestie: BLITZ 70 + 70 · 0,9 = 70 + 63 = 133 · 0,5 = 66,5; PHYSISCH 25 → Ø 91,5 SP (Min 77, Max 106) → 300 : 91,5 = 3,279 → 4 Angriffe.",
+        "Eisgolem: BLITZ 70 + 70 · 0,9 = 70 + 63 = 133; PHYSISCH 25 · 0,5 = 12,5 → Ø 145,5 SP (Min 124, Max 167) → 300 : 145,5 = 2,062 → 3 Angriffe.",
+        "Fluchritter: BLITZ 70 + 70 · 0,9 = 70 + 63 = 133; PHYSISCH 25 · 0,75 = 18,75 → Ø 151,75 SP (Min 129, Max 174,5) → 325 : 151,75 = 2,142 → 3 Angriffe.",
+        "Tiefebenenriese: BLITZ 70 + 70 · 0,9 = 70 + 63 = 133; PHYSISCH 25 → Ø 158 SP (Min 134, Max 182) → 500 : 158 = 3,165 → 4 Angriffe.",
+        "Eiserner Fürst des Stahles: BLITZ 70 + 70 · 0,9 = 70 + 63 = 133 · 1,25 = 166,25; PHYSISCH 25 · 0 = 0 → Ø 166,25 SP (Min 142,5, Max 190) → 400 : 166,25 = 2,406 → 3 Angriffe.",
+        "Finsterer Archivar der Algebra: BLITZ 70 + 70 · 0,9 = 70 + 63 = 133 · 0,5 = 66,5; PHYSISCH 25 → Ø 91,5 SP (Min 77, Max 106) → 350 : 91,5 = 3,825 → 4 Angriffe.",
         "b) Mit 3 Runden schafft das Set (im Durchschnitt) nur Eisgolem, Fluchritter und Eiserner Fürst des Stahles. Kritisch sind Flederbestie, Tiefebenenriese und Finsterer Archivar der Algebra – bei ihnen sind BLITZ oder PHYSISCH gedämpft bzw. der Riese hat zu viele LP."
       ]
     },
     {
       "nr": 2,
       "titel": "Zwei Sets für alle Monster",
-      "text": "Vorbereitung ist alles: Baue zwei Sets (A und B), jeweils aus Waffe, Rüstung und Zaubergegenstand (Gegenstandskarten Stufe 1 und 2). Du darfst zwischen den Kämpfen das Set wechseln – aber nur komplett.\na) Berechne für beide Sets Min, Mittel und Max Schaden ohne Monster.\nb) Entscheide für jedes Monster, welches Set du einsetzt, und berechne den Schaden pro Treffer gegen dieses Monster. Fülle dafür die Tabelle auf Seite 3 aus.\nc) Prüfe, ob du es in 3 Runden besiegst: mit Pech (3 · Min), im Durchschnitt (3 · Mittel) oder nur mit Glück (3 · Max)?",
+      "text": "Vorbereitung ist alles: Baue zwei Sets (A und B), jeweils aus Waffe, Rüstung und Zaubergegenstand (Gegenstandskarten Stufe 1 und 2). Du darfst zwischen den Kämpfen das Set wechseln – aber nur komplett.\na) Berechne für beide Sets Min, Mittel und Max Schaden ohne Monster.\nb) Entscheide für jedes Monster, welches Set du einsetzt, und berechne den Schaden pro Angriff gegen dieses Monster. Fülle dafür die Tabelle auf Seite 3 aus.\nc) Prüfe, ob du es in 3 Runden besiegst: mit Pech (3 · Min), im Durchschnitt (3 · Mittel) oder nur mit Glück (3 · Max)?",
       "zeilenAnz": {
         "0": 2,
         "1": 1,
@@ -480,7 +480,7 @@
       ],
       "loesungTabellen": [
         {
-          "titel": "Musterlösung (Schaden pro Treffer gegen das jeweilige Monster)",
+          "titel": "Musterlösung (Schaden pro Angriff gegen das jeweilige Monster)",
           "kopf": [
             "Monster",
             "LP",

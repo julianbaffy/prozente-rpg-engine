@@ -74,9 +74,9 @@ Die Werte aller Waffen, des Armbands und des Rings findest du in der Übersicht 
 
 ### Aufgabe 4 – Das Duell
 
-Ritter Lohnamm der Unnachgiebige bietet dir zwei Sets an: Set A mit prozentualem Bonus, Set B mit festem Bonus. Berechne für beide Sets Minimum, Mittelwert und Maximum eines Treffers. Welches Set ist besser?
+Ritter Lohnamm der Unnachgiebige bietet dir zwei Sets an: Set A mit prozentualem Bonus, Set B mit festem Bonus. Berechne für beide Sets Minimum, Mittelwert und Maximum eines Angriffs. Welches Set ist besser?
 Wähle dann ein Set und tritt im Würfelduell gegen Lohnamm an.
-A Kälteset (anteilig): ***Eislanze*** + ***Fjordgreifer***
+A Kälteset (prozentual): ***Eislanze*** + ***Fjordgreifer***
 B Glutset (absolut): ***Flammenschwert*** + ***Handschuhe des Glutschmieds***
 
 1. Beide haben 200 LP. Du wählst zuerst ein Set, Lohnamm bekommt das andere.

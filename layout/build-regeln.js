@@ -329,9 +329,9 @@ function miniKarte(s, id, x, y, w, h) {
       { x: x0, y: 3.6, w, h: 0.9, fontSize: 16, italic: true, valign: 'top' });
   }
 
-  /* ===== 11 Beispiel Treffer ===== */
+  /* ===== 11 Beispiel Angriff ===== */
   {
-    const s = neueFolie('Beispiel: ein Treffer gegen den Eisgolem', 'Feuersturm gegen Eisgolem (300 LP): FEUER 45 · 2 = 90, PHYSISCH 10,5 · 0,5 = 5,25 → 95,25 SP.');
+    const s = neueFolie('Beispiel: ein Angriff gegen den Eisgolem', 'Feuersturm gegen Eisgolem (300 LP): FEUER 45 · 2 = 90, PHYSISCH 10,5 · 0,5 = 5,25 → 95,25 SP.');
     T(s, [{ text: 'Waffe: ', options: {} }, { text: 'Feuersturm', options: { bold: true } }, { text: ' (nach Modifikator FEUER ' + f(fe.mittel * 1.5) + ', PHYSISCH ' + f(ph.mittel) + ').  Monster: ', options: {} }, { text: 'Eisgolem, ' + golem.lp + ' LP', options: { bold: true } }],
       { x: MX, y: 1.25, w: CW, h: 0.45, fontSize: 14, align: 'center', valign: 'middle' });
     const pq = tOro.proQuelle;
@@ -339,8 +339,8 @@ function miniKarte(s, id, x, y, w, h) {
       ['FEUER', f(pq.FEUER.avg / pq.FEUER.widerstandsFaktor), '+100 %  → × 2', f(pq.FEUER.avg)],
       ['PHYSISCH', f(pq.PHYSISCH.avg / pq.PHYSISCH.widerstandsFaktor), '−50 %  → × 0,5', f(pq.PHYSISCH.avg)]];
     tab(s, rows, { x: MX + 0.4, y: 1.9, w: CW - 0.8, colW: [1.4, 2.4, 2.2, CW - 0.8 - 6.0], rowH: 0.48, fs: 13.5 });
-    formel(s, PW / 2 - 2.5, 3.65, 5.0, 0.52, 'Ein Treffer: ' + f(tOro.avg) + ' SP', { fs: 20 });
-    T(s, [{ text: 'Wie viele Treffer? ' + golem.lp + ' : ' + f(tOro.avg) + ' ≈ ' + f(golem.lp / tOro.avg) + '  →  ', options: {} }, { text: 'mindestens ' + Math.ceil(golem.lp / tOro.avg) + ' Treffer', options: { bold: true } }],
+    formel(s, PW / 2 - 2.5, 3.65, 5.0, 0.52, 'Ein Angriff: ' + f(tOro.avg) + ' SP', { fs: 20 });
+    T(s, [{ text: 'Wie viele Angriffe? ' + golem.lp + ' : ' + f(tOro.avg) + ' ≈ ' + f(golem.lp / tOro.avg) + '  →  ', options: {} }, { text: 'mindestens ' + Math.ceil(golem.lp / tOro.avg) + ' Angriffe', options: { bold: true } }],
       { x: MX, y: 4.35, w: CW, h: 0.45, fontSize: 16, align: 'center', valign: 'middle' });
   }
 
@@ -366,7 +366,7 @@ function miniKarte(s, id, x, y, w, h) {
   {
     const s = neueFolie('Beispiel-Duell: Eisgolem in 3 Runden?', 'Vorhersage und ein gewürfeltes Beispiel. Knapp daneben: 14,25 LP bleiben übrig.');
     const mn = tOro.min, av = tOro.avg, mx = tOro.max, LP = golem.lp;
-    T(s, 'Feuersturm gegen Eisgolem (' + LP + ' LP): Min ' + f(mn) + ' · Mittel ' + f(av) + ' · Max ' + f(mx) + ' SP pro Treffer', { x: MX, y: 1.25, w: CW, h: 0.4, fontSize: 14, bold: true, align: 'center', valign: 'middle' });
+    T(s, 'Feuersturm gegen Eisgolem (' + LP + ' LP): Min ' + f(mn) + ' · Mittel ' + f(av) + ' · Max ' + f(mx) + ' SP pro Angriff', { x: MX, y: 1.25, w: CW, h: 0.4, fontSize: 14, bold: true, align: 'center', valign: 'middle' });
     const ok = v => (v >= LP ? '✓ ja' : '✗ nein');
     tab(s, [['Vorhersage', 'Rechnung', 'Gesamt', 'Besiegt?'],
       ['Pech', '3 · ' + f(mn), f(3 * mn), ok(3 * mn)],

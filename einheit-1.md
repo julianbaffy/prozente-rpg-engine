@@ -4,7 +4,7 @@
 
 ## Das musst du wissen
 
-1. Jede Waffe macht pro Treffer Schaden (SP) zwischen einem Minimum und einem Maximum. Der Mittelwert (Ø) liegt genau dazwischen.
+1. Jede Waffe macht pro Angriff Schaden (SP) zwischen einem Minimum und einem Maximum. Der Mittelwert (Ø) liegt genau dazwischen.
 2. Jeder Schaden hat eine Schadensart: FEUER, EIS, BLITZ, PHYSISCH oder CHAOS. ELEMENTAR ist der Sammelname für FEUER, EIS und BLITZ.
 3. Ein Modifikator wie „+50 % FEUER“ erhöht den FEUERschaden anteilig vom Grundschaden. Bonus = Grundschaden · Modifikator; neuer Schaden = Grundschaden + Bonus. Beispiel: Grundschaden 30 FEUERschaden, Bonus: 30 SP · 0,5 = 15 SP, neuer Schaden = 30 + 15 = 45 SP
 4. Modifikatoren mit derselben Schadensart werden zuerst ADDIERT und wirken dann zusammen: +50 % und +50 % sind +100 %.
@@ -13,7 +13,7 @@
 
 ### Aufgabe 1 – Drei Angebote des Schmieds
 
-Der Schmied legt dir drei Kombinationen aus Waffe und Zaubergegenstand vor. Berechne für jede den durchschnittlichen neuen Schaden pro Treffer (Mittelwert).
+Der Schmied legt dir drei Kombinationen aus Waffe und Zaubergegenstand vor. Berechne für jede den durchschnittlichen neuen Schaden pro Angriff (Mittelwert).
 
 
 > **Build-Vorlage: Beispiel** (Mittelwert; Schadensarten: PHYSISCH)

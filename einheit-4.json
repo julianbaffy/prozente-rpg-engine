@@ -88,7 +88,7 @@
       "schritte": {
         "0": 0.51
       },
-      "text": "Thelyas Lehrling bietet sechs weitere Rollen an. Dein Schwert verursacht einen physischen Grundschaden von {{60}}. Welche Rollen bewirken dasselbe? Berechne den neuen Schaden und markiere Rollen mit gleichem Ergebnis.",
+      "text": "Thelyas Lehrling bietet sechs weitere Rollen an. Dein Schwert verursacht einen Grundschaden von {{60}} PHYSISCH. Welche Rollen bewirken dasselbe? Berechne den neuen Schaden und markiere Rollen mit gleichem Ergebnis.",
       "tabelle": [
         "Steigere den Schaden um 40 %",
         "Steigere den Schaden auf 140 %",
@@ -161,11 +161,11 @@
       "nr": 4,
       "titel": "Zwei Golems",
       "neueSeite": true,
-      "text": "Du kämpfst mit {{Feuersturm}} (rechne mit dem Mittelwert) gegen den {{Moosgolem}} und den {{Aschegolem}}. Die Eigenschaften kannst du der Übersicht für Einheit 4 entnehmen.\nWie viel Schaden macht ein Treffer jeweils? Wie viele Treffer brauchst du?",
+      "text": "Du kämpfst mit {{Feuersturm}} (rechne mit dem Mittelwert) gegen den {{Moosgolem}} und den {{Aschegolem}}. Die Eigenschaften kannst du der Übersicht für Einheit 4 entnehmen.\nWie viel Schaden macht ein Angriff jeweils? Wie viele Angriffe brauchst du?",
       "loesung": [
         "Ohne Golem: FEUER: Grundschaden 20–40, Modifikatoren +50 % → Faktor 1,5 → 30–60 SP | PHYSISCH: Grundschaden 6–15, Modifikatoren +0 % → Faktor 1 → 6–15 SP",
-        "Moosgolem: FEUER 45 · (1 − 0,4) = 27; dazu PHYSISCH 10,5 → 37,5 SP pro Treffer → 4 Treffer",
-        "Aschegolem: FEUER 45 · 0,4 = 18; dazu PHYSISCH 10,5 → 28,5 SP pro Treffer → 5 Treffer"
+        "Moosgolem: FEUER 45 · (1 − 0,4) = 27; dazu PHYSISCH 10,5 → 37,5 SP pro Angriff → 4 Angriffe",
+        "Aschegolem: FEUER 45 · 0,4 = 18; dazu PHYSISCH 10,5 → 28,5 SP pro Angriff → 5 Angriffe"
       ]
     },
     {

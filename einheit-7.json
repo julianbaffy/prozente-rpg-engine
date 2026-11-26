@@ -334,7 +334,7 @@
         "italic": true,
         "gap": 0.05
       },
-      "text": "Ritter Lohnamm der Unnachgiebige bietet dir zwei Sets an: Set A mit prozentualem Bonus, Set B mit festem Bonus. Berechne für beide Sets Minimum, Mittelwert und Maximum eines Treffers. Welches Set ist besser?\nWähle dann ein Set und tritt im Würfelduell gegen Lohnamm an.\nA Kälteset (anteilig): {{Eislanze}} + {{Fjordgreifer}}\nB Glutset (absolut): {{Flammenschwert}} + {{Handschuhe des Glutschmieds}}",
+      "text": "Ritter Lohnamm der Unnachgiebige bietet dir zwei Sets an: Set A mit prozentualem Bonus, Set B mit festem Bonus. Berechne für beide Sets Minimum, Mittelwert und Maximum eines Angriffs. Welches Set ist besser?\nWähle dann ein Set und tritt im Würfelduell gegen Lohnamm an.\nA Kälteset (prozentual): {{Eislanze}} + {{Fjordgreifer}}\nB Glutset (absolut): {{Flammenschwert}} + {{Handschuhe des Glutschmieds}}",
       "tabellen": [
         {
           "kopf": [

@@ -8,6 +8,8 @@ import * as kt from './layout/kartentext.js';
 const daten = JSON.parse(fs.readFileSync(new URL('./gegenstaende.json', import.meta.url), 'utf8'));
 const rpg = erzeuge(daten);
 const f = rpg.fmt;
+const nA = n => `${n} ${n === 1 ? 'Angriff' : 'Angriffe'}`;
+const sup = n => String(n).replace(/\d/g, d => '⁰¹²³⁴⁵⁶⁷⁸⁹'[d]);   // Hochzahl (Potenzschreibweise)
 const f3 = x => (Math.round(x * 1000) / 1000).toString().replace('.', ',').replace('-', '−');
 const pct = x => f(x) + ' %';
 const name = id => rpg.item(id).name;
@@ -90,7 +92,7 @@ function einheit4() {
   /* A1: gleichwertige Rollen finden */
   const q4b = daten.quests.find(q => q.id === '4b'); const l4b = rpg.loeseQuest(q4b);
   aufgaben.push({
-    nr: 1, titel: 'Zwillinge und Fallen', yExtra: 0.25, auchSeite1: true, zeilenAnz: { 0: 2 }, schritte: { 0: 0.51 }, text: q4b.text.replace('Dein Schwert hat Grundschaden 60.', 'Dein Schwert verursacht einen physischen Grundschaden von {{60}}.') + ' Berechne den neuen Schaden und markiere Rollen mit gleichem Ergebnis.',
+    nr: 1, titel: 'Zwillinge und Fallen', yExtra: 0.25, auchSeite1: true, zeilenAnz: { 0: 2 }, schritte: { 0: 0.51 }, text: q4b.text.replace('Dein Schwert hat Grundschaden 60.', 'Dein Schwert verursacht einen Grundschaden von {{60}} PHYSISCH.') + ' Berechne den neuen Schaden und markiere Rollen mit gleichem Ergebnis.',
     tabelle: l4b.ergebnisse.map(e => e.text), tabelleLinie: 94, zeilenabstand: 0.207,
     loesung: { ergebnisse: l4b.ergebnisse.map(e => `${e.text}: ${f(e.ergebnis)} SP`), gleichwertig: l4b.gleichwertig }
   });
@@ -132,11 +134,11 @@ function einheit4() {
   const km = rpg.kampf(build, 'moosgolem'), ka = rpg.kampf(build, 'aschegolem');
   aufgaben.push({
     nr: 4, titel: 'Zwei Golems', neueSeite: true,   // Julian 09.11.: Gegenstands- und Gegnerkarten stehen in der Übersicht zu Einheit 4
-    text: 'Du kämpfst mit {{Feuersturm}} (rechne mit dem Mittelwert) gegen den {{Moosgolem}} und den {{Aschegolem}}. Die Eigenschaften kannst du der Übersicht für Einheit 4 entnehmen.\nWie viel Schaden macht ein Treffer jeweils? Wie viele Treffer brauchst du?',
+    text: 'Du kämpfst mit {{Feuersturm}} (rechne mit dem Mittelwert) gegen den {{Moosgolem}} und den {{Aschegolem}}. Die Eigenschaften kannst du der Übersicht für Einheit 4 entnehmen.\nWie viel Schaden macht ein Angriff jeweils? Wie viele Angriffe brauchst du?',
     loesung: [
       `Ohne Golem: ${rpg.erklaere(build).join(' | ')}`,
-      `Moosgolem: FEUER 45 · (1 − 0,4) = 27; dazu PHYSISCH 10,5 → ${f(moos)} SP pro Treffer → ${km.angriffe} Treffer`,
-      `Aschegolem: FEUER 45 · 0,4 = 18; dazu PHYSISCH 10,5 → ${f(asche)} SP pro Treffer → ${ka.angriffe} Treffer`
+      `Moosgolem: FEUER 45 · (1 − 0,4) = 27; dazu PHYSISCH 10,5 → ${f(moos)} SP pro Angriff → ${nA(km.angriffe)}`,
+      `Aschegolem: FEUER 45 · 0,4 = 18; dazu PHYSISCH 10,5 → ${f(asche)} SP pro Angriff → ${nA(ka.angriffe)}`
     ]
   });
 
@@ -304,7 +306,7 @@ function einheit6() {
   /* A1: Übungswaffen */
   const rows = ['6b', '6c', '6f'].map(id => daten.quests.find(q => q.id === id));
   aufgaben.push({
-    nr: 1, titel: 'Welche Übungswaffe nehme ich mit?',
+    nr: 1, titel: 'Wie stark sind diese Übungswaffen?',
     text: 'Berechne für jede Übungswaffe den Grundschaden.',   // Julian 10.11.: ohne Entscheidung „Mitnehmen?“
     tabellen: [{ kopf: ['Handschuhe', 'Gemessener Schaden', 'Grundschaden der Übungswaffe'], x: 1.46, w: 5.36, gew: [2.316, 1.149, 1.894], pt: 10.5, kopfH: 0.552, zeilenH: [0.38, 0.409, 0.409],
                  zeilen: rows.map(q => [`${q.handschuhe.name} (${q.handschuhe.prozent > 0 ? '+' : '−'}${Math.abs(q.handschuhe.prozent)} % ${q.handschuhe.quelle})`, f(q.gemessen), '']) }],
@@ -433,7 +435,7 @@ function einheit7() {
     nr: 4, titel: 'Das Duell',
     abstaende: { nachRegeln: 0, nachTabelle: 0, nachNachdenken: 0.08 },
     einBlock: true, blockSp6: true, zeilenAnz: { 0: 5 }, blockExtra: 0.07, schritte: { 0: 1.27 }, tabelleVorRegeln: true, trenner: true, regelPt: 11, nachdenkenStil: { pt: 11, italic: true, gap: 0.05 },   // Julian 10.11.: Tabelle direkt unter dem Text, Zierlinie, 11 pt
-    text: `${duellDaten.herausforderer} bietet dir zwei Sets an: Set A mit prozentualem Bonus, Set B mit festem Bonus. Berechne für beide Sets Minimum, Mittelwert und Maximum eines Treffers. Welches Set ist besser?\nWähle dann ein Set und tritt im Würfelduell gegen ${duellDaten.herausforderer.split(' ')[1]} an.\nA Kälteset (anteilig): ${bi(sA.waffe)} + ${bi(sA.zauber)}\nB Glutset (absolut): ${bi(sB.waffe)} + ${bi(sB.zauber)}`,
+    text: `${duellDaten.herausforderer} bietet dir zwei Sets an: Set A mit prozentualem Bonus, Set B mit festem Bonus. Berechne für beide Sets Minimum, Mittelwert und Maximum eines Angriffs. Welches Set ist besser?\nWähle dann ein Set und tritt im Würfelduell gegen ${duellDaten.herausforderer.split(' ')[1]} an.\nA Kälteset (prozentual): ${bi(sA.waffe)} + ${bi(sA.zauber)}\nB Glutset (absolut): ${bi(sB.waffe)} + ${bi(sB.zauber)}`,
     tabellen: [{ kopf: ['Set', 'Minimum', 'Mittelwert', 'Maximum'], zeilen: [['Kälte', '', '', ''], ['Glut', '', '', '']], x: 2.29, w: 3.7, gew: [0.883, 0.937, 0.937, 0.937], pt: 10.5, kopfH: 0.28, rowH: 0.31, nachGap: 0.26 }],
     regeln: [
       `Beide haben ${duellDaten.lp} LP. Du wählst zuerst ein Set, ${duellDaten.herausforderer.split(' ')[1]} bekommt das andere.`,
@@ -484,7 +486,7 @@ function einheit8() {
     formeln: [
       { wenn: 'Nächster Angriff (+5 %)', formel: 'neu = alt · 1,05', beispiel: '31,5 · 1,05 = 33,075' },
       { wenn: 'Mehrfach mit 1,05 multiplizieren ⇒ Potenz', formel: 'G · 1,05 · 1,05 · 1,05 = G · 1,05³',
-        klammern: { labels: ['1. Schlag', '2. Schlag', '3. Schlag'], enden: ['G · 1,05', 'G · 1,05 · 1,05', 'G · 1,05 · 1,05 · 1,05'] },
+        klammern: { labels: ['1. Angriff', '2. Angriff', '3. Angriff'], enden: ['G · 1,05', 'G · 1,05 · 1,05', 'G · 1,05 · 1,05 · 1,05'] },
         beispiel: `((${f(G)} · 1,05) · 1,05) · 1,05\n= ${f(G)} · 1,05 · 1,05 · 1,05\n= ${f(G)} · 1,05³ ≈ ${f(proAngriff(G, 4))}` },
       { wenn: 'Nach n Angriffen', formel: 'Schaden = G · 1,05ⁿ', beispiel: `nach 9 Angriffen (= 10. Angriff): ${f(G)} · 1,05⁹ ≈ ${f(proAngriff(G, 10))}` }
     ],
@@ -509,7 +511,7 @@ function einheit8() {
     tabellen: [{ kopf: ['Waffe', 'Grundschaden', 'Angriff Nr.', 'Rechnung', 'Schaden (SP)'],
                  zeilen: zeilenR.map(z => [z.nm, f(z.g), String(z.n) + '.', '', '']) }],
     loesung: [
-      ...zeilenR.map(z => `${z.nm}, ${z.n}. Angriff: ${f(z.g)} · ${f(z.fa)}^${z.n - 1} = ${f(z.s)} SP`),
+      ...zeilenR.map(z => `${z.nm}, ${z.n}. Angriff: ${f(z.g)} · ${f(z.fa)}${sup(z.n - 1)} = ${f(z.s)} SP`),
       `b) Wutklinge: beim ${nW40}. Angriff (${f(pa(G, nW40))} SP; der ${nW40 - 1}. macht erst ${f(pa(G, nW40 - 1))} SP). Klinge der Rachsucht: beim ${nR40}. Angriff (${f(pa(GR, nR40, fR))} SP; der ${nR40 - 1}. macht erst ${f(pa(GR, nR40 - 1, fR))} SP).`,
       `c) Ab dem ${nEinR}. Angriff: Rachsucht ${f(pa(GR, nEinR, fR))} SP gegen Wutklinge ${f(pa(G, nEinR))} SP (beim ${nEinR - 1}. Angriff noch ${f(pa(GR, nEinR - 1, fR))} gegen ${f(pa(G, nEinR - 1))} SP).`,
       'd) Koordinatensystem: x-Achse Angriffe, y-Achse Schaden (Werte aus den Rechnungen). Beide Kurven steigen; die der Klinge der Rachsucht beginnt tiefer, wird aber steiler und schneidet die der Wutklinge beim ' + nEinR + '. Angriff.',
@@ -521,12 +523,12 @@ function einheit8() {
   const nWirbel = erstMind(Gk, 1.05, G);
   aufgaben.push({
     nr: 2, titel: 'Die Wirbelklinge: Schaden des n-ten Angriffs',
-    text: `Die Wirbelklinge (Kurzschwert) macht nur ${f(Gk)} SP, greift aber 2-mal pro Runde an – und auch bei ihr wird jeder Angriff um 5 % stärker. a) Berechne mit der Potenz-Formel, wie viel Schaden der jeweilige Angriff macht (runde auf zwei Stellen). b) Die Wutklinge macht mit ihrem 1. Angriff ${f(G)} SP. Beim wievielten Angriff macht die Wirbelklinge zum ersten Mal mindestens so viel Schaden? (Probiere mit dem Taschenrechner.)`,
+    text: `Die Wirbelklinge (Kurzschwert) macht nur ${f(Gk)} SP, greift aber zweimal pro Runde an – und auch bei ihr wird jeder Angriff um 5 % stärker. a) Berechne mit der Potenz-Formel, wie viel Schaden der jeweilige Angriff macht (runde auf zwei Stellen). b) Die Wutklinge macht mit ihrem 1. Angriff ${f(G)} SP. Beim wievielten Angriff macht die Wirbelklinge zum ersten Mal mindestens so viel Schaden? (Probiere mit dem Taschenrechner.)`,
     tabellen: [{ kopf: ['Waffe', 'Grundschaden', 'Angriff Nr.', 'Rechnung', 'Schaden (SP)'],
                  zeilen: zeilen1.map(z => [z.nm, f(z.g), String(z.n) + '.', '', '']) }],
     loesung: [
-      ...zeilen1.map(z => `${z.nm}, ${z.n}. Angriff: ${f(z.g)} · 1,05^${z.n - 1} = ${f(z.s)} SP`),
-      `b) Beim ${nWirbel}. Angriff: ${f(Gk)} · 1,05^${nWirbel - 1} = ${f(proAngriff(Gk, nWirbel))} SP (der ${nWirbel - 1}. Angriff macht erst ${f(proAngriff(Gk, nWirbel - 1))} SP).`,
+      ...zeilen1.map(z => `${z.nm}, ${z.n}. Angriff: ${f(z.g)} · 1,05${sup(z.n - 1)} = ${f(z.s)} SP`),
+      `b) Beim ${nWirbel}. Angriff: ${f(Gk)} · 1,05${sup(nWirbel - 1)} = ${f(proAngriff(Gk, nWirbel))} SP (der ${nWirbel - 1}. Angriff macht erst ${f(proAngriff(Gk, nWirbel - 1))} SP).`,
       'Beobachtung: Erst der ' + nWirbel + '. Angriff der Wirbelklinge macht so viel wie der 1. der Wutklinge – dafür greift sie aber doppelt so oft an.']
   });
 
@@ -540,7 +542,7 @@ function einheit8() {
   const leer = n => Array.from({ length: n }, (_, i) => [String(i + 1), '', '', '']);
   aufgaben.push({
     nr: 3, titel: 'Gesamtschaden: Wer besiegt wen schneller?',
-    hinweis: ['Für den Gesamtschaden musst du alle bisherigen Angriffe addieren.', 'Die Wirbelklinge greift zwei Mal pro Runde an.'],
+    hinweis: ['Für den Gesamtschaden musst du alle bisherigen Angriffe addieren.', 'Die Wirbelklinge greift zweimal pro Runde an.'],
     text: `a) Fülle die Tabellen (nächste Seite) aus: Berechne den Schaden jedes Angriffs (wie in Aufgabe 1 und 2) und addiere ihn zum bisherigen Gesamtschaden. Wer hat nach 2 Runden mehr Gesamtschaden gemacht? (Wutklinge: 1 Angriff pro Runde, Wirbelklinge: 2 Angriffe pro Runde.) b) In der Arena warten vier Gegner mit verschieden viel Leben (siehe Übersicht). Lies in der Hilfstabelle (Gesamtschaden nach n Runden) ab, nach wie vielen Runden jede Waffe den Gegner besiegt hat (Gesamtschaden ≥ LP). Welche Waffe ist jeweils schneller? Trage deine Ergebnisse in der Tabelle auf der nächsten Seite ein.`,
     zeilenAnz: { 1: 3 },
     tabellen: [{ titel: 'Wutklinge', kopf: ['Angriff', 'Rechnung', 'Schaden (SP)', 'Gesamtschaden (SP)'], zeilen: leer(6) },
@@ -576,7 +578,7 @@ function einheit8() {
   aufgaben.push({
     nr: 5, titel: '★ Zinsen oder fester Aufbau?', differenzierung: true, teilGap: 0.12,
     text: `Die Gleichmäßige Klinge (Langschwert, 30 SP, 1 Angriff pro Runde) macht bei jedem Angriff immer ${betrag} SP mehr Schaden als beim Angriff davor (${reihe}; …). Die Wutklinge steigert dagegen jedes Mal um 5 % des vorherigen Schadens. a) Berechne den Schaden des ${ns[0]}. und des ${ns[1]}. Angriffs für beide Waffen. b) Berechne den Gesamtschaden nach ${ns[0]} bzw. ${ns[1]} Angriffen. c) Welche Waffe ist besser? Warum? d) Zeichne die Werte für die Gleichmäßige Klinge im Koordinatensystem aus Aufgabe 4 ein. e) Gibt es eine Anzahl an Angriffen, ab der sich dies ändert?`,
-    loesung: [`a) Gleichmäßige Klinge: ${ns.map(n => `${n}. Angriff: 30 + ${n - 1} · ${betrag} = ${f(lin(n))} SP`).join('; ')}. Wutklinge: ${ns.map(n => `${n}. Angriff: 30 · 1,05^${n - 1} = ${f(einzel(W, n))} SP`).join('; ')}.`,
+    loesung: [`a) Gleichmäßige Klinge: ${ns.map(n => `${n}. Angriff: 30 + ${n - 1} · ${betrag} = ${f(lin(n))} SP`).join('; ')}. Wutklinge: ${ns.map(n => `${n}. Angriff: 30 · 1,05${sup(n - 1)} = ${f(einzel(W, n))} SP`).join('; ')}.`,
       `b) Nach ${ns[0]} Angriffen: Gleichmäßige Klinge ${f(summe(L, ns[0]))} SP, Wutklinge ${f(summe(W, ns[0]))} SP. Nach ${ns[1]} Angriffen: ${f(summe(L, ns[1]))} gegen ${f(summe(W, ns[1]))}.`,
       `c) In diesem Bereich (bis ${ns[1]} Angriffe) ist die Gleichmäßige Klinge besser: Ihr Schaden wächst zu Beginn schneller (+${betrag} SP statt anfangs +1,5 SP). Der Gesamtschaden ist bei ihr bis dahin größer.`,
       `d) Die Gleichmäßige Klinge ergibt eine Gerade (Anstieg ${betrag} SP je Angriff beim Einzelschaden), die Wutklinge eine immer steilere Kurve.`,
@@ -584,7 +586,7 @@ function einheit8() {
   });
 
   return { einheit: 8, titel: 'Die Arena', untertitel: 'Zinsen: Jeder Angriff macht prozentual mehr Schaden',
-    einstieg: 'In der großen Arena von Prozenturis kämpfen die Besten gegen immer stärkere Gegner. Manche Waffen werden im Kampf stärker: Mit jedem Treffer wächst ihr Schaden. Aber welche Waffe lohnt sich gegen welchen Gegner?',
+    einstieg: 'In der großen Arena von Prozenturis kämpfen die Besten gegen immer stärkere Gegner. Manche Waffen werden im Kampf stärker: Mit jedem Angriff wächst ihr Schaden. Aber welche Waffe lohnt sich gegen welchen Gegner?',
     beispiel, sicherung, aufgaben };
 }
 
@@ -640,7 +642,7 @@ const LETTER = 'abcdefgh';
 function einheit1() {
   const c = [{ waffe: 'verdammnissaeher', zauber: 'rote-bullentrinkflasche' }, { waffe: 'baldars-weisheit', zauber: 'feenstaub' }, { waffe: 'feuersturm', zauber: 'armband-des-feuers' }];
   const kurzregeln = { titel: 'Das musst du wissen', punkte: [
-    'Jede Waffe macht pro Treffer Schaden (SP) zwischen einem Minimum und einem Maximum. Der Mittelwert (Ø) liegt genau dazwischen.',
+    'Jede Waffe macht pro Angriff Schaden (SP) zwischen einem Minimum und einem Maximum. Der Mittelwert (Ø) liegt genau dazwischen.',
     'Jeder Schaden hat eine Schadensart: FEUER, EIS, BLITZ, PHYSISCH oder CHAOS. ELEMENTAR ist der Sammelname für FEUER, EIS und BLITZ.',
     ['Ein Modifikator wie „+50 % FEUER“ erhöht den FEUERschaden anteilig vom Grundschaden.', 'Bonus = Grundschaden · Modifikator; neuer Schaden = Grundschaden + Bonus.', 'Beispiel: Grundschaden 30 FEUERschaden, Bonus: 30 SP · 0,5 = 15 SP, neuer Schaden = 30 + 15 = 45 SP'],   // mehrzeilig (Julian, 08.11.): kein Faktor in Einheit 1
     ['Modifikatoren mit derselben Schadensart werden zuerst ADDIERT und wirken dann zusammen:', '+50 % und +50 % sind +100 %.']   // mehrzeilig (Julian, 09.11.)
@@ -649,7 +651,7 @@ function einheit1() {
   const gleiche = c[0];
   aufgaben.push({
     nr: 1, titel: 'Drei Angebote des Schmieds',
-    text: 'Der Schmied legt dir drei Kombinationen aus Waffe und Zaubergegenstand vor. Berechne für jede den durchschnittlichen neuen Schaden pro Treffer (Mittelwert).',
+    text: 'Der Schmied legt dir drei Kombinationen aus Waffe und Zaubergegenstand vor. Berechne für jede den durchschnittlichen neuen Schaden pro Angriff (Mittelwert).',
     nummern: c.map(b => `Kombination: ${bi(b.waffe)} & ${bi(b.zauber)}`),
     nachText: 'Es kann dir helfen, im Heft jeweils eine solche Tabelle für die Kombinationen anzulegen.',
     /* Beispiel: erste Zeile der Kombination a) vorausgefüllt (Waffen-/Zauber-Namen eingetragen, Bilder stehen in der Übersicht) */
@@ -704,15 +706,15 @@ function einheit2() {
   const pD = profilVon('wams-des-wahnsinns'), pF = profilVon('fokussierte-gedanken'), pU = profilVon('umhang-des-bescheidenen'), pK = profilVon('koenigin-des-waldes');
   aufgaben.push({
     nr: 1, titel: 'Welche Rüstung lohnt sich?', yExtra: 0.15, schritte: { 0: 0.91 }, abstaende: { nachTabelle: 0.06 }, nachdenkenStil: { pt: 11, italic: false, gap: 0.05 },   // Julian 10.11.: Abstände, Hinweis 11 pt ohne Kursiv
-    text: `Dein Held trägt ${bi('feuersturm')} (ohne Rüstung Ø ${f3(tb0.avg)} SP pro Treffer). Alle Waffen, Rüstungen und Zaubergegenstände findest du auf den Gegenstandskarten (Stufe 1 und 2). Probiere diese sechs Rüstungen aus: ${ruestungen.map(bi).join(', ')}. Wie viel Schaden macht jede Schadensart, wie hoch ist der Gesamtschaden (Ø) – lohnt sich die Rüstung?`,
+    text: `Dein Held trägt ${bi('feuersturm')} (ohne Rüstung Ø ${f3(tb0.avg)} SP pro Angriff). Alle Waffen, Rüstungen und Zaubergegenstände findest du auf den Gegenstandskarten (Stufe 1 und 2). Probiere diese sechs Rüstungen aus: ${ruestungen.map(bi).join(', ')}. Wie viel Schaden macht jede Schadensart, wie hoch ist der Gesamtschaden (Ø) – lohnt sich die Rüstung?`,
     nachText: 'Lege dir dafür im Heft eine Tabelle an, zum Beispiel so:',
     tabellen: [{ kopf: ['Rüstung', 'FEUER', 'BLITZ', 'PHYSISCH', 'CHAOS', 'Gesamt Ø', 'Besser?'],
       zeilen: [['ohne Rüstung', ...zeileFuer(null).slice(1, 5), f3(tb0.avg), '–'], [name(ruestungen[0]), '', '', '', '', '', ''], ['…', '', '', '', '', '', '']] }],
     nachdenken: ['Welche Rüstung passt gar nicht zu dieser Waffe? Erkläre im Heft, warum.'],
     loesungTabellen: [{ titel: 'Musterlösung (Mittelwerte, Basis: Feuersturm)', kopf: ['Rüstung', 'FEUER', 'BLITZ', 'PHYSISCH', 'CHAOS', 'Gesamt Ø', 'Besser?'], zeilen: [zeileFuer(null), ...ruestungen.map(zeileFuer)] }],
-    loesung: [`Beste Rüstung: ${name(bestR)} (Ø ${f3(avgVon(bestR))}): Der zusätzliche BLITZ-Grundschaden (Ø ${f3(pK.BLITZ.mittel)}) kommt voll dazu, FEUER und PHYSISCH bleiben unverändert.`,
+    loesung: [`Beste Rüstung: ${name(bestR)} (Ø ${f3(avgVon(bestR))}): Der zusätzliche Grundschaden BLITZ (Ø ${f3(pK.BLITZ.mittel)}) kommt voll dazu, FEUER und PHYSISCH bleiben unverändert.`,
       `Umhang des Bescheidenen: SCHADEN +25 % wird bei FEUER (+50 % + 25 % = +${f(pU.FEUER.modifikatorSumme)} %) und PHYSISCH (+${f(pU.PHYSISCH.modifikatorSumme)} %) addiert → Ø ${f3(avgVon('umhang-des-bescheidenen'))} (${vgl('umhang-des-bescheidenen')}).`,
-      `Wams des Wahnsinns: Die Hälfte des FEUER- und PHYSISCH-Grundschadens wird zu CHAOS (${f3(pD.CHAOS.basis.mittel)}); CHAOS +25 % → ${f3(pD.CHAOS.mittel)}. FEUER ${f3(pD.FEUER.mittel)} und PHYSISCH ${f3(pD.PHYSISCH.mittel)} bleiben übrig → Ø ${f3(avgVon('wams-des-wahnsinns'))} (${vgl('wams-des-wahnsinns')}).`,
+      `Wams des Wahnsinns: Die Hälfte des Grundschadens von FEUER und PHYSISCH wird zu CHAOS (${f3(pD.CHAOS.basis.mittel)}); CHAOS +25 % → ${f3(pD.CHAOS.mittel)}. FEUER ${f3(pD.FEUER.mittel)} und PHYSISCH ${f3(pD.PHYSISCH.mittel)} bleiben übrig → Ø ${f3(avgVon('wams-des-wahnsinns'))} (${vgl('wams-des-wahnsinns')}).`,
       `Fokussierte Gedanken: −50 % ELEMENTAR hebt die +50 % auf FEUER auf (FEUER bleibt ${f3(pF.FEUER.mittel)}); PHYSISCH +50 % → ${f3(pF.PHYSISCH.mittel)} → Ø ${f3(avgVon('fokussierte-gedanken'))} (${vgl('fokussierte-gedanken')}).`,
       `Letzte Bastion: kein FEUER mehr (Feuersturms Hauptschaden) → nur PHYSISCH ${f3(profilVon('letzte-bastion').PHYSISCH.mittel)} → Ø ${f3(avgVon('letzte-bastion'))} (${vgl('letzte-bastion')}).`,
       'Rüstung der Dunkelheit: kein ELEMENTAR- und kein PHYSISCHschaden → Feuersturm macht gar keinen Schaden (0 SP). Sie passt nur zu Waffen mit CHAOSschaden.']
@@ -721,10 +723,10 @@ function einheit2() {
   const o1 = rpg.treffer({ waffe: 'feuersturm' }).avg, o2 = rpg.treffer({ waffe: 'verdammnissaeher' }).avg;
   aufgaben.push({
     nr: 2, titel: 'Letzte Bastion – Segen oder Fluch?', yExtra: 0.08, schritte: { 0: 0.186, 1: 0.244 },   // Julian 10.11.: erste beiden Zeilen eng (wie ein Absatz)
-    text: `${bi('letzte-bastion')} gibt +50 PHYSISCH Grundschaden, aber du verursachst keinen ELEMENTARschaden mehr.\nRechne im Heft (eine Tabelle wie in Aufgabe 3 hilft dir). a) Berechne den Schaden (Ø) mit ${bi('feuersturm')}. b) Berechne den Schaden (Ø) mit dem ${bi('verdammnissaeher')}. c) Vergleiche mit dem Schaden ohne Rüstung. Für welche Waffen lohnt sich Letzte Bastion? Schreibe deine Antwort ins Heft.`,
+    text: `${bi('letzte-bastion')} gibt +50 Grundschaden PHYSISCH, aber du verursachst keinen ELEMENTARschaden mehr.\nRechne im Heft (eine Tabelle wie in Aufgabe 3 hilft dir). a) Berechne den Schaden (Ø) mit ${bi('feuersturm')}. b) Berechne den Schaden (Ø) mit dem ${bi('verdammnissaeher')}. c) Vergleiche mit dem Schaden ohne Rüstung. Für welche Waffen lohnt sich Letzte Bastion? Schreibe deine Antwort ins Heft.`,
     loesung: [`a) ${rechnung(t1)}. FEUER fällt weg, PHYSISCH: 10,5 + 50 = 60,5. Ohne Rüstung ${f3(o1)} → nur ${f3(rpg.treffer(t1).avg - o1)} SP mehr.`,
       `b) ${rechnung(t2)}. PHYSISCH: 35 + 50 = 85, +50 % → 127,5. Ohne Rüstung ${f3(o2)} → ${f3(rpg.treffer(t2).avg - o2)} SP mehr.`,
-      'c) Letzte Bastion lohnt sich für Waffen, die (fast) nur PHYSISCHEN Schaden machen und PHYSISCH-Modifikatoren haben: Der zusätzliche Grundschaden wird mitverstärkt. Bei Waffen mit viel ELEMENTARschaden verliert man diesen Schaden.']
+      'c) Letzte Bastion lohnt sich für Waffen, die (fast) nur PHYSISCHschaden machen und PHYSISCH-Modifikatoren haben: Der zusätzliche Grundschaden wird mitverstärkt. Bei Waffen mit viel ELEMENTARschaden verliert man diesen Schaden.']
   });
   const top = rpg.besteBuilds(2, 'avg', 3);
   aufgaben.push({
@@ -733,7 +735,7 @@ function einheit2() {
     builds: [buildLeer('Mein stärkster Build', {}, { alle: true, modus: 'voll', slotsLeer: true, besonderheiten: true })],
     notizen: { titel: 'Meine Überlegungen', zeilen: 6 },
     loesung: [`Bester Build nach Mittelwert: ${sBuild(top[0].build)} (Ø ${f3(top[0].schaden)}).`,
-      'Warum? Der Zerreißer des Seelenfadens hat +150 % PHYSISCH, die Rote Bullentrinkflasche +50 % PHYSISCH, dazu +50 PHYSISCH Grundschaden von Letzte Bastion: Grundschaden 26 + 50 = 76; Modifikatoren +150 % + 50 % = +200 %; Bonus 76 · 2 = 152; Schaden 76 + 152 = 228.'],
+      'Warum? Der Zerreißer des Seelenfadens hat +150 % PHYSISCH, die Rote Bullentrinkflasche +50 % PHYSISCH, dazu +50 Grundschaden PHYSISCH von Letzte Bastion: Grundschaden 26 + 50 = 76; Modifikatoren +150 % + 50 % = +200 %; Bonus 76 · 2 = 152; Schaden 76 + 152 = 228.'],
     loesungBuilds: [buildVoll('Musterlösung', top[0].build, { besonderheiten: true })]
   });
   const fp = rpg.item('feenstaub').modifikatoren[0].prozent;   // Prozent je Modifikator des Feenstaubs (alle drei gleich)
@@ -766,10 +768,10 @@ function einheit3() {
     nr: 1, titel: 'Die Monster der Höhlen',
     text: 'Sechs Monster warten in den Höhlen. Dein Held trägt das Set „Gewitter“ (siehe Tabelle).\na) Fülle die Tabelle auf der Rückseite aus, um zu berechnen, wie viel Schaden du den Monstern machst und wie viele Angriffe du durchschnittlich brauchst.\nb) Welche Monster sind für dieses Set gefährlich? Warum?',   // Julian 09.11.: gekürzt, Monsterkarten entfallen
     builds: [{ ...buildVoll('Set „Gewitter“', gew, { modus: 'kurz' }), klein: true }],   // Julian 10.11.: Raute im Titel, kleine Schrift (8,5 / 9,5 / 9 pt)
-    tabellen: [{ kopf: ['Monster', 'LP', 'BLITZ (Ø)', 'PHYSISCH (Ø)', 'Schaden pro Treffer', 'Treffer nötig'], zeilen: mon.map(m => [m.name, String(m.lp), '', '', '', '']), rowH: 0.31 }],
+    tabellen: [{ kopf: ['Monster', 'LP', 'BLITZ (Ø)', 'PHYSISCH (Ø)', 'Schaden pro Angriff', 'Angriffe nötig'], zeilen: mon.map(m => [m.name, String(m.lp), '', '', '', '']), rowH: 0.31 }],
     notizen: { titel: 'Gefährliche Monster für dieses Set', zeilen: 2 }, notizenVorTabelle: true, tabellenNeueSeite: true, schritte: { 0: 0.30, 1: 0.52, 2: 0.41 }, nachBuild: 0.09,
-    loesungTabellen: [{ titel: 'Musterlösung', kopf: ['Monster', 'LP', 'BLITZ (Ø)', 'PHYSISCH (Ø)', 'Schaden pro Treffer', 'Treffer nötig'], zeilen: zeilenA1.map(z => [z.m.name, String(z.m.lp), f3(z.b), f3(z.ph), f3(z.t.avg), `${z.n}`]) }],
-    loesung: zeilenA1.map(z => `${z.m.name}: ${rechnung(gew, z.m.id)} → ${f3(z.m.lp)} : ${f3(z.t.avg)} = ${f3(z.m.lp / z.t.avg)} → ${z.n} Treffer.`)
+    loesungTabellen: [{ titel: 'Musterlösung', kopf: ['Monster', 'LP', 'BLITZ (Ø)', 'PHYSISCH (Ø)', 'Schaden pro Angriff', 'Angriffe nötig'], zeilen: zeilenA1.map(z => [z.m.name, String(z.m.lp), f3(z.b), f3(z.ph), f3(z.t.avg), `${z.n}`]) }],
+    loesung: zeilenA1.map(z => `${z.m.name}: ${rechnung(gew, z.m.id)} → ${f3(z.m.lp)} : ${f3(z.t.avg)} = ${f3(z.m.lp / z.t.avg)} → ${nA(z.n)}.`)
       .concat([`b) Mit 3 Runden schafft das Set (im Durchschnitt) nur ${zeilenA1.filter(z => z.n <= 3).map(z => z.m.name).join(', ').replace(/, ([^,]*)$/, ' und $1')}. Kritisch sind ${zeilenA1.filter(z => z.n > 3).map(z => z.m.name).join(', ').replace(/, ([^,]*)$/, ' und $1')} – bei ihnen sind BLITZ oder PHYSISCH gedämpft bzw. der Riese hat zu viele LP.`])
   });
 
@@ -795,14 +797,14 @@ function einheit3() {
   const wie = (t, lp) => (3 * t.min + EPS >= lp ? 'Pech' : 3 * t.avg + EPS >= lp ? 'Ø' : 3 * t.max + EPS >= lp ? 'Glück' : 'nie');
   aufgaben.push({
     nr: 2, titel: 'Zwei Sets für alle Monster',
-    text: 'Vorbereitung ist alles: Baue zwei Sets (A und B), jeweils aus Waffe, Rüstung und Zaubergegenstand (Gegenstandskarten Stufe 1 und 2). Du darfst zwischen den Kämpfen das Set wechseln – aber nur komplett.\na) Berechne für beide Sets Min, Mittel und Max Schaden ohne Monster.\nb) Entscheide für jedes Monster, welches Set du einsetzt, und berechne den Schaden pro Treffer gegen dieses Monster. Fülle dafür die Tabelle auf Seite 3 aus.\nc) Prüfe, ob du es in 3 Runden besiegst: mit Pech (3 · Min), im Durchschnitt (3 · Mittel) oder nur mit Glück (3 · Max)?',   // Julian 09.11.: Sets auf Seite 2 festhalten, Monstertabelle auf Seite 3
+    text: 'Vorbereitung ist alles: Baue zwei Sets (A und B), jeweils aus Waffe, Rüstung und Zaubergegenstand (Gegenstandskarten Stufe 1 und 2). Du darfst zwischen den Kämpfen das Set wechseln – aber nur komplett.\na) Berechne für beide Sets Min, Mittel und Max Schaden ohne Monster.\nb) Entscheide für jedes Monster, welches Set du einsetzt, und berechne den Schaden pro Angriff gegen dieses Monster. Fülle dafür die Tabelle auf Seite 3 aus.\nc) Prüfe, ob du es in 3 Runden besiegst: mit Pech (3 · Min), im Durchschnitt (3 · Mittel) oder nur mit Glück (3 · Max)?',   // Julian 09.11.: Sets auf Seite 2 festhalten, Monstertabelle auf Seite 3
     zeilenAnz: { 0: 2, 1: 1, 2: 2, 3: 2 }, schritte: [0.5, 0.23, 0.43, 0.33], botDy: 0.12,
     setBoxen: ['Set A', 'Set B'],
     tabellenNeueSeite: true, tabellenYExtra: 0.25, abstaende: { nachTabelle: 0.16 },   // Julian 10.11.
     tabellen: [{ kopf: ['Monster', 'LP', 'Set', 'Min', 'Mittel', 'Max', '3 · Min', '3 · Mittel', '3 · Max', 'Besiegt mit'], zeilen: mon.map(m => [m.name, String(m.lp), '', '', '', '', '', '', '', '']), rowH: 0.491, kopfH: 0.327, gew: [1.87, 0.56, 0.41, 0.5, 0.5, 0.5, 0.69, 0.69, 0.69, 0.87] }],
     notizen: { titel: 'Platz für Rechnungen gegen die Monster', zeilen: 7 },
     loesungBuilds: [buildVoll('Musterlösung Set A', SA, { besonderheiten: true }), buildVoll('Musterlösung Set B', SB, { besonderheiten: true })],
-    loesungTabellen: [{ titel: 'Musterlösung (Schaden pro Treffer gegen das jeweilige Monster)', kopf: ['Monster', 'LP', 'Set', 'Min', 'Mittel', 'Max', '3 · Min', '3 · Mittel', '3 · Max', 'Besiegt mit'],
+    loesungTabellen: [{ titel: 'Musterlösung (Schaden pro Angriff gegen das jeweilige Monster)', kopf: ['Monster', 'LP', 'Set', 'Min', 'Mittel', 'Max', '3 · Min', '3 · Mittel', '3 · Max', 'Besiegt mit'],
       zeilen: gSol.map(g => [g.m.name, String(g.m.lp), g.set, f3(g.t.min), f3(g.t.avg), f3(g.t.max), f3(3 * g.t.min), f3(3 * g.t.avg), f3(3 * g.t.max), wie(g.t, g.m.lp)]) }],
     loesung: [`Es gibt viele richtige Lösungen. Von ${avgs.anzahlBuilds} vollständigen Sets (Waffe + Rüstung + Zaubergegenstand) gibt es Paare, die alle Monster in 3 Runden schaffen: im Durchschnitt ${avgs.paare.length} Paare, mit Pech ${mins.paare.length} Paare, mit Glück ${maxs.paare.length} Paare.`,
       'Gezeigt wird das Set „Gewitter“ aus Aufgabe 1 zusammen mit einem PHYSISCH-Set (Set A) – damit wird jedes Monster zumindest im Durchschnitt in 3 Runden besiegt. Die Rechnung gegen ein Monster: jede Schadensart mit dem Faktor des Monsters multiplizieren (Widerstand 1 − p, Anfälligkeit 1 + p, Immunität 0), dann addieren.']

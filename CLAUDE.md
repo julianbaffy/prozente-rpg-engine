@@ -31,6 +31,10 @@ Ausführliches Konzept: `KONZEPT.md` (Stufen 1–9, Regeln, Gegenstände, offene
 ## Schreibweise im Material
 - Schadensart + „schaden“ klein zusammen: FEUERschaden, EISschaden, BLITZschaden, PHYSISCHschaden, CHAOSschaden, ELEMENTARschaden (kein Bindestrich, kein Leerzeichen); „PHYSISCHer/PHYSISCHen Schaden“ bleibt gebeugt.
 - Einheiten: SP (Schaden), LP (Leben). Schadensarten in GROSSBUCHSTABEN.
+- Absoluter Grundschaden: „+50 Grundschaden PHYSISCH“. Tabellenspalte in Build-Tabellen immer „Neuer Schaden“ (bei Spannen „Neuer Schaden (Ø)“).
+- Ein einzelner Angriff heißt immer „Angriff“ („Schaden pro Angriff“, „Angriffe nötig“), nicht „Treffer“ oder „Schlag“. Interne Funktionsnamen wie `treffer()` bleiben.
+- Zins mit Hochzahlen (1,05³), Minuszeichen als „−“; kein Satz „Nur für die Lehrkraft …“ auf den Arbeitsblättern.
+- Namen: Schriftrollenhändlerin Thelya (Prozenturis), Magister Quillon, Ritter Lohnamm der Unnachgiebige, Funkenstab, Baldars Weisheit. Dateinamen siehe `layout/dateinamen.js` bzw. `KONZEPT.md`.
 - Lösungsseiten überall mindestens 11 pt; Build-Vorlage: Kopf/Beschriftungen 9 pt, Namen und Tabellenzellen 10 pt.
 - Arbeitsblätter enthalten keine Bilder, sondern verweisen auf laminierte Übersichten/Gegenstandskarten.
 

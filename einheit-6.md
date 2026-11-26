@@ -30,7 +30,7 @@ In der Trainingshalle von Prozenturis liegen Übungswaffen bereit. Du trägst Ha
 
 ## Aufgaben
 
-### Aufgabe 1 – Welche Übungswaffe nehme ich mit?
+### Aufgabe 1 – Wie stark sind diese Übungswaffen?
 
 Berechne für jede Übungswaffe den Grundschaden.
 

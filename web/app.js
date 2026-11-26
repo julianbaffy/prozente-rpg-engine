@@ -2,8 +2,7 @@
  * Alle Zahlen kommen aus der Rechenmaschine (../engine.js) und den Daten (../gegenstaende.json).
  * Hier wird nur dargestellt, nicht gerechnet (außer Bonus = Schaden − Grundschaden und Summen). */
 import { erzeuge } from '../engine.js';
-import * as kt from '../layout/kartentext.js';
-import { uebersichtIds } from '../layout/uebersichten.js';   // Inhalt der laminierten Übersichten, wie build-karten.js   // dieselben Kartentexte wie die gedruckten Gegenstandskarten
+import * as kt from '../layout/kartentext.js';   // dieselben Kartentexte wie die gedruckten Gegenstandskarten
 
 const ICONS = '../layout/assets/icons-klein/';
 const SLOTS = [
@@ -307,7 +306,7 @@ function zeichneErgebnis() {
     bonusSpalte ? wert('Bonus') : el('th', { scope: 'col', rowspan: mehrere ? 2 : 1 }, 'Faktor'),
     wert('Schaden'),
     g ? el('th', { scope: 'col', rowspan: mehrere ? 2 : 1, class: 'gegner-spalte' }, `Faktor ${g.name}`) : null,
-    g ? wert('Treffer') : null);
+    g ? wert('Angriff') : null);
   const kopf2 = mehrere ? el('tr', { class: 'unterkopf' },
     [0, 1, 2, 3].filter(i => (bonusSpalte || i !== 1) && (g || i !== 3)).flatMap(() => modi.map(m => el('th', { scope: 'col' }, m.titel)))) : null;
 
@@ -355,7 +354,7 @@ function zeichneErgebnis() {
     el('p', { class: 'erklaerung' }, bonusSpalte
       ? 'Bonus = Grundschaden · Modifikator; Schaden = Grundschaden + Bonus. Modifikatoren auf dieselbe Schadensart werden addiert.'
       : 'Schaden = Grundschaden · (1 + Summe der Modifikatoren). Modifikatoren auf dieselbe Schadensart werden addiert.'),
-    g ? el('p', { class: 'erklaerung' }, `Treffer = Schaden · Faktor des Gegners (Widerstand verringert, Anfälligkeit erhöht, immun = 0).`) : null,
+    g ? el('p', { class: 'erklaerung' }, `Schaden pro Angriff = Schaden · Faktor des Gegners (Widerstand verringert, Anfälligkeit erhöht, immun = 0).`) : null,
     g ? kampfBlock(b, g, modi) : null);
 }
 
@@ -373,15 +372,15 @@ function kampfBlock(b, g, modi) {
       el('td', { class: 'num' }, zahl(rpg.treffer(b, g)[m.treffer]) + ' SP'),
       el('td', { class: 'num' }, zahl(drei) + ' SP', drei + 1e-9 >= g.lp ? el('span', { class: 'ok' }, ' ✔') : null),
       k.besiegt
-        ? el('td', { class: 'num stark' }, `${k.angriffe} Treffer` + (apr > 1 ? ` (${k.runden} ${k.runden === 1 ? 'Runde' : 'Runden'})` : ''))
+        ? el('td', { class: 'num stark' }, `${k.angriffe} ${k.angriffe === 1 ? 'Angriff' : 'Angriffe'}` + (apr > 1 ? ` (${k.runden} ${k.runden === 1 ? 'Runde' : 'Runden'})` : ''))
         : el('td', { class: 'num nicht' }, 'nicht zu besiegen'));
   });
   return el('div', { class: 'kampf' }, titel,
     rahmen(el('table', { class: 'werte' },
-      el('thead', {}, el('tr', {}, el('th', { scope: 'col' }, 'Wurf'), el('th', { scope: 'col' }, waffe.aufbau ? '1. Treffer' : 'pro Treffer'),
+      el('thead', {}, el('tr', {}, el('th', { scope: 'col' }, 'Wurf'), el('th', { scope: 'col' }, waffe.aufbau ? '1. Angriff' : 'pro Angriff'),
         el('th', { scope: 'col' }, 'nach 3 Runden'), el('th', { scope: 'col' }, 'bis zum Sieg'))),
       el('tbody', {}, zeilen))),
-    el('p', { class: 'erklaerung' }, `Jeder Treffer mit demselben Wurf. ${apr > 1 ? `${waffe.name}: ${apr} Angriffe pro Runde. ` : ''}${waffe.aufbau ? aufbauText(waffe.aufbau) : ''}`));
+    el('p', { class: 'erklaerung' }, `Jeder Angriff mit demselben Wurf. ${apr > 1 ? `${waffe.name}: ${apr} Angriffe pro Runde. ` : ''}${waffe.aufbau ? aufbauText(waffe.aufbau) : ''}`));
 }
 
 /* ---------- Verlauf (Zins-Waffen) ---------- */
@@ -494,11 +493,11 @@ function zeichneLeiste() {
   const t = rpg.treffer(b, g);
   const modi = aktiveModi();
   const werte = modi.map(m => zahl(t[m.treffer])).join(' / ');
-  const teile = [el('span', {}, g ? `Treffer gegen ${g.name}` : 'Schaden', modi.length === 1 ? ` (${modi[0].titel})` : '', ': ', el('strong', {}, werte + ' SP'))];
+  const teile = [el('span', {}, g ? `Angriff gegen ${g.name}` : 'Schaden', modi.length === 1 ? ` (${modi[0].titel})` : '', ': ', el('strong', {}, werte + ' SP'))];
   if (g && b.waffe) {
     const k = rpg.kampf(b, g, { modus: modi.length === 1 ? modi[0].treffer : 'avg' });
     const vorsatz = modi.length === 1 ? '' : 'Mittel: ';
-    teile.push(el('span', {}, k.besiegt ? `${vorsatz}${k.angriffe} Treffer bis zum Sieg` : 'nicht zu besiegen'));
+    teile.push(el('span', {}, k.besiegt ? `${vorsatz}${k.angriffe} ${k.angriffe === 1 ? 'Angriff' : 'Angriffe'} bis zum Sieg` : 'nicht zu besiegen'));
   }
   teile.push(el('a', { href: '#ergebnis-titel', onclick: ev => { ev.preventDefault(); $('#ergebnis-titel').scrollIntoView({ behavior: 'smooth' }); } }, 'Tabelle ↓'));
   fuellen(leiste, ...teile);
@@ -540,11 +539,13 @@ function aktualisieren() {
 }
 
 /* Welche Gegenstände und Gegner braucht eine Stufe?
- * - Stufe 1–3: alles bis zu dieser Stufe (Stufe 3 allein = Stufe 1 + 2 + 3).
- * - ab Stufe 4: der Inhalt der Übersicht (layout/uebersichten.js) und alles, was im Arbeitsblatt
- *   (einheit-N.json, mit Lösungen) mit Namen vorkommt.
+ * - alles, was im Arbeitsblatt (einheit-N.json, mit Lösungen) mit Namen vorkommt, und
+ * - in Einheiten ohne laminierte Übersicht zusätzlich alle Gegenstandskarten dieser Stufe (Stufe 1: 9 Waffen,
+ *   6 Zaubergegenstände – auch die, die keine Aufgabe nennt).
+ * Einheiten mit Übersicht (3, 4, 7, 8) zeigen genau deren Inhalt; dort steht alles auch im Arbeitsblatt.
  * Stufen ohne Gegenstände (z. B. 5) erscheinen nicht. */
-const BIS_STUFE = 3;async function ladeEinheiten() {
+const MIT_UEBERSICHT = [3, 4, 7, 8];   // wie UEBERSICHTEN in layout/build-karten.js
+async function ladeEinheiten() {
   const alle = [...daten.gegenstaende, ...daten.gegner];
   const letzte = Math.max(...daten.stufen.map(s => s.nr), ...alle.map(x => x.stufe));   // höchste Einheit (derzeit 9)
   const liste = await Promise.all(Array.from({ length: letzte }, (_, i) => i + 1).map(async nr => {
@@ -552,11 +553,8 @@ const BIS_STUFE = 3;async function ladeEinheiten() {
       const a = await fetch(`../einheit-${nr}.json`);
       if (!a.ok) return null;
       const text = await a.text();
-      const uebersicht = uebersichtIds(daten, nr);
-      const passt = nr <= BIS_STUFE
-        ? x => x.stufe <= nr || text.includes(x.name)
-        : x => uebersicht.includes(x.id) || text.includes(x.name);
-      const ids = new Set(alle.filter(passt).map(x => x.id));
+      const karten = MIT_UEBERSICHT.includes(nr) ? [] : alle.filter(x => x.stufe === nr);
+      const ids = new Set([...alle.filter(x => text.includes(x.name)), ...karten].map(x => x.id));
       return ids.size ? { nr, titel: JSON.parse(text).titel, ids } : null;
     } catch { return null; }
   }));

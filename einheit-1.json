@@ -6,7 +6,7 @@
   "kurzregeln": {
     "titel": "Das musst du wissen",
     "punkte": [
-      "Jede Waffe macht pro Treffer Schaden (SP) zwischen einem Minimum und einem Maximum. Der Mittelwert (Ø) liegt genau dazwischen.",
+      "Jede Waffe macht pro Angriff Schaden (SP) zwischen einem Minimum und einem Maximum. Der Mittelwert (Ø) liegt genau dazwischen.",
       "Jeder Schaden hat eine Schadensart: FEUER, EIS, BLITZ, PHYSISCH oder CHAOS. ELEMENTAR ist der Sammelname für FEUER, EIS und BLITZ.",
       [
         "Ein Modifikator wie „+50 % FEUER“ erhöht den FEUERschaden anteilig vom Grundschaden.",
@@ -28,7 +28,7 @@
     {
       "nr": 1,
       "titel": "Drei Angebote des Schmieds",
-      "text": "Der Schmied legt dir drei Kombinationen aus Waffe und Zaubergegenstand vor. Berechne für jede den durchschnittlichen neuen Schaden pro Treffer (Mittelwert).",
+      "text": "Der Schmied legt dir drei Kombinationen aus Waffe und Zaubergegenstand vor. Berechne für jede den durchschnittlichen neuen Schaden pro Angriff (Mittelwert).",
       "nummern": [
         "Kombination: {{Verdammnissäher}} & {{Rote Bullentrinkflasche}}",
         "Kombination: {{Baldars Weisheit}} & {{Feenstaub}}",

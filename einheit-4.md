@@ -31,7 +31,7 @@ Thelya verkauft Schriftrollen für ein Schwert mit Grundschaden 80 FEUER (Beispi
 
 ### Aufgabe 1 – Zwillinge und Fallen
 
-Thelyas Lehrling bietet sechs weitere Rollen an. Dein Schwert verursacht einen physischen Grundschaden von ***60***. Welche Rollen bewirken dasselbe? Berechne den neuen Schaden und markiere Rollen mit gleichem Ergebnis.
+Thelyas Lehrling bietet sechs weitere Rollen an. Dein Schwert verursacht einen Grundschaden von ***60*** PHYSISCH. Welche Rollen bewirken dasselbe? Berechne den neuen Schaden und markiere Rollen mit gleichem Ergebnis.
 
 - Steigere den Schaden um 40 %  → ______ SP
 - Steigere den Schaden auf 140 %  → ______ SP
@@ -58,7 +58,7 @@ Lena sagt: „Verringern auf 20 % heißt, der Schaden wird um 20 % kleiner.“ T
 ### Aufgabe 4 – Zwei Golems
 
 Du kämpfst mit ***Feuersturm*** (rechne mit dem Mittelwert) gegen den ***Moosgolem*** und den ***Aschegolem***. Die Eigenschaften kannst du der Übersicht für Einheit 4 entnehmen.
-Wie viel Schaden macht ein Treffer jeweils? Wie viele Treffer brauchst du?
+Wie viel Schaden macht ein Angriff jeweils? Wie viele Angriffe brauchst du?
 
 
 ### Aufgabe 5 – Ausrüstung kombinieren
@@ -121,8 +121,8 @@ d) Gibt es eine Gegenrolle zu „Verringere um 100 %“? Begründe.
 
 **Aufgabe 4**
 - Ohne Golem: FEUER: Grundschaden 20–40, Modifikatoren +50 % → Faktor 1,5 → 30–60 SP | PHYSISCH: Grundschaden 6–15, Modifikatoren +0 % → Faktor 1 → 6–15 SP
-- Moosgolem: FEUER 45 · (1 − 0,4) = 27; dazu PHYSISCH 10,5 → 37,5 SP pro Treffer → 4 Treffer
-- Aschegolem: FEUER 45 · 0,4 = 18; dazu PHYSISCH 10,5 → 28,5 SP pro Treffer → 5 Treffer
+- Moosgolem: FEUER 45 · (1 − 0,4) = 27; dazu PHYSISCH 10,5 → 37,5 SP pro Angriff → 4 Angriffe
+- Aschegolem: FEUER 45 · 0,4 = 18; dazu PHYSISCH 10,5 → 28,5 SP pro Angriff → 5 Angriffe
 
 **Aufgabe 5**
 - Mjölnir + Gewitterstein: BLITZ: Grundschaden 40–40, Modifikatoren +110 % → Faktor 2,1 → 84–84 SP | PHYSISCH: Grundschaden 20–30, Modifikatoren +0 % → Faktor 1 → 20–30 SP → **Ø 109 SP**

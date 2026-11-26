@@ -11,7 +11,7 @@
 
 ### Aufgabe 1 – Welche Rüstung lohnt sich?
 
-Dein Held trägt ***Feuersturm*** (ohne Rüstung Ø 55,5 SP pro Treffer). Alle Waffen, Rüstungen und Zaubergegenstände findest du auf den Gegenstandskarten (Stufe 1 und 2). Probiere diese sechs Rüstungen aus: ***Umhang des Bescheidenen***, ***Wams des Wahnsinns***, ***Fokussierte Gedanken***, ***Königin des Waldes***, ***Letzte Bastion***, ***Rüstung der Dunkelheit***. Wie viel Schaden macht jede Schadensart, wie hoch ist der Gesamtschaden (Ø) – lohnt sich die Rüstung?
+Dein Held trägt ***Feuersturm*** (ohne Rüstung Ø 55,5 SP pro Angriff). Alle Waffen, Rüstungen und Zaubergegenstände findest du auf den Gegenstandskarten (Stufe 1 und 2). Probiere diese sechs Rüstungen aus: ***Umhang des Bescheidenen***, ***Wams des Wahnsinns***, ***Fokussierte Gedanken***, ***Königin des Waldes***, ***Letzte Bastion***, ***Rüstung der Dunkelheit***. Wie viel Schaden macht jede Schadensart, wie hoch ist der Gesamtschaden (Ø) – lohnt sich die Rüstung?
 
 
 | Rüstung | FEUER | BLITZ | PHYSISCH | CHAOS | Gesamt Ø | Besser? |
@@ -24,7 +24,7 @@ Dein Held trägt ***Feuersturm*** (ohne Rüstung Ø 55,5 SP pro Treffer). Alle W
 
 ### Aufgabe 2 – Letzte Bastion – Segen oder Fluch?
 
-***Letzte Bastion*** gibt +50 PHYSISCH Grundschaden, aber du verursachst keinen ELEMENTARschaden mehr.
+***Letzte Bastion*** gibt +50 Grundschaden PHYSISCH, aber du verursachst keinen ELEMENTARschaden mehr.
 Rechne im Heft (eine Tabelle wie in Aufgabe 3 hilft dir). a) Berechne den Schaden (Ø) mit ***Feuersturm***. b) Berechne den Schaden (Ø) mit dem ***Verdammnissäher***. c) Vergleiche mit dem Schaden ohne Rüstung. Für welche Waffen lohnt sich Letzte Bastion? Schreibe deine Antwort ins Heft.
 
 
@@ -53,9 +53,9 @@ Vergleiche mit deinem Build aus Aufgabe 3.
 ## Lösungen (Lehrkraft)
 
 **Aufgabe 1**
-- Beste Rüstung: Königin des Waldes (Ø 85,5): Der zusätzliche BLITZ-Grundschaden (Ø 30) kommt voll dazu, FEUER und PHYSISCH bleiben unverändert.
+- Beste Rüstung: Königin des Waldes (Ø 85,5): Der zusätzliche Grundschaden BLITZ (Ø 30) kommt voll dazu, FEUER und PHYSISCH bleiben unverändert.
 - Umhang des Bescheidenen: SCHADEN +25 % wird bei FEUER (+50 % + 25 % = +75 %) und PHYSISCH (+25 %) addiert → Ø 65,625 (10,125 SP besser als ohne Rüstung).
-- Wams des Wahnsinns: Die Hälfte des FEUER- und PHYSISCH-Grundschadens wird zu CHAOS (20,25); CHAOS +25 % → 25,313. FEUER 22,5 und PHYSISCH 5,25 bleiben übrig → Ø 53,063 (2,438 SP schlechter als ohne Rüstung).
+- Wams des Wahnsinns: Die Hälfte des Grundschadens von FEUER und PHYSISCH wird zu CHAOS (20,25); CHAOS +25 % → 25,313. FEUER 22,5 und PHYSISCH 5,25 bleiben übrig → Ø 53,063 (2,438 SP schlechter als ohne Rüstung).
 - Fokussierte Gedanken: −50 % ELEMENTAR hebt die +50 % auf FEUER auf (FEUER bleibt 30); PHYSISCH +50 % → 15,75 → Ø 45,75 (9,75 SP schlechter als ohne Rüstung).
 - Letzte Bastion: kein FEUER mehr (Feuersturms Hauptschaden) → nur PHYSISCH 60,5 → Ø 60,5 (5 SP besser als ohne Rüstung).
 - Rüstung der Dunkelheit: kein ELEMENTAR- und kein PHYSISCHschaden → Feuersturm macht gar keinen Schaden (0 SP). Sie passt nur zu Waffen mit CHAOSschaden.
@@ -73,11 +73,11 @@ Vergleiche mit deinem Build aus Aufgabe 3.
 **Aufgabe 2**
 - a) PHYSISCH 60,5 → Ø 60,5 SP (Min 56, Max 65). FEUER fällt weg, PHYSISCH: 10,5 + 50 = 60,5. Ohne Rüstung 55,5 → nur 5 SP mehr.
 - b) PHYSISCH 85 + 85 · 0,5 = 85 + 42,5 = 127,5 → Ø 127,5 SP (Min 105, Max 150). PHYSISCH: 35 + 50 = 85, +50 % → 127,5. Ohne Rüstung 52,5 → 75 SP mehr.
-- c) Letzte Bastion lohnt sich für Waffen, die (fast) nur PHYSISCHEN Schaden machen und PHYSISCH-Modifikatoren haben: Der zusätzliche Grundschaden wird mitverstärkt. Bei Waffen mit viel ELEMENTARschaden verliert man diesen Schaden.
+- c) Letzte Bastion lohnt sich für Waffen, die (fast) nur PHYSISCHschaden machen und PHYSISCH-Modifikatoren haben: Der zusätzliche Grundschaden wird mitverstärkt. Bei Waffen mit viel ELEMENTARschaden verliert man diesen Schaden.
 
 **Aufgabe 3**
 - Bester Build nach Mittelwert: Zerreißer des Seelenfadens + Letzte Bastion + Rote Bullentrinkflasche (Ø 228).
-- Warum? Der Zerreißer des Seelenfadens hat +150 % PHYSISCH, die Rote Bullentrinkflasche +50 % PHYSISCH, dazu +50 PHYSISCH Grundschaden von Letzte Bastion: Grundschaden 26 + 50 = 76; Modifikatoren +150 % + 50 % = +200 %; Bonus 76 · 2 = 152; Schaden 76 + 152 = 228.
+- Warum? Der Zerreißer des Seelenfadens hat +150 % PHYSISCH, die Rote Bullentrinkflasche +50 % PHYSISCH, dazu +50 Grundschaden PHYSISCH von Letzte Bastion: Grundschaden 26 + 50 = 76; Modifikatoren +150 % + 50 % = +200 %; Bonus 76 · 2 = 152; Schaden 76 + 152 = 228.
 
 *Musterlösung:* PHYSISCH 76 + 152 = 228 → Gesamt Min 201 / Mittel 228 / Max 255
 
