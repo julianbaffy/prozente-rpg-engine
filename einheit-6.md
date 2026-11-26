@@ -4,7 +4,7 @@
 
 ## Beispiel
 
-In der Trainingshalle von Zahlheim liegen Übungswaffen bereit. Du trägst Handschuhe mit +10 % PHYSISCH und schlägst mit einer Übungswaffe zu: 33 SP.
+In der Trainingshalle von Prozenturis liegen Übungswaffen bereit. Du trägst Handschuhe mit +10 % PHYSISCH und schlägst mit einer Übungswaffe zu: 33 SP.
 
 | Schritt | Rechnung |
 |---|---|
@@ -18,13 +18,13 @@ In der Trainingshalle von Zahlheim liegen Übungswaffen bereit. Du trägst Hands
 
 ## Merke: Den Grundwert berechnen
 
-> **Nach einer Steigerung um p %:**  G = neu : (1 + p)  (z. B. 33 : 1,1 = 30)
+> **Nach einer Steigerung um p %:**  G = W : (1 + p)  (z. B. 33 : 1,1 = 30)
 >
-> **Nach einer Verringerung um p %:**  G = neu : (1 − p)  (z. B. 48 : 0,8 = 60)
+> **Nach einer Verringerung um p %:**  G = W : (1 − p)  (z. B. 48 : 0,8 = 60)
 >
 > **Probe:**  G · (1 ± p) = neu  (z. B. 30 · 1,1 = 33)
 >
-> Mehrere Boni auf dieselbe Schadensart werden zuerst addiert (Einheit 1): Der Faktor ist 1 + (Summe aller Boni). Dann wird durch diesen Faktor geteilt.
+> undefined
 >
 > ⚠ Nicht „10 % vom gemessenen Wert abziehen“! Die Prozente beziehen sich auf G, nicht auf den neuen Wert.
 

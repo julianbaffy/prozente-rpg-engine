@@ -1,6 +1,6 @@
 # Einheit 8: Die Arena – Zinsen: Jeder Angriff macht prozentual mehr Schaden
 
-*In der großen Arena von Zahlheim kämpfen die Besten gegen immer stärkere Gegner. Manche Waffen werden im Kampf stärker: Mit jedem Treffer wächst ihr Schaden. Aber welche Waffe lohnt sich gegen welchen Gegner?*
+*In der großen Arena von Prozenturis kämpfen die Besten gegen immer stärkere Gegner. Manche Waffen werden im Kampf stärker: Mit jedem Treffer wächst ihr Schaden. Aber welche Waffe lohnt sich gegen welchen Gegner?*
 
 ## Beispiel
 
@@ -61,7 +61,7 @@ Die Wirbelklinge (Kurzschwert) macht nur 12 SP, greift aber 2-mal pro Runde an �
 
 ### Aufgabe 3 – Gesamtschaden: Wer besiegt wen schneller?
 
-> 💡 Jetzt zählt nicht der einzelne Angriff, sondern der Gesamtschaden: Du musst alle bisherigen Angriffe addieren. Die Wirbelklinge greift zwei Mal pro Runde an.
+> 💡 Für den Gesamtschaden musst du alle bisherigen Angriffe addieren. Die Wirbelklinge greift zwei Mal pro Runde an.
 
 a) Fülle die Tabellen (nächste Seite) aus: Berechne den Schaden jedes Angriffs (wie in Aufgabe 1 und 2) und addiere ihn zum bisherigen Gesamtschaden. Wer hat nach 2 Runden mehr Gesamtschaden gemacht? (Wutklinge: 1 Angriff pro Runde, Wirbelklinge: 2 Angriffe pro Runde.) b) In der Arena warten vier Gegner mit verschieden viel Leben (siehe Übersicht). Lies in der Hilfstabelle (Gesamtschaden nach n Runden) ab, nach wie vielen Runden jede Waffe den Gegner besiegt hat (Gesamtschaden ≥ LP). Welche Waffe ist jeweils schneller? Trage deine Ergebnisse in der Tabelle auf der nächsten Seite ein.
 

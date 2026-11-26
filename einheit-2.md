@@ -1,6 +1,6 @@
 # Einheit 2: Die Rüstkammer – Rüstungen und ihre Sonderregeln
 
-*In der Rüstkammer von Zahlheim hängt magische Rüstung. Hier geht es nur um den Schaden, nicht um die Schutzwirkung. Manche Rüstungen steigern deinen Schaden gewaltig – andere kosten dich mehr, als sie bringen.*
+*In der Rüstkammer von Prozenturis hängen magische Rüstungen. Hier geht es nur um den Schaden, nicht um die Schutzwirkung. Manche Rüstungen steigern deinen Schaden gewaltig – andere hindern dich mehr, als sie bringen.*
 
 ## Neu bei Rüstungen
 
@@ -45,7 +45,7 @@ Stelle nun den Helden mit dem größten Schaden zusammen:
 
 Die ***Rüstung der Dunkelheit*** wendet alle Modifikatoren verdoppelt auf CHAOSschaden an, verursacht aber keinen ELEMENTAR- und keinen PHYSISCHschaden. Berechne im Heft den Build aus:
 ~ ***Berührung des Wahnsinns*** + ***Rüstung der Dunkelheit*** + ***Feenstaub***.
-Vergleiche Mittelwert und Maximum mit deinem Build aus Aufgabe 3.
+Vergleiche mit deinem Build aus Aufgabe 3.
 
 
 ---
@@ -76,14 +76,13 @@ Vergleiche Mittelwert und Maximum mit deinem Build aus Aufgabe 3.
 - c) Letzte Bastion lohnt sich für Waffen, die (fast) nur PHYSISCHEN Schaden machen und PHYSISCH-Modifikatoren haben: Der zusätzliche Grundschaden wird mitverstärkt. Bei Waffen mit viel ELEMENTARschaden verliert man diesen Schaden.
 
 **Aufgabe 3**
-- Beste Builds nach Mittelwert: Zerreißer des Seelenfadens + Letzte Bastion + Rote Bullentrinkflasche (Ø 228); Zerreißer des Seelenfadens + Letzte Bastion (Ø 190); Zerreißer des Seelenfadens + Letzte Bastion + Ring der Eiskönigin (Ø 190).
+- Bestes Build nach Mittelwert: Zerreißer des Seelenfadens + Letzte Bastion + Rote Bullentrinkflasche (Ø 228).
 - Warum? Der Zerreißer des Seelenfadens hat +150 % PHYSISCH, die Rote Bullentrinkflasche +50 % PHYSISCH, dazu +50 PHYSISCH Grundschaden von Letzte Bastion: Grundschaden 26 + 50 = 76; Modifikatoren +150 % + 50 % = +200 %; Bonus 76 · 2 = 152; Schaden 76 + 152 = 228.
-- Nach dem Maximum liegt vorn: Zerreißer des Seelenfadens + Letzte Bastion + Rote Bullentrinkflasche (Max 255).
 
 *Musterlösung:* PHYSISCH 76 + 152 = 228 → Gesamt Min 201 / Mittel 228 / Max 255
 
 **Aufgabe 4**
 - CHAOS: Grundschaden 36 (Ø); Modifikatoren des Feenstaubs +40 +40 +40 = +120 %, verdoppelt +240 % → Bonus 36 · 2,4 = 86,4. CHAOS 36 + 36 · 2,4 = 36 + 86,4 = 122,4 → Ø 122,4 SP (Min 20,4, Max 224,4).
-- Vergleich: Der Build aus Aufgabe 3 hat Ø 228, Max 255; dieser Build Ø 122,4, Max 224,4 (Min 20,4). Er ist im Durchschnitt und selbst im besten Fall schwächer: Die Rüstung der Dunkelheit lohnt sich nur, wenn sehr viele Modifikatoren auf CHAOS gelenkt werden.
+- Vergleich: Der Build aus Aufgabe 3 hat Ø 228, Max 255; dieser Build Ø 122,4, Max 224,4 (Min 20,4). Er ist in jedem Fall schlechter.
 
 *Musterlösung:* CHAOS 36 + 86,4 = 122,4 → Gesamt Min 20,4 / Mittel 122,4 / Max 224,4

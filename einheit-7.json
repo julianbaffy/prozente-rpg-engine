@@ -2,9 +2,9 @@
   "einheit": 7,
   "titel": "Duelle",
   "untertitel": "Absolut oder prozentual?",
-  "einstieg": "Auf dem Turnierplatz von Zahlheim ruft Ritter Lohnamm den Besten der Stadt zum Duell. Er ist großzügig: Du darfst zwischen zwei Ausrüstungssets wählen – wenn du klug rechnest.",
+  "einstieg": "Auf dem Turnierplatz von Prozenturis ruft Ritter Lohnamm den Besten der Stadt zum Duell. Er ist großzügig: Du darfst zwischen zwei Ausrüstungssets wählen. Wähle mit Bedacht.",
   "beispiel": {
-    "problem": "Ritter Lohnamm schenkt dir einen Gegenstand – du darfst wählen: Handschuhe mit +10 % Schaden oder einen Helm mit +5 Schaden (fester Betrag). Dein Schwert hat Grundschaden 40. Was ist besser? Und was, wenn dein Schwert Grundschaden 80 hätte?",
+    "problem": "Ritter Lohnamm schenkt dir einen Gegenstand. Du darfst wählen: Handschuhe mit +10 % Schaden oder einen Helm mit +5 Schaden (fester Betrag). Dein Schwert hat Grundschaden 40. Was ist besser? Und was, wenn dein Schwert Grundschaden 80 hätte?",
     "tabelle": {
       "kopf": [
         "Grundschaden G",
@@ -188,7 +188,7 @@
     {
       "nr": 2,
       "titel": "Absolut vs. prozentual",
-      "text": "a) Der Helm gibt +5 SP. Welchem Prozentsatz entspricht das bei Grundschaden 25, 40 bzw. 100? b) Handschuhe geben +15 %. Welchem festen Betrag entspricht das bei Grundschaden 60, 30 bzw. 200?",
+      "text": "a) Der Helm gibt +5 SP. Welchem Prozentsatz entspricht das bei Grundschaden 25, 40 bzw. 100? b) Die Handschuhe geben +15 %. Welchem festen Betrag entspricht das bei Grundschaden 60, 30 bzw. 200?",
       "tabellen": [
         {
           "kopf": [
@@ -264,7 +264,7 @@
         "0": 4
       },
       "titel": "Armband oder Ring?",
-      "text": "{{Armband des Feuers}} (5–20 FEUER zusätzlich) oder {{Ring der Glut}} (+20 % FEUER)? Das hängt von der Waffe ab. Entscheide für jede Waffe in der Tabelle, ob der Ring oder das Armband besser ist. Ab welchem Grundschaden lohnt sich der Ring? Rechne mit dem Mittelwert des Armbands.\nDie Werte aller Waffen, des Armbands und des Rings findest du in der Übersicht zu Einheit 7.",
+      "text": "{{Armband des Feuers}} (5–20 FEUER zusätzlich) oder {{Ring der Glut}} (+20 % FEUER)? Das hängt von der Waffe ab. Entscheide für jede Waffe in der Tabelle, ob der Ring oder das Armband besser ist. ★ Ab welchem Grundschaden lohnt sich der Ring? Rechne mit dem Mittelwert des Armbands.\nDie Werte aller Waffen, des Armbands und des Rings findest du in der Übersicht zu Einheit 7.",
       "tabellen": [
         {
           "kopf": [
@@ -450,7 +450,7 @@
       ],
       "nachdenken": [
         "Hat das bessere Set gewonnen? War es Glück oder Pech?",
-        "Spielt das Duell 10-mal und sammelt die Ergebnisse der Klasse: Wie oft gewinnt Set A, wie oft Set B?"
+        "Sammelt die Ergebnisse der Klasse: Wie oft gewinnt Set A, wie oft Set B?"
       ],
       "loesung": [
         "Set A – Kälte (prozentual): EIS: Grundschaden 35–45, Modifikatoren +10 % → Faktor 1,1 → 38,5–49,5 SP → Min 38,5 / Mittel 44 / Max 49,5",

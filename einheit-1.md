@@ -1,6 +1,6 @@
 # Einheit 1: Die Schmiede – Schaden berechnen und Ausrüstung kombinieren
 
-*In der Schmiede von Zahlheim hängen Waffen und Zaubergegenstände an den Wänden. Der Schmied verspricht: „Mit der richtigen Kombination triffst du härter als jeder andere Held!“ Aber welche ist die richtige? Das musst du ausrechnen.*
+*In der Schmiede von Prozenturis hängen Waffen und Zaubergegenstände an den Wänden. Der Schmied verspricht: „Mit der richtigen Kombination bist du stärker als jeder andere Held oder jede andere Heldin!“ Aber welche ist die richtige? Das musst du ausrechnen.*
 
 ## Das musst du wissen
 
@@ -20,7 +20,7 @@ Der Schmied legt dir drei Kombinationen aus Waffe und Zaubergegenstand vor. Bere
 
 ### Aufgabe 2 – Die beste Ausstattung
 
-Statte deine Figur so aus, dass sie maximalen Schaden anrichtet! Du darfst eine Waffe und einen Zaubergegenstand kombinieren (Gegenstandskarten Stufe 1). Trage deinen besten Build in die Vorlage ein, mache alle Überlegungen im Heft und schreibe sie so auf, dass du sie anderen Spielern erklären kannst.
+Statte deine Figur so aus, dass sie maximalen Schaden anrichtet! Du darfst eine Waffe und einen Zaubergegenstand kombinieren. Trage deinen besten Build in die Vorlage ein, mache alle Überlegungen im Heft und schreibe sie so auf, dass du sie anderen Spielern erklären kannst.
 
 
 > **Build-Vorlage: Mein bester Build** (Min/Mittel/Max; Schadensarten: FEUER, EIS, BLITZ, PHYSISCH, CHAOS)

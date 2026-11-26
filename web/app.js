@@ -539,12 +539,20 @@ function aktualisieren() {
 }
 
 /* Welche Gegenstände und Gegner braucht eine Stufe?
- * - alles, was im Arbeitsblatt (einheit-N.json, mit Lösungen) mit Namen vorkommt, und
- * - in Einheiten ohne laminierte Übersicht zusätzlich alle Gegenstandskarten dieser Stufe (Stufe 1: 9 Waffen,
- *   6 Zaubergegenstände – auch die, die keine Aufgabe nennt).
- * Einheiten mit Übersicht (3, 4, 7, 8) zeigen genau deren Inhalt; dort steht alles auch im Arbeitsblatt.
+ * - Einheiten mit Übersicht von Gegenständen (4, 7, 8) zeigen genau deren Inhalt (wie UEBERSICHTEN in
+ *   layout/build-karten.js), auch wenn das Arbeitsblatt ältere Gegenstände nennt.
+ * - Alle anderen zeigen, was im Arbeitsblatt (einheit-N.json, mit Lösungen) mit Namen vorkommt, dazu alle Karten
+ *   dieser Stufe (Stufe 1: 9 Waffen, 6 Zaubergegenstände) und ggf. Zusätzliches (Stufe 3: alle Rüstungen aus Stufe 2).
  * Stufen ohne Gegenstände (z. B. 5) erscheinen nicht. */
-const MIT_UEBERSICHT = [3, 4, 7, 8];   // wie UEBERSICHTEN in layout/build-karten.js
+const istGegner = x => !x.slot;
+const NUR_UEBERSICHT = {
+  4: x => ['gewitterstein', 'frostsiegel', 'rune-der-glut', 'rune-der-meisterschaft'].includes(x.id) || (istGegner(x) && x.stufe === 4),
+  7: x => x.stufe === 7 || x.id === 'armband-des-feuers',
+  8: x => x.stufe === 8,
+};
+const ZUSAETZLICH = {
+  3: x => x.slot === 'ruestung' && x.stufe === 2,   // Monsterhöhlen: die ganze Rüstkammer
+};
 async function ladeEinheiten() {
   const alle = [...daten.gegenstaende, ...daten.gegner];
   const letzte = Math.max(...daten.stufen.map(s => s.nr), ...alle.map(x => x.stufe));   // höchste Einheit (derzeit 9)
@@ -553,8 +561,9 @@ async function ladeEinheiten() {
       const a = await fetch(`../einheit-${nr}.json`);
       if (!a.ok) return null;
       const text = await a.text();
-      const karten = MIT_UEBERSICHT.includes(nr) ? [] : alle.filter(x => x.stufe === nr);
-      const ids = new Set([...alle.filter(x => text.includes(x.name)), ...karten].map(x => x.id));
+      const passt = NUR_UEBERSICHT[nr]
+        ?? (x => text.includes(x.name) || x.stufe === nr || !!ZUSAETZLICH[nr]?.(x));
+      const ids = new Set(alle.filter(passt).map(x => x.id));
       return ids.size ? { nr, titel: JSON.parse(text).titel, ids } : null;
     } catch { return null; }
   }));

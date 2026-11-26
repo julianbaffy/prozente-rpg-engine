@@ -4,7 +4,7 @@
   "untertitel": "Wie stark ist die Übungswaffe wirklich? (Grundwert berechnen)",
   "einstieg": "Bevor du in die Arena gehst, übst du in der Trainingshalle. Dort liegen Übungswaffen, deren Grundschaden niemand kennt. Du kannst nur messen, wie viel Schaden sie mit deiner Ausrüstung machen.",
   "beispiel": {
-    "problem": "In der Trainingshalle von Zahlheim liegen Übungswaffen bereit. Du trägst Handschuhe mit +10 % PHYSISCH und schlägst mit einer Übungswaffe zu: 33 SP.",
+    "problem": "In der Trainingshalle von Prozenturis liegen Übungswaffen bereit. Du trägst Handschuhe mit +10 % PHYSISCH und schlägst mit einer Übungswaffe zu: 33 SP.",
     "tabelle": {
       "kopf": [
         "Schritt",
@@ -52,12 +52,12 @@
     "formeln": [
       {
         "wenn": "Nach einer Steigerung um p %",
-        "formel": "G = neu : (1 + p)",
+        "formel": "G = W : (1 + p)",
         "beispiel": "33 : 1,1 = 30"
       },
       {
         "wenn": "Nach einer Verringerung um p %",
-        "formel": "G = neu : (1 − p)",
+        "formel": "G = W : (1 − p)",
         "beispiel": "48 : 0,8 = 60"
       },
       {
@@ -71,7 +71,6 @@
     "vorUmr": 0.04,
     "umrGap": 0.09,
     "padUnten": 0.15,
-    "umrechnung": "Mehrere Boni auf dieselbe Schadensart werden zuerst addiert (Einheit 1): Der Faktor ist 1 + (Summe aller Boni). Dann wird durch diesen Faktor geteilt.",
     "achtung": "Nicht „10 % vom gemessenen Wert abziehen“! Die Prozente beziehen sich auf G, nicht auf den neuen Wert."
   },
   "aufgaben": [

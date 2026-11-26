@@ -2,7 +2,7 @@
   "einheit": 4,
   "titel": "Die Schriftrollenhändlerin",
   "untertitel": "Steigern um … oder auf …?",
-  "einstieg": "Auf dem Marktplatz von Zahlheim baut Schriftrollenhändlerin Thelya ihren Stand auf. Ihre Rollen verändern den Schaden deiner Waffe – aber die Beschreibungen klingen verdächtig ähnlich …",
+  "einstieg": "Auf dem Marktplatz von Prozenturis baut Schriftrollenhändlerin Thelya ihren Stand auf. Ihre Rollen verändern den Schaden deiner Waffe – aber die Beschreibungen klingen verdächtig ähnlich …",
   "beispiel": {
     "problem": "Thelya verkauft Schriftrollen für ein Schwert mit Grundschaden 80 FEUER (Beispiel auf dem Arbeitsblatt). Sie hat vier Rollen im Angebot. Welchen Schaden macht dein Schwert nach jeder Rolle?",
     "zeilen": [
@@ -134,7 +134,7 @@
       ],
       "teileSpalten": 2,
       "nachTeile": {
-        "text": "Vervollständige die Lücken:\n\nSteigern um p %  ⇔  Steigern auf (_______ + p).\n\nVerringern um p %  ⇔  Verringern auf (100 %  ________).",
+        "text": "Vervollständige die Lücken:\n\nSteigern um p %  ⇔  Steigern auf (_______ + p %).\n\nVerringern um p %  ⇔  Verringern auf (100 %  ________).",
         "zeilen": 6,
         "gap": 0.12
       },
@@ -260,7 +260,7 @@
       "nr": 7,
       "titel": "★ Die Gegenrolle",
       "differenzierung": true,
-      "text": "Thelya sagt: „Zu jeder Rolle gibt es eine Gegenrolle, die sie rückgängig macht.“ Dein Schwert hat Grundschaden 80.\na) Wende „Verringere um 20 %“ an. Mit welcher „Steigere um …“-Rolle bekommst du wieder 80 SP?\nb) Finde ebenso die Gegenrolle zu „Verringere um 50 %“ und zu „Verringere um 75 %“.\nc) Was fällt dir auf? Warum ist die Gegenrolle nicht einfach „Steigere um 20 %“?\nd) Gibt es eine Gegenrolle zu „Verringere um 100 %“? Begründe.",
+      "text": "Thelya sagt: „Zu jeder Rolle gibt es eine Gegenrolle, die sie rückgängig macht.“ Dein Schwert hat Grundschaden 80.\na) Wende „Verringere um 20 %“ an. Mit welcher „Steigere um …“-Rolle bekommst du wieder 80 SP?\nb) Finde ebenso die Gegenrolle zu „Verringere um 50 %“ und zu „Verringere um 75 %“.\nc) Was fällt dir auf? Warum ist die Gegenrolle zu a) nicht einfach „Steigere um 20 %“?\nd) Gibt es eine Gegenrolle zu „Verringere um 100 %“? Begründe.",
       "teilGap": 0.1,
       "loesung": [
         "a) „Verringere um 20 %“: 80 · 0,8 = 64; Gegenrolle: Faktor 1 : 0,8 = 1,25, also „Steigere um 25 %“ (64 · 1,25 = 80).",

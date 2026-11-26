@@ -2,7 +2,7 @@
   "einheit": 1,
   "titel": "Die Schmiede",
   "untertitel": "Schaden berechnen und Ausrüstung kombinieren",
-  "einstieg": "In der Schmiede von Zahlheim hängen Waffen und Zaubergegenstände an den Wänden. Der Schmied verspricht: „Mit der richtigen Kombination triffst du härter als jeder andere Held!“ Aber welche ist die richtige? Das musst du ausrechnen.",
+  "einstieg": "In der Schmiede von Prozenturis hängen Waffen und Zaubergegenstände an den Wänden. Der Schmied verspricht: „Mit der richtigen Kombination bist du stärker als jeder andere Held oder jede andere Heldin!“ Aber welche ist die richtige? Das musst du ausrechnen.",
   "kurzregeln": {
     "titel": "Das musst du wissen",
     "punkte": [
@@ -87,7 +87,7 @@
       "zeilenAnz": {
         "0": 3
       },
-      "text": "Statte deine Figur so aus, dass sie maximalen Schaden anrichtet! Du darfst eine Waffe und einen Zaubergegenstand kombinieren (Gegenstandskarten Stufe 1). Trage deinen besten Build in die Vorlage ein, mache alle Überlegungen im Heft und schreibe sie so auf, dass du sie anderen Spielern erklären kannst.",
+      "text": "Statte deine Figur so aus, dass sie maximalen Schaden anrichtet! Du darfst eine Waffe und einen Zaubergegenstand kombinieren. Trage deinen besten Build in die Vorlage ein, mache alle Überlegungen im Heft und schreibe sie so auf, dass du sie anderen Spielern erklären kannst.",
       "builds": [
         {
           "titel": "Mein bester Build",
@@ -103,7 +103,8 @@
           "ruestung": false,
           "besonderheiten": false,
           "bonus": true,
-          "ohneIcon": true
+          "ohneIcon": true,
+          "schadenKopfVoll": "Neuer Schaden"
         }
       ],
       "loesung": [
@@ -204,7 +205,8 @@
           "besonderheiten": false,
           "bonus": true,
           "ohneIcon": true,
-          "dicht": true
+          "dicht": true,
+          "schadenKopfVoll": "Neuer Schaden"
         }
       ],
       "loesung": [

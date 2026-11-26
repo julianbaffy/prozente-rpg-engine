@@ -101,9 +101,6 @@
       "effekte": [ { "typ": "alleModifikatorenAuf", "nach": "CHAOS", "faktor": 2 },
                    { "typ": "keinSchaden", "quellen": ["ELEMENTAR", "PHYSISCH"] } ] },
 
-    { "id": "wetzstein-der-schaerfe", "name": "Wetzstein der Schärfe", "slot": "zauber", "typ": "Stein", "stufe": 4,
-      "beschreibung": "Steigert den physischen Schaden UM 30 %.",
-      "modifikatoren": [ { "quelle": "PHYSISCH", "prozent": 30 } ] },
     { "id": "rune-der-meisterschaft", "name": "Rune der Meisterschaft", "slot": "zauber", "typ": "Rune", "stufe": 4,
       "beschreibung": "Steigert den physischen Schaden AUF 130 %.",
       "modifikatoren": [ { "quelle": "PHYSISCH", "auf": 130 } ] },

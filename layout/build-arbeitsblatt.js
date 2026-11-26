@@ -282,7 +282,7 @@ function bauen(e, outFile, modus = 'pergament') {
       { h: hT + (sp.dicht ? 0 : 0.08), zeichne: (x, yy, wd) => {
         const rows = [];
         if (voll) {
-          rows.push([hd('Schadensart', { rowspan: 2 }), hd('Grundschaden', { colspan: 3 }), hd('Modifikatoren (Summe)', { rowspan: 2 }), ...(bo ? [hd('Bonus', { colspan: 3 })] : [hd('Faktor', { rowspan: 2 })]), hd('Schaden', { colspan: 3 })]);
+          rows.push([hd('Schadensart', { rowspan: 2 }), hd('Grundschaden', { colspan: 3 }), hd('Modifikatoren (Summe)', { rowspan: 2 }), ...(bo ? [hd('Bonus', { colspan: 3 })] : [hd('Faktor', { rowspan: 2 })]), hd(sp.schadenKopfVoll || 'Schaden', { colspan: 3 })]);
           rows.push((bo ? ['Min', 'Mittel', 'Max', 'Min', 'Mittel', 'Max', 'Min', 'Mittel', 'Max'] : ['Min', 'Mittel', 'Max', 'Min', 'Mittel', 'Max']).map(t => hd(t, { fontFace: BODY })));
         } else rows.push(['Schadensart', 'Grundschaden (Ø)', 'Modifikatoren (Summe)', bo ? 'Bonus' : 'Faktor', sp.schadenKopf || 'Schaden (Ø)'].map(t => hd(t)));
         if (sp.vorgabe) sp.vorgabe.forEach(r => rows.push([c(r[0], { align: 'left', bold: true }), c(r[1]), c(r[2]), c(r[3]), c(r[4] || '')]));   // vorausgefülltes Beispiel
@@ -617,7 +617,6 @@ function bauen(e, outFile, modus = 'pergament') {
 
   /* ---------- Lösungsseiten ---------- */
   loesungsModus = true; botDy = 0; seite = 0; neueSeite();
-  absatz('Nur für die Lehrkraft – alle Werte stammen aus der Rechen-Engine (engine.js).', { italic: true, pt: 11, gap: 0.12 });
   if (e.sicherung && e.sicherung.luecken) {
     abschnitt('Merkkasten');
     e.sicherung.luecken.forEach((x, i) => { let k = 0; absatz(`${i + 1}.  ` + x.text.replace(/_{6,}/g, () => `[${x.loesungen[k++]}]`), { pt: 11, gap: 0.03 }); });

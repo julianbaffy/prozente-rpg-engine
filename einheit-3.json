@@ -2,7 +2,7 @@
   "einheit": 3,
   "titel": "Die Monsterhöhlen",
   "untertitel": "Widerstand, Immunität und Anfälligkeit",
-  "einstieg": "Hinter dem Stadttor von Zahlheim beginnen die Monsterhöhlen. Dort lauern Gegner, die manche Schadensarten kaum spüren – und gegen andere besonders empfindlich sind. Dein Gesamtschaden hängt jetzt nicht nur von deiner Ausrüstung ab, sondern auch davon, wen du bekämpfst.",
+  "einstieg": "Hinter dem Stadttor von Prozenturis beginnen die Monsterhöhlen. Dort lauern Gegner, die manche Schadensarten kaum spüren – und gegen andere besonders empfindlich sind. Dein Gesamtschaden hängt jetzt nicht nur von deiner Ausrüstung ab, sondern auch davon, wen du bekämpfst.",
   "kurzregeln": {
     "titel": "Das musst du über Monster wissen",
     "pt": 11,
@@ -15,7 +15,7 @@
     {
       "nr": 1,
       "titel": "Die Monster der Höhlen",
-      "text": "Sechs Monster warten in den Höhlen. Dein Held trägt das Set „Gewitter“ (siehe Build-Tabelle).\na) Fülle die Tabelle auf der Rückseite aus, um zu berechnen, wie viel Schaden du den Monstern machst und wie viele Angriffe du durchschnittlich brauchst.\nb) Welche Monster sind für dieses Set gefährlich? Warum?",
+      "text": "Sechs Monster warten in den Höhlen. Dein Held trägt das Set „Gewitter“ (siehe Tabelle).\na) Fülle die Tabelle auf der Rückseite aus, um zu berechnen, wie viel Schaden du den Monstern machst und wie viele Angriffe du durchschnittlich brauchst.\nb) Welche Monster sind für dieses Set gefährlich? Warum?",
       "builds": [
         {
           "titel": "Set „Gewitter“",
@@ -576,7 +576,8 @@
     },
     {
       "nr": 3,
-      "titel": "Der Kampf: Held gegen Monster",
+      "titel": "★ Der Kampf: Held gegen Monster",
+      "differenzierung": true,
       "yExtra": 0.16,
       "titelGap": 0.06,
       "schritte": {

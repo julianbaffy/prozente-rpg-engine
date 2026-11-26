@@ -1,6 +1,6 @@
 # Einheit 4: Die Schriftrollenhändlerin – Steigern um … oder auf …?
 
-*Auf dem Marktplatz von Zahlheim baut Schriftrollenhändlerin Thelya ihren Stand auf. Ihre Rollen verändern den Schaden deiner Waffe – aber die Beschreibungen klingen verdächtig ähnlich …*
+*Auf dem Marktplatz von Prozenturis baut Schriftrollenhändlerin Thelya ihren Stand auf. Ihre Rollen verändern den Schaden deiner Waffe – aber die Beschreibungen klingen verdächtig ähnlich …*
 
 ## Beispiel
 
@@ -89,7 +89,7 @@ Zwei Rollen haben dieselbe Wirkung. Welche?
 Thelya sagt: „Zu jeder Rolle gibt es eine Gegenrolle, die sie rückgängig macht.“ Dein Schwert hat Grundschaden 80.
 a) Wende „Verringere um 20 %“ an. Mit welcher „Steigere um …“-Rolle bekommst du wieder 80 SP?
 b) Finde ebenso die Gegenrolle zu „Verringere um 50 %“ und zu „Verringere um 75 %“.
-c) Was fällt dir auf? Warum ist die Gegenrolle nicht einfach „Steigere um 20 %“?
+c) Was fällt dir auf? Warum ist die Gegenrolle zu a) nicht einfach „Steigere um 20 %“?
 d) Gibt es eine Gegenrolle zu „Verringere um 100 %“? Begründe.
 
 

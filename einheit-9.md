@@ -1,6 +1,6 @@
 # Einheit 9: Der Helm des Nachhalls – ★ Zusatzseite – wenn ein Bonus nachträglich wirkt
 
-*Ein zwielichter Typ behauptet, in einem alten Grab einen legendären Helm gefunden zu haben, welcher Schaden effektiver verstärkt als “moderne” Helme. Bearbeite die Aufgaben im Heft. Alle anderen Gegenstände findest du in der Übersicht von Einheit 2.*
+*Ein zwielichter Typ behauptet, in einem alten Grab einen legendären Helm gefunden zu haben, welcher Schaden effektiver verstärkt als “moderne” Helme. Bearbeite die Aufgaben im Heft. Alle anderen Gegenstände findest du in den Übersichten der Einheiten 1 und 2.*
 
 ## Karte
 

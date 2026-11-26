@@ -17,12 +17,12 @@ const PW = 11.69, PH = 8.27, MX = 0.5, TOP = 0.72, BOT = PH - 0.62, CW = PW - 2 
 /* ---------- Inhalt ---------- */
 const EINHEITEN = [
   { nr: 1,
-    kontext: 'In der Schmiede von Zahlheim hängen Waffen und Zaubergegenstände an den Wänden. Welche Kombination trifft am härtesten?',
+    kontext: 'In der Schmiede von Prozenturis hängen Waffen und Zaubergegenstände an den Wänden. Welche Kombination trifft am härtesten?',
     aufgaben: 'A1 drei Angebote des Schmieds berechnen · A2 den besten Build zusammenstellen (Build-Vorlage) · ★ A3 sicher oder riskant? (Würfelduell mit Min, Mittel, Max)',
     mathe: 'Prozentwert berechnen: W = p · G. Bonus = Grundschaden · Modifikator, neuer Schaden = Grundschaden + Bonus. Modifikatoren derselben Schadensart werden addiert (+50 % und +50 % = +100 %).',
     material: ['30× Arbeitsblatt (2 Seiten, doppelseitig auf ein Blatt)', '10× Gegenstandskarten Stufe 1 (laminiert)', 'Regeln-Präsentation'] },
   { nr: 2,
-    kontext: 'In der Rüstkammer hängt magische Rüstung. Es zählt nur der Schaden, nicht die Schutzwirkung: Manche Rüstungen steigern den Schaden gewaltig, andere kosten mehr, als sie bringen.',
+    kontext: 'In der Rüstkammer hängen magische Rüstungen. Es zählt nur der Schaden, nicht die Schutzwirkung: Manche Rüstungen steigern den Schaden gewaltig, andere hindern mehr, als sie bringen.',
     aufgaben: 'A1 sechs Rüstungen mit Feuersturm testen · A2 Letzte Bastion – Segen oder Fluch? · A3 den stärksten Helden bauen (Build-Vorlage) · ★ A4 Rüstung der Dunkelheit',
     mathe: 'Mehrschrittige Rechnungen ordnen: zusätzlicher Grundschaden zählt mit, Umwandlung vor den Modifikatoren, negative Modifikatoren. Systematisch in Tabellen rechnen und vergleichen.',
     material: ['30× Arbeitsblatt (2 Seiten)', '10× Gegenstandskarten Stufe 1 und 2 (laminiert)'] },

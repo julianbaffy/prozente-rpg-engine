@@ -45,9 +45,6 @@ gleich(rpg.treffer({ waffe: 'mjoelnir', zauber: 'glueckbringender-magnetstein' }
 
 /* --- Stufe 4: „um“ = „auf“ --- */
 {
-  const a = rpg.treffer({ waffe: 'verdammnissaeher', zauber: 'wetzstein-der-schaerfe' }).avg;
-  const b = rpg.treffer({ waffe: 'verdammnissaeher', zauber: 'rune-der-meisterschaft' }).avg;
-  gleich(a, b, 'Wetzstein (+30 %) == Rune (auf 130 %)');
   const q = rpg.loeseQuest(daten.quests.find(x => x.id === '4a'));
   assert.strictEqual(q.gleichwertig.length, 1); ok++;          // Beispiel: nur (um 25 = auf 125) sind gleichwertig
   const q2 = rpg.loeseQuest(daten.quests.find(x => x.id === '4b'));

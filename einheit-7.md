@@ -1,10 +1,10 @@
 # Einheit 7: Duelle – Absolut oder prozentual?
 
-*Auf dem Turnierplatz von Zahlheim ruft Ritter Lohnamm den Besten der Stadt zum Duell. Er ist großzügig: Du darfst zwischen zwei Ausrüstungssets wählen – wenn du klug rechnest.*
+*Auf dem Turnierplatz von Prozenturis ruft Ritter Lohnamm den Besten der Stadt zum Duell. Er ist großzügig: Du darfst zwischen zwei Ausrüstungssets wählen. Wähle mit Bedacht.*
 
 ## Beispiel
 
-Ritter Lohnamm schenkt dir einen Gegenstand – du darfst wählen: Handschuhe mit +10 % Schaden oder einen Helm mit +5 Schaden (fester Betrag). Dein Schwert hat Grundschaden 40. Was ist besser? Und was, wenn dein Schwert Grundschaden 80 hätte?
+Ritter Lohnamm schenkt dir einen Gegenstand. Du darfst wählen: Handschuhe mit +10 % Schaden oder einen Helm mit +5 Schaden (fester Betrag). Dein Schwert hat Grundschaden 40. Was ist besser? Und was, wenn dein Schwert Grundschaden 80 hätte?
 
 | Grundschaden G | Handschuhe: G · 0,1 | Neuer Schaden | Helm: G + 5 | Neuer Schaden | Besser |
 |---|---|---|---|---|---|
@@ -45,7 +45,7 @@ a) Entscheide für jede Waffe: ***Handschuhe (+10 %)*** oder ***Helm (+5)***, wa
 
 ### Aufgabe 2 – Absolut vs. prozentual
 
-a) Der Helm gibt +5 SP. Welchem Prozentsatz entspricht das bei Grundschaden 25, 40 bzw. 100? b) Handschuhe geben +15 %. Welchem festen Betrag entspricht das bei Grundschaden 60, 30 bzw. 200?
+a) Der Helm gibt +5 SP. Welchem Prozentsatz entspricht das bei Grundschaden 25, 40 bzw. 100? b) Die Handschuhe geben +15 %. Welchem festen Betrag entspricht das bei Grundschaden 60, 30 bzw. 200?
 
 
 | a) Grundschaden G | 5 SP entsprechen p = 5 : G |
@@ -62,7 +62,7 @@ a) Der Helm gibt +5 SP. Welchem Prozentsatz entspricht das bei Grundschaden 25, 
 
 ### Aufgabe 3 – Armband oder Ring?
 
-***Armband des Feuers*** (5–20 FEUER zusätzlich) oder ***Ring der Glut*** (+20 % FEUER)? Das hängt von der Waffe ab. Entscheide für jede Waffe in der Tabelle, ob der Ring oder das Armband besser ist. Ab welchem Grundschaden lohnt sich der Ring? Rechne mit dem Mittelwert des Armbands.
+***Armband des Feuers*** (5–20 FEUER zusätzlich) oder ***Ring der Glut*** (+20 % FEUER)? Das hängt von der Waffe ab. Entscheide für jede Waffe in der Tabelle, ob der Ring oder das Armband besser ist. ★ Ab welchem Grundschaden lohnt sich der Ring? Rechne mit dem Mittelwert des Armbands.
 Die Werte aller Waffen, des Armbands und des Rings findest du in der Übersicht zu Einheit 7.
 
 
@@ -99,7 +99,7 @@ B Glutset (absolut): ***Flammenschwert*** + ***Handschuhe des Glutschmieds***
 | 6 |  |  |  |  |  |  |
 
 - ❓ Hat das bessere Set gewonnen? War es Glück oder Pech?
-- ❓ Spielt das Duell 10-mal und sammelt die Ergebnisse der Klasse: Wie oft gewinnt Set A, wie oft Set B?
+- ❓ Sammelt die Ergebnisse der Klasse: Wie oft gewinnt Set A, wie oft Set B?
 
 ---
 

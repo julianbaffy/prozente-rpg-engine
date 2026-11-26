@@ -1,6 +1,6 @@
 # Einheit 3: Die Monsterhöhlen – Widerstand, Immunität und Anfälligkeit
 
-*Hinter dem Stadttor von Zahlheim beginnen die Monsterhöhlen. Dort lauern Gegner, die manche Schadensarten kaum spüren – und gegen andere besonders empfindlich sind. Dein Gesamtschaden hängt jetzt nicht nur von deiner Ausrüstung ab, sondern auch davon, wen du bekämpfst.*
+*Hinter dem Stadttor von Prozenturis beginnen die Monsterhöhlen. Dort lauern Gegner, die manche Schadensarten kaum spüren – und gegen andere besonders empfindlich sind. Dein Gesamtschaden hängt jetzt nicht nur von deiner Ausrüstung ab, sondern auch davon, wen du bekämpfst.*
 
 ## Das musst du über Monster wissen
 
@@ -11,7 +11,7 @@
 
 ### Aufgabe 1 – Die Monster der Höhlen
 
-Sechs Monster warten in den Höhlen. Dein Held trägt das Set „Gewitter“ (siehe Build-Tabelle).
+Sechs Monster warten in den Höhlen. Dein Held trägt das Set „Gewitter“ (siehe Tabelle).
 a) Fülle die Tabelle auf der Rückseite aus, um zu berechnen, wie viel Schaden du den Monstern machst und wie viele Angriffe du durchschnittlich brauchst.
 b) Welche Monster sind für dieses Set gefährlich? Warum?
 
@@ -50,7 +50,7 @@ c) Prüfe, ob du es in 3 Runden besiegst: mit Pech (3 · Min), im Durchschnitt (
 
 > Schreibfläche: Platz für Rechnungen gegen die Monster (7 Zeilen)
 
-### Aufgabe 3 – Der Kampf: Held gegen Monster
+### Aufgabe 3 – ★ Der Kampf: Held gegen Monster
 
 **Kampfregeln**
 

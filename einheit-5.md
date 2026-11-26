@@ -1,6 +1,6 @@
 # Einheit 5: Der Verzauberer – Wie gut ist der Zauber? (Prozentsatz berechnen)
 
-*In einem schiefen Turm am Rand von Zahlheim lebt Magister Quillon, der Waffenverzauberer. Er kennt den Grundschaden jeder Waffe, misst danach den Gesamtschaden – und möchte daraus die Qualität seines Zaubers berechnen. Dabei braucht er dich!*
+*In einem schiefen Turm am Rand von Prozenturis lebt Magister Quillon, der Waffenverzauberer. Er kennt den Grundschaden jeder Waffe, misst danach den Gesamtschaden und möchte daraus die Qualität seines Zaubers berechnen. Dabei braucht er dich!*
 
 ## Beispiel
 
@@ -20,12 +20,12 @@ Magister Quillon verzaubert dein Schwert (Grundschaden 40 FEUER) und misst danac
 
 > **Prozentsatz:**  p = W : G  (z. B. 52 : 40 = 1,3 = 130 %)
 >
-> **Änderung (Steigerung / Verringerung):**  Änderung = (neu − alt) : alt = neu : alt − 1  (z. B. (52 − 40) : 40 = 0,3 = 30 %)
+> **Änderung (Steigerung / Verringerung):**  Änderung = (W − G) : G = W : G − 1  (z. B. (52 − 40) : 40 = 12 : 40 = 0,3 = 30 %)
 >
 > **Probe:**  G · p = W  (z. B. 40 · 1,3 = 52)
 >
-> Ist (neu : alt) größer als 1 (über 100 %), wurde gesteigert.
-Ist (neu : alt) kleiner als 1 (unter 100 %), wurde verringert.
+> Ist (W : G) größer als 1 (über 100 %), wurde gesteigert.
+Ist (W : G) kleiner als 1 (unter 100 %), wurde verringert.
 >
 > ⚠ Aus 1,3 folgt „auf 130 %“, aber nur „um 30 %“ mehr (siehe Einheit 4)!
 

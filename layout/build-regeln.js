@@ -218,7 +218,7 @@ function miniKarte(s, id, x, y, w, h) {
     /* Formeln */
     formel(s, 4.339, 1.293, 4.0, 0.469, 'Bonus: Prozentwert  W = p · G', { fs: 14 });
     T(s, 'Gruppenwörter wirken auf alle ihre Schadensarten: „+40 % ELEMENTAR“ gilt für FEUER, EIS und BLITZ.', { x: 4.339, y: 1.857, w: 3.47, h: 0.35, fontSize: 12, italic: true, color: GREY, valign: 'middle' });
-    formel(s, 4.339, 2.505, 4.0, 0.469, 'neuer Schaden  = G + W = G · (1 + p)', { fs: 14 });
+    formel(s, 4.339, 2.505, 4.0, 0.469, 'neuer Schaden  = G + W', { fs: 14 });
     /* leere Rechentabelle */
     const hd = (t, o = {}) => ({ text: t, options: Object.assign({ bold: true, color: CREAM, fill: { color: INK }, fontFace: HEAD, align: 'center', fontSize: 10.5 }, o) });
     const hs = t => hd(t, { fontFace: BODY });
@@ -226,7 +226,7 @@ function miniKarte(s, id, x, y, w, h) {
     const bq = t => bc(t, { bold: true, align: 'left' });
     const leer = n => Array.from({ length: n }, () => bc(''));
     s.addTable([
-      [hd('Schadensart', { rowspan: 2 }), hd('Grundschaden', { colspan: 3 }), hd('Modifikatoren (Summe)', { rowspan: 2 }), hd('Bonus', { colspan: 3 }), hd('Schaden', { colspan: 3 })],
+      [hd('Schadensart', { rowspan: 2 }), hd('Grundschaden', { colspan: 3 }), hd('Modifikatoren (Summe)', { rowspan: 2 }), hd('Bonus', { colspan: 3 }), hd('Neuer Schaden', { colspan: 3 })],
       ['Min', 'Mittel', 'Max', 'Min', 'Mittel', 'Max', 'Min', 'Mittel', 'Max'].map(hs),
       [bq('Physisch'), bc(f(ph.min)), bc(f(ph.mittel)), bc(f(ph.max)), ...leer(7)],
       [bq('Feuer'), bc(f(fe.min)), bc(f(fe.mittel)), bc(f(fe.max)), ...leer(7)],
