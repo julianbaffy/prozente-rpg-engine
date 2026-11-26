@@ -331,6 +331,18 @@ td.nicht { color: var(--rot); font-style: italic; }
 
 .erklaerung { font-size: 0.9rem; color: var(--grau); margin: 10px 0 0; text-align: center; }
 .hinweis { color: var(--grau); font-style: italic; }
+
+/* ---------- Fußzeile und Impressum ---------- */
+.fuss { max-width: 1120px; margin: 8px auto 0; padding: 4px 16px 96px; text-align: center; font-size: 0.85rem; color: var(--grau); }
+.fuss a, .text-seite a { color: var(--tinte); }
+.text-seite {
+  background: rgba(255, 253, 246, 0.82); border: 2px solid var(--tinte); outline: 1px solid var(--tinte); outline-offset: -6px;
+  margin: 16px auto 40px; padding: 18px 24px 22px; max-width: 720px; line-height: 1.5;
+}
+.text-seite h2 { font-size: 1.15rem; margin: 18px 0 6px; }
+.text-seite h2:first-child { margin-top: 4px; }
+.text-seite p { margin: 0 0 8px; }
+.zurueck { margin-top: 18px !important; }
 .fehler { color: var(--rot); padding: 16px; }
 .kampf { margin-top: 8px; }
 .kampf h3 { text-align: center; }
