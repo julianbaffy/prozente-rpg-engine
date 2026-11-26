@@ -304,7 +304,7 @@ function zeichneErgebnis() {
     wert(mehrere ? 'Grundschaden' : `Grundschaden (${modi[0].titel})`),
     el('th', { scope: 'col', rowspan: mehrere ? 2 : 1 }, 'Modifikatoren'),
     bonusSpalte ? wert('Bonus') : el('th', { scope: 'col', rowspan: mehrere ? 2 : 1 }, 'Faktor'),
-    wert('Schaden'),
+    wert('neuer Schaden'),
     g ? el('th', { scope: 'col', rowspan: mehrere ? 2 : 1, class: 'gegner-spalte' }, `Faktor ${g.name}`) : null,
     g ? wert('Angriff') : null);
   const kopf2 = mehrere ? el('tr', { class: 'unterkopf' },
@@ -352,8 +352,8 @@ function zeichneErgebnis() {
   fuellen(ziel, 
     rahmen(tabelle),
     el('p', { class: 'erklaerung' }, bonusSpalte
-      ? 'Bonus = Grundschaden · Modifikator; Schaden = Grundschaden + Bonus. Modifikatoren auf dieselbe Schadensart werden addiert.'
-      : 'Schaden = Grundschaden · (1 + Summe der Modifikatoren). Modifikatoren auf dieselbe Schadensart werden addiert.'),
+      ? 'Bonus = Grundschaden · Modifikator; neuer Schaden = Grundschaden + Bonus. Modifikatoren auf dieselbe Schadensart werden addiert.'
+      : 'neuer Schaden = Grundschaden · (1 + Summe der Modifikatoren). Modifikatoren auf dieselbe Schadensart werden addiert.'),
     g ? el('p', { class: 'erklaerung' }, `Schaden pro Angriff = Schaden · Faktor des Gegners (Widerstand verringert, Anfälligkeit erhöht, immun = 0).`) : null,
     g ? kampfBlock(b, g, modi) : null);
 }
